@@ -1,0 +1,15 @@
+#btnDis {
+    display: block;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.table-margin{
+    margin-right: 160px; 
+    margin-left: 160px
+}
+
+.table-margin2{
+    margin-right: 160px; 
+    margin-left: 50%;
+}
