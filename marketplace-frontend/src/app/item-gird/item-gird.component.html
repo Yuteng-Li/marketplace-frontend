@@ -1,0 +1,34 @@
+<div class="content">
+
+  <div fxLayout="row wrap" fxLayoutGap="16px grid">
+
+    <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let num of [1,2,3,4,5,6,7]">
+
+      <mat-card class="mat-elevation-z1" >
+
+
+        <div *ngIf="num % 2==0; else elseBlock">
+          <img mat-card-image src = "./../assets/images/defaultMilk.jpg">
+        </div>
+        <ng-template #elseBlock>
+          <img mat-card-image src = "./../assets/images/cereal.jpg">
+        </ng-template>
+
+        <div>
+
+          <mat-card-title >Price {{num}}</mat-card-title>
+
+          <mat-card-content>
+            <p>
+              Product Name
+            </p>
+          </mat-card-content>
+          
+          <button mat-raised-button >Add To Cart</button>
+          <!--<button mat-raised-button *ngIf!="disabled" color="warn">Add To Cart</button>
+          <button mat-raised-button disabled *ngIf=="disabled" color="warn">Add To Cart</button> -->
+      </div>
+      </mat-card>
+    </div>
+  </div>
+  </div>
