@@ -1,0 +1,15 @@
+@import "~bootstrap/dist/css/bootstrap.min.css";
+/* Custom CSS to style similar to Safeway*/
+
+.categories-container {
+    background-color: #2196F3; /*For testing*/
+  }  
+.category{
+    background-color: #F6F6F6;
+    padding: 20px 0;
+ }
+
+ img{
+    width: 250px;
+    height:250px;
+ }
