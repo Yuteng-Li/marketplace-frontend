@@ -7,6 +7,10 @@ import { PreviousOrdersComponent } from './previous-orders/previous-orders.compo
 import { RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HomePageComponent } from './home-page/home-page.component';
+import { AddressFormComponent } from './address-form/address-form.component';
+
+// Reactive Forms imports
+import { ReactiveFormsModule, FormsModule , FormBuilder, FormGroup } from '@angular/forms';
 
 
 @NgModule({
@@ -14,14 +18,18 @@ import { HomePageComponent } from './home-page/home-page.component';
     AppComponent,
     PreviousOrdersComponent,
     PageNotFoundComponent,
-    HomePageComponent
+    HomePageComponent,
+    AddressFormComponent
   ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
+    FormsModule,
     RouterModule.forRoot([
 
       {path: 'previous-orders', component: PreviousOrdersComponent},
       {path: 'home-page', component: HomePageComponent },
+      {path: 'address-form', component: AddressFormComponent},
       {path: '', pathMatch: 'full', redirectTo: 'home-page' },
       {path: '**', pathMatch: 'full', component: PageNotFoundComponent}
     ]),

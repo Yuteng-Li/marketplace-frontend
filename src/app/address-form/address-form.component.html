@@ -1,0 +1,52 @@
+<!-- <div class="ui raised segment">
+    <h2 class="ui header">Address Form</h2>
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)" class="ui form">
+        <div class="field">
+            <label for="recName">Recipient Name</label>
+            <input 
+                type="text" 
+                id="recName" 
+                placeholder="ENTER NAME" 
+                [formControl]="myForm.controls['recipientName']"
+                >
+
+        </div>
+
+        <button type="submit" class="ui button">Submit</button>
+    
+    </form>
+
+</div> -->
+
+
+<form [formGroup]="addressForm" (ngSubmit)="onSubmit()">
+    <label for="recipientName">Recipient Name</label>
+    <input id="recipientName" type="text" formControlName="_recipientName">
+
+    <label for="street">Street</label>
+    <input id="street" type="text" formControlName="_street">
+
+    <label for="street2">Street 2</label>
+    <input id="street2" type="text" formControlName="_street2">
+
+    <label for="city">City</label>
+    <input id="city" type="text" formControlName="_city">
+
+    <label for="state">State</label>
+    <input id="state" type="text" formControlName="_state">
+
+    <label for="zip">Zip</label>
+    <input id="zip" type="text" formControlName="_zip">
+
+    <label for="isShipping"> Above is a Shipping Address?</label>
+    <input id="isShipping" type="radio" formControlName="_isShipping">
+
+    <label for="isBilling">Above is a Billing Address</label>
+    <input id="isBilling" type="radio" formControlName="_isBilling">
+
+    <!-- <label for="submit">Submit</label> -->
+    <button type="submit" [disabled]="!addressForm.valid">Submit</button>
+
+    
+
+</form>
