@@ -32,11 +32,16 @@ th {
 
 table,
 td {
-    padding: 8px 8px 8px 20px;
+    padding: 15px 15px 15px 15px;
 
 
 }
 
 tr:nth-child(even) {
     background-image: url("/assets/img2.png");
+    -o-background-size:100% auto;
+    -webkit-background-size:100% auto;
+    -moz-background-size:100% auto;
+    background-size:100% auto;
+
 }
