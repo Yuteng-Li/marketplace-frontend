@@ -2,33 +2,44 @@
 
   <div fxLayout="row wrap" fxLayoutGap="16px grid">
 
-    <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let num of [1,2,3,4,5,6,7]">
+    <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let num of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]">
 
-      <mat-card class="mat-elevation-z1" >
-
+      <div class="card">
 
         <div *ngIf="num % 2==0; else elseBlock">
-          <img mat-card-image src = "./../assets/images/defaultMilk.jpg">
+          <img class="card-img-top" src = "./../assets/images/defaultMilk.jpg">
         </div>
         <ng-template #elseBlock>
-          <img mat-card-image src = "./../assets/images/cereal.jpg">
+          <img class="card-img-top" src = "./../assets/images/cereal.jpg">
         </ng-template>
 
-        <div>
+        <h5 class="card-title">Card title</h5>
 
-          <mat-card-title >Price {{num}}</mat-card-title>
+        <div class="card-body">
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
 
-          <mat-card-content>
-            <p>
-              Product Name
-            </p>
-          </mat-card-content>
-          
-          <button mat-raised-button >Add To Cart</button>
-          <!--<button mat-raised-button *ngIf!="disabled" color="warn">Add To Cart</button>
-          <button mat-raised-button disabled *ngIf=="disabled" color="warn">Add To Cart</button> -->
+        <a href="#" class="btn btn-primary">Go somewhere</a>
       </div>
-      </mat-card>
+
+
     </div>
+
+    <!-- This is for API call to BackEnd this works if you have the inventory backend up and will display the ID set in item-grid
+      ts file 
+      Continue development after DB are further along
+  
+    <div class="card">
+          <img class="card-img-top" src = {{product.product.imageURL}}>
+
+        <h5 class="card-title">{{product.product.pricePerUnit}}</h5>
+
+        <div class="card-body">
+          <p class="card-text">{{product.product.prodName}}</p>
+        </div>
+
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>-->
+    
   </div>
   </div>

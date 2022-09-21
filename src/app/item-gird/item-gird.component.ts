@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ItemService } from '../item.service';
 
 @Component({
   selector: 'app-item-gird',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ItemGirdComponent implements OnInit {
 
-  constructor() { }
+  
+  id: string;
+  product: any;
 
-  ngOnInit(): void {
+  constructor(private ItemService:ItemService) { 
+    this.id = "036000291452";
   }
 
+
+  ngOnInit(): void {
+    this.ItemService.getProductById(this.id).subscribe(product => {
+      this.product = product;
+    })
+  }
+
+ 
 }

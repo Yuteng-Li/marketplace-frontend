@@ -1,25 +1,26 @@
 
-    
-<mat-sidenav-container>
-    <mat-sidenav mode="side" opened>
-        <button mat-button class="menu-button">
-            <mat-icon>home</mat-icon>
-            <span>Home</span>
-        </button>
-        <button mat-button class="menu-button">
-            <mat-icon>person</mat-icon>
-            <span>Profile</span>
-        </button>
-
-        <mat-divider></mat-divider>
-
-        <button mat-button class="menu-button">
-            <span>Filter Options</span>
-        </button>
-    </mat-sidenav>
-    <mat-sidenav-content>
-        <div class="content">
+<div class="container">
+    <div class="row py-3">
+        <div class="col-3 order-2" id="sticky-sidebar">
+            <div class="sticky-top">
+                <div class="sidebar">
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                          Dropdown
+                          <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                          <li><a href="#" data-value="action">Action</a></li>
+                          <li><a href="#" data-value="another action">Another action</a></li>
+                          <li><a href="#" data-value="something else here">Something else here</a></li>
+                          <li><a href="#" data-value="separated link">Separated link</a></li>
+                        </ul>
+                      </div>
+                </div>
+            </div>
+        </div>
+        <div class="col" id="main">
             <app-item-gird></app-item-gird>
         </div>
-    </mat-sidenav-content>
-</mat-sidenav-container>
+    </div>
+</div>

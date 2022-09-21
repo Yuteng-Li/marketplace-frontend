@@ -2,8 +2,12 @@
     padding: 16px;
 }
 
-.content > mat-card {
-    width: 200px;
+.card-text {
+    font-size: 10px;
+}
+
+.card{
+    width: auto;
 }
 
 img {
