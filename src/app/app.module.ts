@@ -14,14 +14,13 @@ import { HomePageComponent } from './home-page/home-page.component';
     AppComponent,
     PreviousOrdersComponent,
     PageNotFoundComponent,
-    HomePageComponent
+    HomePageComponent,
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot([
-
-      {path: 'previous-orders', component: PreviousOrdersComponent},
       {path: 'home-page', component: HomePageComponent },
+      {path: 'previous-orders', component: PreviousOrdersComponent},
       {path: '', pathMatch: 'full', redirectTo: 'home-page' },
       {path: '**', pathMatch: 'full', component: PageNotFoundComponent}
     ]),

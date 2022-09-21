@@ -11,8 +11,8 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card-body">
-                <table>
                     <div class="container rounded" *ngIf="previousOrders.length; else emptyli">
+                        <table>
                         <tr>
                             <th>OrderID</th>
                             <th>UserID</th>
@@ -27,7 +27,7 @@
 
                         <tr>
                         <!-- ngFor is the shortened form of NgForOf mentioned above -->
-                        <tr *ngFor="let order of previousOrders">
+                        <tr class="shadow" *ngFor="let order of previousOrders">
                                 <!-- for template syntax anything inside the brackets {{}} is considered an expression, and will try to solve it by looking in the component logic -->
                                 <td>{{order.OrderID}}</td>
                                 <td>{{order.UserID}}</td>
@@ -38,13 +38,14 @@
                                 <td>{{order.DateShipped}}</td>
                                 <td>{{order.DateDelivered}}</td>
                                 <td>{{order.OrderStatus}}</td>
-                                <td><button type="button" *ngIf="order.OrderStatus == 'Not Shipped Yet'; else cantCancel">Cancel Order</button></td>
+                                <td><button class="cancelbtn" type="button" *ngIf="order.OrderStatus == 'Not Shipped Yet'; else cantCancel">Cancel Order</button></td>
                                 <td><ng-template #cantCancel>Not Available</ng-template></td>
                                 <!-- ... -->
                         </tr>
+                    </table>
+
                     </div>
-                    <ng-template #emptyli>No Previous Orders</ng-template>
-                </table>
+                    <ng-template  #emptyli>No Previous Orders</ng-template>
             </div>
         </div>
     </div>
