@@ -57,7 +57,8 @@ export class PreviousOrdersComponent implements OnInit {
   ]
   emptyList = []
 
-  constructor() { }
+
+
 
   ngOnInit(): void {
   }
