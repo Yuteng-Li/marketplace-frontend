@@ -1,0 +1,42 @@
+.table_background {
+    display: flex;
+    background-color: white;
+    margin-left: 3vw;
+    margin-right: 3vw;
+    margin-bottom: 10vh;
+    margin-top: 5vh;
+    box-shadow: 0px 0px 10px rgba(114, 114, 113, 0.5);
+    border-radius: 15px;
+}
+
+table {
+    font-family: futura-pt, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    border-collapse: collapse;
+    width: 100%;
+    border-radius: 15px;
+}
+
+th {
+    font-size: 18px;
+    text-align: center;
+    border: 1px solid black;
+    
+
+    background-image: url("/assets/img2.png");
+
+
+
+}
+
+table,
+td {
+    padding: 8px 8px 8px 20px;
+
+
+}
+
+tr:nth-child(even) {
+    background-image: url("/assets/img2.png");
+}
