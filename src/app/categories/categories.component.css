@@ -1,10 +1,14 @@
-@import "~bootstrap/dist/css/bootstrap.min.css";
 /* Custom CSS to style similar to Safeway*/
 
 .categories-container {
+   display: flex;
+   flex-wrap: wrap;
     background-color: #2196F3; /*For testing*/
   }  
 .category{
+   display: flex;
+   flex-direction: column;
+   width: 25%;
     background-color: #F6F6F6;
     padding: 20px 0;
  }
