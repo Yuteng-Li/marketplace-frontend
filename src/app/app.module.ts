@@ -3,32 +3,39 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { PreviousOrdersComponent } from './previous-orders/previous-orders.component';
+import { RouterModule } from '@angular/router';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { HomePageComponent } from './home-page/home-page.component';
+
 import { ItemGirdComponent } from './item-gird/item-gird.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { MatCardModule} from '@angular/material/card';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatIconModule } from '@angular/material/icon';
-import { MatDividerModule } from '@angular/material/divider';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SidebarComponent } from './sidebar/sidebar.component';
 
 import {HttpClientModule} from '@angular/common/http';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    PreviousOrdersComponent,
+    PageNotFoundComponent,
+    HomePageComponent,
     ItemGirdComponent,
     SidebarComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
+    RouterModule.forRoot([
+
+      {path: 'previous-orders', component: PreviousOrdersComponent},
+      {path: 'home-page', component: HomePageComponent },
+      {path: '', pathMatch: 'full', redirectTo: 'home-page' },
+      {path: '**', pathMatch: 'full', component: PageNotFoundComponent}
+    ]),,
     BrowserAnimationsModule,
     FlexLayoutModule,
     HttpClientModule
