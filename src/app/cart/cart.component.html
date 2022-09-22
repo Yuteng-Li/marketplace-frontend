@@ -44,7 +44,7 @@
         <td>{{ item.itemName }}</td>
         <td>{{ item.itemPrice | currency: 'USD'}}</td>
         <td>
-            <input type="number" [value]="item.itemQty" min="1" max="100" step="1" id="btnDis"/>
+            <input type="number" [(ngModel)]="item.itemQty" min="1" max="100" step="1" id="btnDis"/>
             <button type="button" class="btn btn-outline-primary btn-sm" id="btnDis" (click) = "cartItems.splice(index, 1)">Remove</button>
         </td>
         <td>{{ (item.itemPrice * item.itemQty) | currency: 'USD'}}</td>
