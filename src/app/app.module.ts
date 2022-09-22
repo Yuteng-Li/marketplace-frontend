@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
 import { PreviousOrdersComponent } from './previous-orders/previous-orders.component';
-import { RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HomePageComponent } from './home-page/home-page.component';
+import { CheckoutComponent } from './checkout/checkout.component';
 
 
 @NgModule({
@@ -14,14 +16,18 @@ import { HomePageComponent } from './home-page/home-page.component';
     AppComponent,
     PreviousOrdersComponent,
     PageNotFoundComponent,
-    HomePageComponent
+    HomePageComponent,
+    CheckoutComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule, 
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot([
 
       {path: 'previous-orders', component: PreviousOrdersComponent},
       {path: 'home-page', component: HomePageComponent },
+      {path: 'checkout', component: CheckoutComponent},
       {path: '', pathMatch: 'full', redirectTo: 'home-page' },
       {path: '**', pathMatch: 'full', component: PageNotFoundComponent}
     ]),
