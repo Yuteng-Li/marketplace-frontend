@@ -36,7 +36,9 @@
         <th>Total</th>
     </tr>
 
-    <!--Placeholders are temporary-->
+    <!--Placeholder for item image is temporary.
+    Need to figure out how to get two way binding to work:
+        - When the user changes quantity it does not automatically change the all totals yet. -->
     <tr *ngFor="let item of cartItems; let index = index">
         <td>Item image placeholder</td>
         <td>{{ item.itemName }}</td>
@@ -74,6 +76,7 @@
 </table>
 </div>
 
+<!-- Not linked to the checkout page yet. Need routerLink for it-->
 <button type="button" class="btn btn-primary" style="float: right; margin-right: 160px">Proceed to Checkout</button>
     
 </body>
