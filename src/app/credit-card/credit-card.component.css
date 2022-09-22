@@ -2,7 +2,7 @@
     display: inline-block;
     padding: 1.0em 0.5em;
     border:0.1em solid white;
-    background-color: navy;
+    background-color: #0019ff;
     margin:0 0.3em 0.3em 0;
     border-radius: 1em;
     box-sizing: border-box;
@@ -13,8 +13,8 @@
     font-weight: bold;
 }
 .button1:hover{
-    border: 0.1em solid navy;
-    color: navy;
+    border: 0.1em solid #0019ff;
+    color: #0019ff;
     background-color: white;
     font-weight: bold;
 }
@@ -36,7 +36,7 @@ td{
     font-size: 15pt;
 }
 tr:nth-child(even) {
-    background-color: paleturquoise;
+    background-color: rgb(188, 224, 244);
     -o-background-size:100% auto;
     -webkit-background-size:100% auto;
     -moz-background-size:100% auto;
