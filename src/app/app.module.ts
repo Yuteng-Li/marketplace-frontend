@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import {HttpClientModule} from "@angular/common/http";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,6 +14,9 @@ import { AddressFormComponent } from './address-form/address-form.component';
 import { ReactiveFormsModule, FormsModule , FormBuilder, FormGroup } from '@angular/forms';
 
 
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,6 +27,7 @@ import { ReactiveFormsModule, FormsModule , FormBuilder, FormGroup } from '@angu
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
     RouterModule.forRoot([

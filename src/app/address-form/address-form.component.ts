@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { FormControl} from '@angular/forms'
-import {Validators} from "@angular/forms";
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import {Observable, throwError} from "rxjs";
+import {HttpClient} from "@angular/common/http";
+
 
 @Component({
   selector: 'app-address-form',
@@ -12,6 +13,16 @@ import {Validators} from "@angular/forms";
 export class AddressFormComponent implements OnInit{
 
   // addressForm?:FormGroup;
+  userData: {[index: string]:any} = {};
+  userID?:string;
+  recipient_name?:string;
+  street?:string;
+  street2?:string;
+  city?:string;
+  state?:string;
+  zip?:string;
+
+
   addressForm = this.fb.group
   (
     {
@@ -26,21 +37,50 @@ export class AddressFormComponent implements OnInit{
     }
   );
 
-  constructor(private fb: FormBuilder)
+  constructor(private fb: FormBuilder, private http: HttpClient)
   {
   }
 
   ngOnInit(): void {
+    this.http.get("http://localhost:9090/api/address/getAddress/1")
+      .subscribe
+      (data =>
+        {
+          // console.log(data);
+          this.userData = data;
 
+        }
+      );
 
   }
 
 
   onSubmit(): void
   {
-    console.log('You entered value: ');
+    console.log('You entered value: ', this.addressForm.value);
   }
 
+  userLog(): void
+  {
+    this.http.get("http://localhost:9090/api/address/getAddress/1")
+      .subscribe
+      (data =>
+        {
+          // console.log(data);
+          this.userData = data;
+
+        }
+      );
+    console.log(this.userData);
+    this.userID = this.userData['userID']
+    this.recipient_name = this.userData['recipientName'];
+    this.street = this.userData['street'];
+    this.street2 = this.userData['street2'];
+    this.state = this.userData['state'];
+    this.zip = this.userData['zip'];
+    this.city = this.userData['city'];
+
+  }
 }
 
 
