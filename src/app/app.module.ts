@@ -27,9 +27,9 @@ import { CategoriesComponent } from './categories/categories.component';
       {path: 'home-page', component: HomePageComponent },
       {path: 'previous-orders', component: PreviousOrdersComponent},
       {path: 'cart', component: CartComponent},
-      {path: '', pathMatch: 'full', redirectTo: 'home-page' },
-      {path: '**', pathMatch: 'full', component: PageNotFoundComponent},
       {path: 'categories', component: CategoriesComponent},
+      {path: '', pathMatch: 'full', redirectTo: 'home-page' },
+      {path: '**', pathMatch: 'full', component: PageNotFoundComponent}
     ]),
     FormsModule
   ],
