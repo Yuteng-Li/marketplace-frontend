@@ -7,6 +7,9 @@ import { PreviousOrdersComponent } from './previous-orders/previous-orders.compo
 import { RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HomePageComponent } from './home-page/home-page.component';
+import { CreditCardComponent } from './credit-card/credit-card.component';
+import { PaymentFormComponent } from './payment-form/payment-form.component';
+
 
 
 @NgModule({
@@ -14,7 +17,9 @@ import { HomePageComponent } from './home-page/home-page.component';
     AppComponent,
     PreviousOrdersComponent,
     PageNotFoundComponent,
-    HomePageComponent
+    HomePageComponent,
+    CreditCardComponent,
+    PaymentFormComponent
   ],
   imports: [
     BrowserModule,
@@ -22,8 +27,11 @@ import { HomePageComponent } from './home-page/home-page.component';
 
       {path: 'previous-orders', component: PreviousOrdersComponent},
       {path: 'home-page', component: HomePageComponent },
+      {path: 'credit-card', component: CreditCardComponent},
+      {path: 'payment-form', component: PaymentFormComponent},
       {path: '', pathMatch: 'full', redirectTo: 'home-page' },
       {path: '**', pathMatch: 'full', component: PageNotFoundComponent}
+
     ]),
   ],
   providers: [],

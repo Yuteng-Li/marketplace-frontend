@@ -1,0 +1,52 @@
+.center1 {
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+    text-align: center;
+  }
+input.a{
+    display: flex;
+    flex-direction: row;
+    align-content: stretch;
+}
+form.a {
+  position: relative;
+  text-align: center;
+  border-style: solid;
+  border-width: 5px;
+  display: inline-block;
+
+  margin: auto;
+  width: 50%;
+  border: 3px solid gray;
+  padding: 10px;
+}
+input.a{
+  margin: auto;
+  width: 75%;
+  padding: 5px;
+}
+body{
+  padding: 5px;
+  margin: auto;
+}
+.button1{
+    display: inline-block;
+    padding: 1.0em 0.5em;
+    border:0.1em solid white;
+    background-color: navy;
+    margin:0 0.3em 0.3em 0;
+    border-radius: 1em;
+    box-sizing: border-box;
+    font-weight: 300;
+    color: white;
+    text-align: center;
+    transition: all 0.2s;
+    font-weight: bold;
+}
+.button1:hover{
+    border: 0.1em solid navy;
+    color: navy;
+    background-color: white;
+    font-weight: bold;
+}
