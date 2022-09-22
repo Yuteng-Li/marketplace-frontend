@@ -15,6 +15,7 @@ export class AddressFormComponent implements OnInit{
   // addressForm?:FormGroup;
   userData: {[index: string]:any} = {};
   userID?:string;
+  addressid?:string;
   recipient_name?:string;
   street?:string;
   street2?:string;
@@ -48,9 +49,16 @@ export class AddressFormComponent implements OnInit{
       .subscribe
       (data =>
         {
-          // console.log(data);
+          console.log(data);
           this.userData = data;
-
+          this.userID = this.userData['userID'];
+          this.addressid = this.userData['addressID'];
+          this.recipient_name = this.userData['recipientName'];
+          this.street = this.userData['street'];
+          this.street2 = this.userData['street2'];
+          this.state = this.userData['state'];
+          this.zip = this.userData['zip'];
+          this.city = this.userData['city'];
         }
       );
 
@@ -63,10 +71,10 @@ export class AddressFormComponent implements OnInit{
   {
     if (this.addressForm.valid == true)
     {
-      this.addressForm.value.userid = "12";
-      this.addressForm.value.addressid = "1";
+      this.addressForm.value.userid = this.userID;
+      this.addressForm.value.addressid = this.addressid;
 
-      this.http.put("http://localhost:9090/api/updateAddress/1", this.addressForm.value)
+      this.http.put(`http://localhost:9090/api/updateAddress/${this.addressid}`, this.addressForm.value)
         .subscribe
           (resp=>
             {
@@ -77,25 +85,36 @@ export class AddressFormComponent implements OnInit{
     // console.log('You entered value: ', this.addressForm.value);
   }
 
+  deleteAddress():void
+  {
+    console.log("Delete button clicked");
+    console.log(`http://localhost:9090/api/deleteAddress/${this.addressid}`)
+    this.http.delete
+    (
+      `http://localhost:9090/api/deleteAddress/${this.addressid}`
+    );
+  }
+
   userLog(): void
   {
-    this.http.get("http://localhost:9090/api/address/getAddress/1")
-      .subscribe
-      (data =>
-        {
-          // console.log(data);
-          this.userData = data;
+    // this.http.get("http://localhost:9090/api/address/getAddress/1")
+    //   .subscribe
+    //   (data =>
+    //     {
+    //       // console.log(data);
+    //       this.userData = data;
+    //
+    //     }
+    //   );
 
-        }
-      );
-    // console.log(this.userData);
-    this.userID = this.userData['userID'];
-    this.recipient_name = this.userData['recipientName'];
-    this.street = this.userData['street'];
-    this.street2 = this.userData['street2'];
-    this.state = this.userData['state'];
-    this.zip = this.userData['zip'];
-    this.city = this.userData['city'];
+    // // console.log(this.userData);
+    // this.userID = this.userData['userID'];
+    // this.recipient_name = this.userData['recipientName'];
+    // this.street = this.userData['street'];
+    // this.street2 = this.userData['street2'];
+    // this.state = this.userData['state'];
+    // this.zip = this.userData['zip'];
+    // this.city = this.userData['city'];
 
   }
 }
