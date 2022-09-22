@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HomePageComponent } from './home-page/home-page.component';
 
+import { CategoriesComponent } from './categories/categories.component';
 import { ItemGirdComponent } from './item-gird/item-gird.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -27,6 +28,7 @@ import {HttpClientModule} from '@angular/common/http';
     PageNotFoundComponent,
     HomePageComponent,
     CartComponent,
+    CategoriesComponent,
     ItemGirdComponent
   ],
   imports: [
@@ -35,9 +37,10 @@ import {HttpClientModule} from '@angular/common/http';
       {path: 'home-page', component: HomePageComponent },
       {path: 'previous-orders', component: PreviousOrdersComponent},
       {path: 'cart', component: CartComponent},
+      {path: 'categories', component: CategoriesComponent},
       {path: 'item-gird', component: ItemGirdComponent},
       {path: '', pathMatch: 'full', redirectTo: 'home-page' },
-      {path: '**', pathMatch: 'full', component: PageNotFoundComponent},
+      {path: '**', pathMatch: 'full', component: PageNotFoundComponent}
     ]),
     FormsModule
     BrowserAnimationsModule,
