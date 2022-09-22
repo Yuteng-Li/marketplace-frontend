@@ -15,7 +15,7 @@ export class CartComponent implements OnInit {
       "itemId": 1,
       "itemName": "Milk",
       "itemPrice": 4.19,
-      "itemQty": 1
+      "itemQty": 2
     },
     {
       "itemId": 2,
