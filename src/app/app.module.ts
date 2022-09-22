@@ -38,8 +38,7 @@ import {HttpClientModule} from '@angular/common/http';
       {path: 'cart', component: CartComponent},
       {path: 'sidebar', component: SidebarComponent},
       {path: '', pathMatch: 'full', redirectTo: 'home-page' },
-      {path: '**', pathMatch: 'full', component: PageNotFoundComponent},,
-
+      {path: '**', pathMatch: 'full', component: PageNotFoundComponent},
     ]),
     BrowserAnimationsModule,
     FlexLayoutModule,
