@@ -23,6 +23,7 @@ table{
 }
 th{
     background-color: none;
+    min-width: 200px;
 }
 tr.a{
     font-size: 20pt;

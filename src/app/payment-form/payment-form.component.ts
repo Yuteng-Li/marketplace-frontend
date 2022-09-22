@@ -11,5 +11,4 @@ export class PaymentFormComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }
