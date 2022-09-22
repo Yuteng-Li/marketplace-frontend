@@ -19,6 +19,24 @@ ariaCurrentWhenActive="page">Cart</a>
 routerLink="/item-gird"
 routerLinkActive="activebutton"
 ariaCurrentWhenActive="page">display</a>
+
+<br>
+<a class="button"
+routerLink="/login"
+routerLinkActive="activebutton"
+ariaCurrentWhenActive="page">login</a>
 </nav>
 
+<div *ngIf="user" class="card text-center">
+    <h6 class="card-header">
+    </h6>
+    <div class="card-block"></div>
+    <div class="card-block">
+      <h4 class="card-title">{{ user.name }}</h4>
+      <p class="card-text">{{ user.email }}</p>
+    </div>
+    <div class="card-block">
+      <button class="btn btn-danger" (click)="signOut()">Sign out</button>
+    </div>
+  </div>
 </div>

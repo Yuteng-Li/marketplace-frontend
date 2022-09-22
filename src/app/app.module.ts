@@ -19,6 +19,12 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import {HttpClientModule} from '@angular/common/http';
 
+import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+import {  GoogleLoginProvider } from '@abacritt/angularx-social-login';
+import { LoginComponent } from './login/login.component';
+
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 
 @NgModule({
@@ -29,7 +35,8 @@ import {HttpClientModule} from '@angular/common/http';
     HomePageComponent,
     CartComponent,
     CategoriesComponent,
-    ItemGirdComponent
+    ItemGirdComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -37,18 +44,34 @@ import {HttpClientModule} from '@angular/common/http';
       {path: 'home-page', component: HomePageComponent },
       {path: 'previous-orders', component: PreviousOrdersComponent},
       {path: 'cart', component: CartComponent},
+      {path: 'login', component: LoginComponent},
       {path: 'categories', component: CategoriesComponent},
       {path: 'item-gird', component: ItemGirdComponent},
       {path: '', pathMatch: 'full', redirectTo: 'home-page' },
       {path: '**', pathMatch: 'full', component: PageNotFoundComponent}
     ]),
-    FormsModule
+    FormsModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
-    HttpClientModule
+    HttpClientModule,
+    SocialLoginModule,
+    ReactiveFormsModule
   ],
   
-  providers: [],
+  providers: [{
+    provide: 'SocialAuthServiceConfig',
+    useValue: {
+      autoLogin: false,
+      providers: [
+        {
+          id: GoogleLoginProvider.PROVIDER_ID,
+          provider: new GoogleLoginProvider(
+            '693100612539-rtft5b065kqn934urifpj10j075ebm3n.apps.googleusercontent.com'
+          )
+        }],
+    } as SocialAuthServiceConfig,
+  }
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
