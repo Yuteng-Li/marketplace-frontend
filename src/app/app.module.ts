@@ -7,6 +7,7 @@ import { PreviousOrdersComponent } from './previous-orders/previous-orders.compo
 import { RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HomePageComponent } from './home-page/home-page.component';
+import { SearchBarComponent } from './search-bar/search-bar.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { HomePageComponent } from './home-page/home-page.component';
     AppComponent,
     PreviousOrdersComponent,
     PageNotFoundComponent,
-    HomePageComponent
+    HomePageComponent,
+    SearchBarComponent,
   ],
   imports: [
     BrowserModule,
