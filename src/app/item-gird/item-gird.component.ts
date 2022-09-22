@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ItemService } from '../item.service';
+
 
 @Component({
   selector: 'app-item-gird',
@@ -8,20 +9,35 @@ import { ItemService } from '../item.service';
 })
 export class ItemGirdComponent implements OnInit {
 
-  
-  id: string;
-  product: any;
+
+
+  product : any[] = [];
 
   constructor(private ItemService:ItemService) { 
-    this.id = "036000291452";
+
   }
 
 
   ngOnInit(): void {
-    this.ItemService.getProductById(this.id).subscribe(product => {
-      this.product = product;
-    })
+    //These API calls are temporary as the DBs are still changing so these will
+    //eventually be changed but right now if you use the inventory db it should work until they change it
+    //this.DisplayAll();
   }
 
+  displayByID(){
+    for (let i = 1; i < 4; i++) {
+      this.ItemService.getProductById(i.toString()).subscribe(product => {
+        this.product.push(product.product);
+        console.log(product);
+      })
+    }
+  }
+
+  DisplayAll(){
+    this.ItemService.getProduct().subscribe(product => {
+      this.product=product;
+      console.log(product);
+    })
+  }
  
 }

@@ -2,7 +2,7 @@
 
   <div fxLayout="row wrap" fxLayoutGap="16px grid">
 
-    <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let num of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]">
+    <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let num of [1,2,3,4,5,6]">
 
       <div class="card">
 
@@ -22,24 +22,24 @@
         <a href="#" class="btn btn-primary">Go somewhere</a>
       </div>
 
-
     </div>
 
     <!-- This is for API call to BackEnd this works if you have the inventory backend up and will display the ID set in item-grid
-      ts file 
-      Continue development after DB are further along
+      ts file  Continue development after DB are further along
   
-    <div class="card">
-          <img class="card-img-top" src = {{product.product.imageURL}}>
+    <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let num of product">
 
-        <h5 class="card-title">{{product.product.pricePerUnit}}</h5>
+      <div class="card">
+        <img class="card-img-top" src="num.imageURL">
 
-        <div class="card-body">
-          <p class="card-text">{{product.product.prodName}}</p>
-        </div>
 
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>-->
+      <div class="card-body">
+        <h2 class="card-text text-justify">Price: {{num.pricePerUnit}}</h2>
+        <p class="card-text text-justify">{{num.prodName}}</p>
+      </div>
+
+      <a href="#" class="btn btn-primary">Add to Cart</a>
+    </div> -->
     
   </div>
   </div>
