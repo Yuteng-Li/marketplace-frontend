@@ -15,62 +15,60 @@
     
 </head>
 <body>
+    <nav>
+        <a class="button"
+        routerLink="/home-page"
+        routerLinkActive="activebutton"
+        ariaCurrentWhenActive="page">Return to Home Page</a>
+    </nav>
 
 <h1 style="text-align: center">My Cart</h1>
 
 <div class="table-margin">
 <table class="table border">
  <thead>
-    <tr>
-        <th style="text-align: center">Item</th>
+    <tr class="bg-primary">
+        <th></th>
+        <th>Item</th>
         <th>Price</th>
         <th>Quantity</th>
         <th>Total</th>
     </tr>
 
     <!--Placeholders are temporary-->
-    <tr>
-        <td>Placeholder</td>
-        <td>Placeholder</td>
+    <tr *ngFor="let item of cartItems; let index = index">
+        <td>Item image placeholder</td>
+        <td>{{ item.itemName }}</td>
+        <td>{{ item.itemPrice | currency: 'USD'}}</td>
         <td>
-            <input type="number" value="1" min="1" max="100" step="1" id="btnDis"/>
-            <button type="button" class="btn btn-outline-primary btn-sm" id="btnDis">Remove</button>
+            <input type="number" value="{{ item.itemQty }}" min="1" max="100" step="1" id="btnDis"/>
+            <button type="button" class="btn btn-outline-primary btn-sm" id="btnDis" (click) = "cartItems.splice(index, 1)">Remove</button>
         </td>
-        <td>Placeholder</td>
-    </tr>
-
-    <tr>
-        <td>Placeholder</td>
-        <td>Placeholder</td>
-        <td>
-            <input type="number" value="1" min="1" max="100" step="1" id="btnDis"/>
-            <button type="button" class="btn btn-outline-primary btn-sm" id="btnDis">Remove</button>
-        </td>
-        <td>Placeholder</td>
+        <td>{{ (item.itemPrice * item.itemQty) | currency: 'USD'}}</td>
     </tr>
  </thead>
 </table>
 </div>
 
-<button type="button" class="btn btn-primary" style="float: right; margin-right: 160px; margin-bottom: 20px">Continue Shopping</button>
+<button type="button" class="btn btn-primary" style="float: right; margin-right: 160px; margin-bottom: 20px" [routerLink]="['/home-page']">Continue Shopping</button>
 
 
 <div class="table-margin2">
-<table class="table table-bordered">
+<table class="table table-bordered border">
     <thead>
         <tr>
-            <th colspan="2" style="text-align: center">Cart Totals</th>
+            <th class="bg-primary" colspan="2" style="text-align: center">Cart Totals</th>
         </tr>
     </thead>
 
         <tr>
             <th colspan="1">Total Items</th>
-            <td>Placeholder</td>
+            <td>{{ numItems }}</td>
         </tr>
 
         <tr>
             <th colspan="1">Subtotal</th>
-            <td>Placeholder</td>
+            <td>{{ cartSubtotal | currency:'USD'}}</td>
         </tr>
 </table>
 </div>
