@@ -26,14 +26,16 @@ export class AddressFormComponent implements OnInit{
   addressForm = this.fb.group
   (
     {
-      _recipientName: ['', Validators.required],
-      _street: ['', Validators.required],
-      _street2: [''],
-      _city: ['', Validators.required],
-      _state: ['', Validators.required],
-      _zip: ['', Validators.required],
-      _isShipping: [''],
-      _isBilling: [''],
+      addressid: [''],
+      userid: [''],
+      recipient_name: ['', Validators.required],
+      street: ['', Validators.required],
+      street2: [''],
+      city: ['', Validators.required],
+      state: ['', Validators.required],
+      zip: ['', Validators.required],
+      is_shipping: ['true'],
+      is_billing: ['true'],
     }
   );
 
@@ -52,12 +54,27 @@ export class AddressFormComponent implements OnInit{
         }
       );
 
+
+
   }
 
 
   onSubmit(): void
   {
-    console.log('You entered value: ', this.addressForm.value);
+    if (this.addressForm.valid == true)
+    {
+      this.addressForm.value.userid = "12";
+      this.addressForm.value.addressid = "1";
+
+      this.http.put("http://localhost:9090/api/updateAddress/1", this.addressForm.value)
+        .subscribe
+          (resp=>
+            {
+              console.log(resp);
+            }
+          );
+    }
+    // console.log('You entered value: ', this.addressForm.value);
   }
 
   userLog(): void
@@ -71,8 +88,8 @@ export class AddressFormComponent implements OnInit{
 
         }
       );
-    console.log(this.userData);
-    this.userID = this.userData['userID']
+    // console.log(this.userData);
+    this.userID = this.userData['userID'];
     this.recipient_name = this.userData['recipientName'];
     this.street = this.userData['street'];
     this.street2 = this.userData['street2'];

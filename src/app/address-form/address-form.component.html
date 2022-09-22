@@ -18,43 +18,43 @@
   <form [formGroup]="addressForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label for="recipientName">Recipient Name</label>
-      <input id="recipientName" class="form-control" type="text" formControlName="_recipientName">
+      <input id="recipientName" class="form-control" type="text" formControlName="recipient_name">
 
     </div>
 
     <div class="form-group">
       <label for="street">Street</label>
-      <input id="street" class="form-control" type="text" formControlName="_street">
+      <input id="street" class="form-control" type="text" formControlName="street">
     </div>
 
     <div class="form-group">
       <label for="street2">Street 2</label>
-      <input id="street2" class="form-control" type="text" formControlName="_street2">
+      <input id="street2" class="form-control" type="text" formControlName="street2">
     </div>
 
     <div class="form-group">
       <label for="city">City</label>
-      <input id="city" class="form-control" type="text" formControlName="_city">
+      <input id="city" class="form-control" type="text" formControlName="city">
     </div>
 
     <div class="form-group">
       <label for="state">State</label>
-      <input id="state" class="form-control" type="text" formControlName="_state">
+      <input id="state" class="form-control" type="text" formControlName="state">
     </div>
 
     <div class="form-group">
       <label for="zip">Zip</label>
-      <input id="zip" class="form-control" type="text" formControlName="_zip">
+      <input id="zip" class="form-control" type="text" formControlName="zip">
     </div>
 
     <div class="form-group">
       <label for="isShipping"> Above is a Shipping Address? </label>
-      <input id="isShipping" type="radio" formControlName="_isShipping">
+      <input id="isShipping" type="radio" formControlName="is_shipping">
     </div>
 
     <div class="form-group">
       <label for="isBilling">Above is a Billing Address? </label>
-      <input id="isBilling"  type="radio" formControlName="_isBilling">
+      <input id="isBilling"  type="radio" formControlName="is_billing">
     </div>
     <!-- <label for="submit">Submit</label> -->
     <button type="submit" class="btn btn-outline-primary" [disabled]="!addressForm.valid">Submit</button>
