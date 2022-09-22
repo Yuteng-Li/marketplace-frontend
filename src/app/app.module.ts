@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HomePageComponent } from './home-page/home-page.component';
 
+import { CategoriesComponent } from './categories/categories.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { HomePageComponent } from './home-page/home-page.component';
     PreviousOrdersComponent,
     PageNotFoundComponent,
     HomePageComponent,
-    CartComponent
+    CartComponent,
+    CategoriesComponent
   ],
   imports: [
     BrowserModule,
@@ -25,8 +27,9 @@ import { HomePageComponent } from './home-page/home-page.component';
       {path: 'home-page', component: HomePageComponent },
       {path: 'previous-orders', component: PreviousOrdersComponent},
       {path: 'cart', component: CartComponent},
+      {path: 'categories', component: CategoriesComponent},
       {path: '', pathMatch: 'full', redirectTo: 'home-page' },
-      {path: '**', pathMatch: 'full', component: PageNotFoundComponent},
+      {path: '**', pathMatch: 'full', component: PageNotFoundComponent}
     ]),
     FormsModule
   ],
