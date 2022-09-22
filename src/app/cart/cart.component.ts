@@ -14,20 +14,16 @@ export class CartComponent implements OnInit {
     {
       "itemId": 1,
       "itemName": "Milk",
-      "itemPrice": 2.00,
+      "itemPrice": 4.19,
       "itemQty": 1
     },
     {
       "itemId": 2,
       "itemName": "Eggs",
-      "itemPrice": 1.20,
-      "itemQty": 3
+      "itemPrice": 3.19,
+      "itemQty": 2
     }
   ]
-  
-  removeItem(index: number) {
-    this.cartItems.splice(index,1)
-  }
 
   constructor() { }
 

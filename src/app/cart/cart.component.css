@@ -13,3 +13,27 @@
     margin-right: 160px; 
     margin-left: 50%;
 }
+
+.rowbg {
+    background-repeat: no-repeat;
+    background-image: url("/assets/img5.jpg");
+    background-size: auto 900px;
+}
+
+.rowbg2 {
+    background-repeat: no-repeat;
+    background-image: url("/assets/img5.jpg");
+    background-size: auto 450px;
+}
+
+h1 {
+    font-family: 'Corbel';
+}
+
+th {
+    font-family: 'Corbel 400';
+}
+
+td {
+    font-family: 'Corbel 400';
+}
