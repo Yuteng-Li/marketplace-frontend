@@ -9,6 +9,9 @@ import { PreviousOrdersComponent } from './previous-orders/previous-orders.compo
 import { RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HomePageComponent } from './home-page/home-page.component';
+import { CreditCardComponent } from './credit-card/credit-card.component';
+import { PaymentFormComponent } from './payment-form/payment-form.component';
+
 
 import { CategoriesComponent } from './categories/categories.component';
 import { ItemGirdComponent } from './item-gird/item-gird.component';
@@ -33,6 +36,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     PreviousOrdersComponent,
     PageNotFoundComponent,
     HomePageComponent,
+    CreditCardComponent,
+    PaymentFormComponent,
     CartComponent,
     CategoriesComponent,
     ItemGirdComponent,
@@ -44,6 +49,8 @@ import { ReactiveFormsModule } from '@angular/forms';
       {path: 'home-page', component: HomePageComponent },
       {path: 'previous-orders', component: PreviousOrdersComponent},
       {path: 'cart', component: CartComponent},
+      {path: 'credit-card', component: CreditCardComponent},
+      {path: 'payment-form', component: PaymentFormComponent},
       {path: 'login', component: LoginComponent},
       {path: 'categories', component: CategoriesComponent},
       {path: 'item-gird', component: ItemGirdComponent},
