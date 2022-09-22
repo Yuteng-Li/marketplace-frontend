@@ -1,213 +1,125 @@
 <form id="checkoutForm" class="col-lg-6 offset-lg-3 position-relative" [formGroup]="checkoutForm">
-  <h2>Delivery Address</h2>
-  <div class="row justify-content-center">
-    <div class="col">
-      <input
-        id="dfname"
-        class="form-control"
-        type="text"
-        placeholder="First Name"
-        formControlName="deliveryFirstName"
-      />
+    <h3>Delivery Address</h3>
+    <div class="row justify-content-center">
+        <div class="col">
+            <input id="dfname" class="form-control" type="text" placeholder="First Name"
+                formControlName="deliveryFirstName" />
+        </div>
+        <div class="col">
+            <input id="dlname" class="form-control" type="text" placeholder="Last Name"
+                formControlName="deliveryLastName" />
+        </div>
     </div>
-    <div class="col">
-      <input
-        id="dlname"
-        class="form-control"
-        type="text"
-        placeholder="Last Name"
-        formControlName="deliveryLastName"
-      />
+    <div class="row">
+        <div class="col">
+            <input id="daddress1" class="form-control" type="text" placeholder="Street Address"
+                formControlName="deliveryAddress1" />
+        </div>
+        <div class="col">
+            <input id="daddress2" class="form-control" type="text" placeholder="Apt/Suite/Other (optional)"
+                formControlName="deliveryAddress2" />
+        </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col">
-      <input
-        id="daddress1"
-        class="form-control"
-        type="text"
-        placeholder="Street Address"
-        formControlName="deliveryAddress1"
-      />
+    <div class="row">
+        <div class="col">
+            <input id="dcity" class="form-control" type="text" placeholder="City" formControlName="deliveryCity" />
+        </div>
+        <div class="col">
+            <input id="dstate" class="form-control" type="text" placeholder="State" formControlName="deliveryState" />
+        </div>
+        <div class="col">
+            <input id="dzip" class="form-control" type="text" placeholder="Zip" formControlName="deliveryZip" />
+        </div>
     </div>
-    <div class="col">
-      <input
-        id="daddress2"
-        class="form-control"
-        type="text"
-        placeholder="Apt/Suite/Other (optional)"
-        formControlName="deliveryAddress2"
-      />
-    </div>
-  </div>
-  <div class="row">
-    <div class="col">
-      <input
-        id="dcity"
-        class="form-control"
-        type="text"
-        placeholder="City"
-        formControlName="deliveryCity"
-      />
-    </div>
-    <div class="col">
-      <input
-        id="dstate"
-        class="form-control"
-        type="text"
-        placeholder="State"
-        formControlName="deliveryState"
-      />
-    </div>
-    <div class="col">
-      <input
-        id="dzip"
-        class="form-control"
-        type="text"
-        placeholder="Zip"
-        formControlName="deliveryZip"
-      />
-    </div>
-  </div>
 
-  <br />
+    <br />
 
-  <h2>Payment</h2>
+    <h3>Payment</h3>
 
-  <input
-    id="chname"
-    class="form-control"
-    type="text"
-    placeholder="Cardholder Name"
-    formControlName="cardholderName"
-  />
-  <input
-    id="cnumber"
-    class="form-control"
-    type="text"
-    placeholder="Card Number"
-    formControlName="cardholderName"
-  />
-  <div class="row">
-    <div class="col">
-      <input
-        id="cexp"
-        class="form-control"
-        type="text"
-        placeholder="Expiratoin MM/YY"
-        formControlName="cardExpireDate"
-      />
+    <input id="chname" class="form-control" type="text" placeholder="Cardholder Name"
+        formControlName="cardholderName" />
+    <input id="cnumber" class="form-control" type="text" placeholder="Card Number" formControlName="cardholderName" />
+    <div class="row">
+        <div class="col">
+            <input id="cexp" class="form-control" type="text" placeholder="Expiratoin MM/YY"
+                formControlName="cardExpireDate" />
+        </div>
+        <div class="col">
+            <input id="cvv" class="form-control" type="text" placeholder="CVV" formControlName="cardCvv" />
+        </div>
     </div>
-    <div class="col">
-      <input
-        id="cvv"
-        class="form-control"
-        type="text"
-        placeholder="CVV"
-        formControlName="cardCvv"
-      />
-    </div>
-  </div>
 
-  <br />
+    <br />
 
-  <h2>Billing Address</h2>
+    <h3>Billing Address</h3>
 
-  <div class="row">
-    <div class="col">
-      <input
-        id="bfname"
-        class="form-control"
-        type="text"
-        placeholder="First Name"
-        formControlName="billingFirstName"
-      />
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="sameDelivery" [checked]="sameAsDelivery == true" (change)="sameAsDelivery = !sameAsDelivery"/>
+        <label class="form-check-label" for="sameDelivery">
+            Same as delivery?
+        </label>
     </div>
-    <div class="col">
-      <input
-        id="blname"
-        class="form-control"
-        type="text"
-        placeholder="Last Name"
-        formControlName="billingLastName"
-      />
-    </div>
-  </div>
-  <div class="row">
-    <div class="col">
-      <input
-        id="baddress1"
-        class="form-control"
-        type="text"
-        placeholder="Street Address"
-        formControlName="billingAddress1"
-      />
-    </div>
-    <div class="col">
-      <input
-        id="baddress2"
-        class="form-control"
-        type="text"
-        placeholder="Apt/Suite/Other (optional)"
-        formControlName="billingAddress2"
-      />
-    </div>
-  </div>
-  <div class="row">
-    <div class="col">
-      <input
-        id="bcity"
-        class="form-control"
-        type="text"
-        placeholder="City"
-        formControlName="billingCity"
-      />
-    </div>
-    <div class="col">
-      <input
-        id="bstate"
-        class="form-control"
-        type="text"
-        placeholder="State"
-        formControlName="billingState"
-      />
-    </div>
-    <div class="col">
-      <input
-        id="bzip"
-        class="form-control"
-        type="text"
-        placeholder="Zip"
-        formControlName="billingZip"
-      />
-    </div>
-  </div>
 
-  <div class="w-75 position-absolute end-0">
-    <table class="table table-sm mt-3">
-      <thead class="">
-        <tr>
-          <th scope="col" colspan="2">Order Summary</th>
-        </tr>
-      </thead>
-      <tbody class="table-primary">
-        <tr>
-          <th scope="row">Total Items</th>
-          <td>3</td>
-        </tr>
-        <tr>
-          <th scope="row">Taxes</th>
-          <td>$100</td>
-        </tr>
-        <tr class="table-active">
-          <th scope="row">Total</th>
-          <td>$200</td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="d-flex flex-row justify-content-end">
-      <button type="button" class="btn btn-danger me-3">Cancel</button>
-      <button type="button" class="btn btn-primary">Place Your Order</button>
+    <div id="billing" *ngIf="sameAsDelivery === false">
+        <div class="row">
+            <div class="col">
+                <input id="bfname" class="form-control" type="text" placeholder="First Name"
+                    formControlName="billingFirstName" />
+            </div>
+            <div class="col">
+                <input id="blname" class="form-control" type="text" placeholder="Last Name"
+                    formControlName="billingLastName" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <input id="baddress1" class="form-control" type="text" placeholder="Street Address"
+                    formControlName="billingAddress1" />
+            </div>
+            <div class="col">
+                <input id="baddress2" class="form-control" type="text" placeholder="Apt/Suite/Other (optional)"
+                    formControlName="billingAddress2" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <input id="bcity" class="form-control" type="text" placeholder="City" formControlName="billingCity" />
+            </div>
+            <div class="col">
+                <input id="bstate" class="form-control" type="text" placeholder="State"
+                    formControlName="billingState" />
+            </div>
+            <div class="col">
+                <input id="bzip" class="form-control" type="text" placeholder="Zip" formControlName="billingZip" />
+            </div>
+        </div>
     </div>
-  </div>
+
+    <div class="w-75 position-absolute end-0">
+        <table class="table table-sm mt-3">
+            <thead class="">
+                <tr>
+                    <th scope="col" colspan="2">Order Summary</th>
+                </tr>
+            </thead>
+            <tbody class="table-primary">
+                <tr>
+                    <th scope="row">Total Items</th>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <th scope="row">Taxes</th>
+                    <td>$100</td>
+                </tr>
+                <tr class="table-active">
+                    <th scope="row">Total</th>
+                    <td>$200</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="d-flex flex-row justify-content-end">
+            <button type="button" class="btn btn-danger me-3">Cancel</button>
+            <button type="button" class="btn btn-primary">Place Your Order</button>
+        </div>
+    </div>
 </form>

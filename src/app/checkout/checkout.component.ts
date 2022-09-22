@@ -29,6 +29,8 @@ export class CheckoutComponent implements OnInit {
     billingState: new FormControl(''),
     billingZip: new FormControl(''),
   })
+
+  sameAsDelivery: Boolean = false;
   
   constructor() { }
 
