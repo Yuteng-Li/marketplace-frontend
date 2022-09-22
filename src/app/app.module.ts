@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
     PageNotFoundComponent,
     HomePageComponent,
     SearchBarComponent,
+    NavBarComponent,
   ],
   imports: [
     BrowserModule,
