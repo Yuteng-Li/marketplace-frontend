@@ -21,16 +21,14 @@ export class ItemGirdComponent implements OnInit {
   ngOnInit(): void {
     //These API calls are temporary as the DBs are still changing so these will
     //eventually be changed but right now if you use the inventory db it should work until they change it
-    //this.DisplayAll();
+    this.DisplayAll();
   }
 
-  displayByID(){
-    for (let i = 1; i < 4; i++) {
-      this.ItemService.getProductById(i.toString()).subscribe(product => {
+  displayByID(id:string){
+      this.ItemService.getProductById(id).subscribe(product => {
         this.product.push(product.product);
         console.log(product);
       })
-    }
   }
 
   DisplayAll(){
@@ -39,5 +37,7 @@ export class ItemGirdComponent implements OnInit {
       console.log(product);
     })
   }
+
+
  
 }

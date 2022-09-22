@@ -8,7 +8,6 @@ import { PreviousOrdersComponent } from './previous-orders/previous-orders.compo
 import { RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HomePageComponent } from './home-page/home-page.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
 
 import { ItemGirdComponent } from './item-gird/item-gird.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -27,8 +26,7 @@ import {HttpClientModule} from '@angular/common/http';
     PageNotFoundComponent,
     HomePageComponent,
     CartComponent,
-    ItemGirdComponent,
-    SidebarComponent
+    ItemGirdComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +34,7 @@ import {HttpClientModule} from '@angular/common/http';
       {path: 'home-page', component: HomePageComponent },
       {path: 'previous-orders', component: PreviousOrdersComponent},
       {path: 'cart', component: CartComponent},
-      {path: 'sidebar', component: SidebarComponent},
+      {path: 'item-gird', component: ItemGirdComponent},
       {path: '', pathMatch: 'full', redirectTo: 'home-page' },
       {path: '**', pathMatch: 'full', component: PageNotFoundComponent},
     ]),
