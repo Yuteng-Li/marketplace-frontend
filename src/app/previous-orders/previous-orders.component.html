@@ -11,9 +11,9 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card-body">
-                    <div class="container rounded" *ngIf="previousOrders.length; else emptyli">
+                    <div class="container rounded" *ngIf="sortedOrders.length; else emptyli">
                         <table>
-                        <tr>
+                        <tr class="thh">
                             <th>OrderID</th>
                             <th>UserID</th>
                             <th>AddressID</th>
@@ -50,6 +50,7 @@
         </div>
     </div>
 </div>
+
 
 
 

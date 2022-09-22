@@ -5,6 +5,7 @@
 
 h1{
     font-family: futura-pt, sans-serif;
+    color: #000c68
 }
 
 .table_background {
@@ -33,15 +34,16 @@ th {
     font-size: 18px;
     color: black;
     border: black;
-    border-radius: 5px;
     background-image: url("/assets/img4.png");
+    background-size: 1000%;
     background-position: bottom right;
+    padding: 0px 20px 0px 20px;
 }
 
 
 
 table .shadow:hover {
-    box-shadow: inset 0 0 0 9999999px rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 0 999999px rgba(0,0,0,0.3);
     border-radius: 5px;
 }
 
@@ -53,3 +55,4 @@ tr:nth-child(even) {
 .cancelbtn:hover {
     color: red;
 }
+
