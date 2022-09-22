@@ -13,6 +13,7 @@ import { CreditCardComponent } from './credit-card/credit-card.component';
 import { PaymentFormComponent } from './payment-form/payment-form.component';
 
 
+import { CategoriesComponent } from './categories/categories.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,9 @@ import { PaymentFormComponent } from './payment-form/payment-form.component';
     HomePageComponent,
     CreditCardComponent,
     PaymentFormComponent,
-    CartComponent
+    CartComponent,
+    CategoriesComponent
+
   ],
   imports: [
     BrowserModule,
@@ -32,8 +35,9 @@ import { PaymentFormComponent } from './payment-form/payment-form.component';
       {path: 'cart', component: CartComponent},
       {path: 'credit-card', component: CreditCardComponent},
       {path: 'payment-form', component: PaymentFormComponent},
+      {path: 'categories', component: CategoriesComponent},
       {path: '', pathMatch: 'full', redirectTo: 'home-page' },
-      {path: '**', pathMatch: 'full', component: PageNotFoundComponent},
+      {path: '**', pathMatch: 'full', component: PageNotFoundComponent}
     ]),
     FormsModule
   ],
