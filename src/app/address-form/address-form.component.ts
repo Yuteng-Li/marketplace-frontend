@@ -14,7 +14,8 @@ import {SocialAuthService, SocialUser} from "@abacritt/angularx-social-login";
 export class AddressFormComponent implements OnInit{
 
   user!: SocialUser;
-
+  port_number:number = 9090;
+  // get_address_api:string = `http://localhost:${this.port_number}/api/address/getAddress/${this.user.id}`
   /*
   Below we include the different form fields that are needed for display, and HTTP method purposes (Post, put,...)
    */
@@ -64,7 +65,8 @@ export class AddressFormComponent implements OnInit{
 
     // after user logs in, GET their info from the DB, and assign the result to various vars specified for storage
     // and HTTP methods
-    this.http.get(`http://localhost:9090/api/address/getAddress/${this.user.id}`)
+    console.log(`The SSO provided user is: ${this.user.email}\n\n\n`);
+    this.http.get(`http://localhost:${this.port_number}/api/address/getAddress/${1}`)
       .subscribe
       (data =>
         {
@@ -110,11 +112,19 @@ export class AddressFormComponent implements OnInit{
   deleteAddress():void
   {
     console.log("Delete button clicked");
-    console.log(`http://localhost:9090/api/deleteAddress/${this.addressid}`)
+    console.log(`http://localhost:${this.port_number}/api/address/deleteAddress/1`)
     this.http.delete
     (
-      `http://localhost:9090/api/deleteAddress/${this.addressid}`
-    );
+      `http://localhost:${this.port_number}/api/address/deleteAddress/1`
+    ).subscribe(() => console.log("Deleted"));
+    this.userID =  '';
+    this.addressid =  '';
+    this.recipient_name =  '';
+    this.street = '';
+    this.street2 =  '';
+    this.state = '';
+    this.zip =  '';
+    this.city = '';
   }
 
   userLog(): void
