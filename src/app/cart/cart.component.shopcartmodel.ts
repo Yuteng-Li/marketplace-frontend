@@ -4,7 +4,12 @@ export class ShoppingCart{
    itemPrice:number=0;
    itemImgUrl:String="";
    itemDesc:String="";
-   
+   itemQty:number=0;
+    
+    // constructor(itemUpc,itemName,itemPrice,itemImgUrl,itemDesc, itemQty){
+
+    // }
+
    public get _itemUpc(){
     return this.itemUpc;
    }

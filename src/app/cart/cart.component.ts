@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit, Output } from '@angular/core';
 import { Product } from './cart.component.model';
 import { CartService } from './cart.component.service';
+import { ShoppingCart } from './cart.component.shopcartmodel';
 
 @Component({
   selector: 'app-cart',
@@ -12,8 +13,10 @@ export class CartComponent implements OnInit {
   cartItems = this.cartservice.getCart();
 
   testing!:Product; 
-  
 
+  //figure out how to use getter to create shopping cart
+  shoppingCartArray!:ShoppingCart[];
+  
 
   /*diff(difference) is used when determining if we increase qty 
   or decrease qty */
@@ -63,6 +66,8 @@ export class CartComponent implements OnInit {
     this.cartservice.testhttp().subscribe({
       next: testing => this.testing = testing
     });
+
+    //try useing getter to populate shopping cart array.
     
     this.cartItems.forEach(item => { 
       this.cartSubtotal += (item.itemPrice * item.itemQty)
