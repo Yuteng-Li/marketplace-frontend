@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ItemService } from '../item.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpParams } from '@angular/common/http';
+import { SocialAuthService } from '@abacritt/angularx-social-login';
+import { SocialUser } from '@abacritt/angularx-social-login';
 
 @Component({
   selector: 'app-item-gird',
@@ -13,18 +15,27 @@ export class ItemGirdComponent implements OnInit {
 
 
   product : any[] = [];
+  user!: SocialUser;
 
-  constructor(private ItemService:ItemService, private route: ActivatedRoute,
+
+  constructor(private ItemService:ItemService, private authService: SocialAuthService, private route: ActivatedRoute,
     private router: Router) { 
-
   }
 
 
   ngOnInit(): void {
     //These API calls are temporary as the DBs are still changing so these will
     //eventually be changed but right now if you use the inventory db it should work until they change it
+    this.authService.authState.subscribe((user) => {
+      this.user = user;
+      console.log(user);
+    });
     this.DisplayAll();
     this.getByQuery();
+  }
+
+  signOut(): void {
+    this.authService.signOut();
   }
 
   displayByID(id:string){

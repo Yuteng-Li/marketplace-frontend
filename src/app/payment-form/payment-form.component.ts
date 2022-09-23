@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import { SocialAuthService } from '@abacritt/angularx-social-login';
+import { SocialUser } from '@abacritt/angularx-social-login';
+
 @Component({
   selector: 'app-payment-form',
   templateUrl: './payment-form.component.html',
@@ -7,8 +10,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PaymentFormComponent implements OnInit {
 
-  constructor() { }
+  user!: SocialUser;
 
-  ngOnInit(): void {
+  constructor(private authService: SocialAuthService) { }
+
+  ngOnInit() {
+    this.authService.authState.subscribe((user) => {
+      this.user = user;
+      console.log(user);
+    });
+  }
+
+  signOut(): void {
+    this.authService.signOut();
   }
 }
