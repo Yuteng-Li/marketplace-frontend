@@ -4,6 +4,7 @@ import { PreviousOrdersService } from './previous-orders.service';
 import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { SocialUser } from '@abacritt/angularx-social-login';
 
+
 @Component({
   selector: 'app-previous-orders',
   templateUrl: './previous-orders.component.html',
@@ -11,7 +12,8 @@ import { SocialUser } from '@abacritt/angularx-social-login';
 })
 export class PreviousOrdersComponent implements OnInit {
   previousOrders: any = [];
-  constructor(private previousOrdersService: PreviousOrdersService,private authService: SocialAuthService) {}  invalidDate: Date = new Date(0);
+  constructor(private previousOrdersService: PreviousOrdersService,private authService: SocialAuthService) {}
+  invalidDate: Date = new Date(0);
 
   getPreviousOrders(): void {
     this.previousOrdersService
