@@ -16,7 +16,7 @@
       <div class="card-body">
         <div
           class="container rounded"
-          *ngIf="sortedOrders.length; else emptyli"
+          *ngIf="previousOrders.length; else emptyli"
         >
           <table>
             <tr class="thh">
@@ -49,17 +49,17 @@
               <td>{{ order.OrderStatus }}</td>
 
               <td>
-                <form action="hello" method="post" id="myForm">
-                  <button
+                <form action="/api/orders/updateOrder/cancelled/{{order.OrderID}}" method="POST" onsubmit="alert(this.action)">
+                  <input
                     class="cancelbtn"
                     type="submit"
                     *ngIf="
                       order.OrderStatus == 'Not Shipped Yet';
                       else cantCancel
                     "
+                  
+                    value="Cancel Order"
                   >
-                    Cancel Order
-                  </button>
                 </form>
               </td>
               <td><ng-template #cantCancel>Not Available</ng-template></td>
