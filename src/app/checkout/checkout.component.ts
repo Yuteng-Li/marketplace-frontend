@@ -1,5 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormControl,
+  Validators,
+} from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { SocialAuthService } from '@abacritt/angularx-social-login';
+import { SocialUser } from '@abacritt/angularx-social-login';
+import { filter } from 'rxjs/operators';
+import { Address } from '../shared/address';
+import { AddressService } from './address.service';
 
 @Component({
   selector: 'app-checkout',
@@ -7,72 +18,110 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
   styleUrls: ['./checkout.component.css'],
 })
 export class CheckoutComponent implements OnInit {
-  
-  // checkoutForm = new FormGroup({
-  //   deliveryAddress: new FormGroup({
-  //     deliveryFirstName: new FormControl(''),
-  //     deliveryLastName: new FormControl(''),
-  //     deliveryAddress1: new FormControl(''),
-  //     deliveryAddress2: new FormControl(''),
-  //     deliveryCity: new FormControl(''),
-  //     deliveryState: new FormControl(''),
-  //     deliveryZip: new FormControl(''),
-  //   }),
-  //   payment: new FormGroup({
-  //     cardholderName: new FormControl(''),
-  //     cardNumber: new FormControl(''),
-  //     cardType: new FormControl(''),
-  //     cardExpireDate: new FormControl(''),
-  //     cardCvv: new FormControl(''),
-  //   }),
-  //   billingAddress: new FormGroup({
-  //     billingFirstName: new FormControl(''),
-  //     billingLastName: new FormControl(''),
-  //     billingAddress1: new FormControl(''),
-  //     billingAddress2: new FormControl(''),
-  //     billingCity: new FormControl(''),
-  //     billingState: new FormControl(''),
-  //     billingZip: new FormControl(''),
-  //   }),
-  // });
-
-  //The above code snippet is the same as the one below
-
-  checkoutForm = this.fb.group({
-    deliveryAddress: this.fb.group({
-      deliveryFirstName: [''],
-      deliveryLastName: [''],
-      deliveryAddress1: [''],
-      deliveryAddress2: [''],
-      deliveryCity: [''],
-      deliveryState: [''],
-      deliveryZip: [''],
-    }),
-    payment: this.fb.group({
-      cardholderName: [''],
-      cardNumber: [''],
-      cardType: [''],
-      cardExpireDate: [''],
-      cardCvv: [''],
-    }),
-    billingAddress: this.fb.group({
-      billingFirstName: [''],
-      billingLastName: [''],
-      billingAddress1: [''],
-      billingAddress2: [''],
-      billingCity: [''],
-      billingState: [''],
-      billingZip: [''],
-    }),
-  })
-
+  user!: SocialUser;
   sameAsDelivery: Boolean = false;
+  checkoutForm: FormGroup;
+  userAddresses: Address[] = [];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private http: HttpClient,
+    private authService: SocialAuthService,
+    private addressService: AddressService
+  ) {
+    this.checkoutForm = this.fb.group({
+      deliveryAddress: this.fb.group({
+        deliveryFirstName: ['', Validators.required],
+        deliveryLastName: ['', Validators.required],
+        deliveryAddress1: ['', Validators.required],
+        deliveryAddress2: [''],
+        deliveryCity: ['', Validators.required],
+        deliveryState: ['', Validators.required],
+        deliveryZip: ['', Validators.required],
+      }),
+      payment: this.fb.group({
+        cardholderName: ['', Validators.required],
+        cardNumber: ['', Validators.required],
+        //cardType: ['', Validators.required],
+        cardExpireDate: ['', Validators.required],
+        cardCvv: ['', Validators.required],
+      }),
+      billingAddress: this.fb.group({
+        billingFirstName: ['', Validators.required],
+        billingLastName: ['', Validators.required],
+        billingAddress1: ['', Validators.required],
+        billingAddress2: [''],
+        billingCity: ['', Validators.required],
+        billingState: ['', Validators.required],
+        billingZip: ['', Validators.required],
+      }),
+    });
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.authService.authState.subscribe((user) => {
+      this.user = user;
+      console.log(user);
+    });
 
-  onSubmit() {
+    this.addressService.getAllAddresses().subscribe((addresses) => {
+      addresses.forEach((address) => {
+        if (address.userID == 1) {
+          this.userAddresses.push(address);
+        }
+      });
+    });
+    console.log(this.userAddresses);
+  }
+
+  onSubmit(): void {
     console.warn(this.checkoutForm.value);
+  }
+
+  clickedSameAsDelivery(): void {
+    this.sameAsDelivery = !this.sameAsDelivery;
+    if (this.sameAsDelivery == true) {
+      this.checkoutForm
+        .get('billingAddress.billingFirstName')
+        ?.setValue(
+          this.checkoutForm.get('deliveryAddress.deliveryFirstName')?.value
+        );
+      this.checkoutForm
+        .get('billingAddress.billingLastName')
+        ?.setValue(
+          this.checkoutForm.get('deliveryAddress.deliveryLastName')?.value
+        );
+      this.checkoutForm
+        .get('billingAddress.billingAddress1')
+        ?.setValue(
+          this.checkoutForm.get('deliveryAddress.deliveryAddress1')?.value
+        );
+      this.checkoutForm
+        .get('billingAddress.billingAddress2')
+        ?.setValue(
+          this.checkoutForm.get('deliveryAddress.deliveryAddress2')?.value
+        );
+      this.checkoutForm
+        .get('billingAddress.billingCity')
+        ?.setValue(
+          this.checkoutForm.get('deliveryAddress.deliveryCity')?.value
+        );
+      this.checkoutForm
+        .get('billingAddress.billingState')
+        ?.setValue(
+          this.checkoutForm.get('deliveryAddress.deliveryState')?.value
+        );
+      this.checkoutForm
+        .get('billingAddress.billingZip')
+        ?.setValue(this.checkoutForm.get('deliveryAddress.deliveryZip')?.value);
+    } else {
+      this.checkoutForm.get('billingAddress.billingFirstName')?.setValue('');
+      this.checkoutForm.get('billingAddress.billingLastName')?.setValue('');
+      this.checkoutForm.get('billingAddress.billingAddress1')?.setValue('');
+      this.checkoutForm.get('billingAddress.billingAddress2')?.setValue('');
+      this.checkoutForm.get('billingAddress.billingCity')?.setValue('');
+      this.checkoutForm.get('billingAddress.billingState')?.setValue('');
+      this.checkoutForm.get('billingAddress.billingZip')?.setValue('');
+    }
   }
 }

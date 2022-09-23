@@ -43,7 +43,7 @@
         <input id="chname" class="form-control" type="text" placeholder="Cardholder Name"
             formControlName="cardholderName" />
         <input id="cnumber" class="form-control" type="text" placeholder="Card Number"
-            formControlName="cardholderName" />
+            formControlName="cardNumber" />
         <div class="row">
             <div class="col">
                 <input id="cexp" class="form-control" type="text" placeholder="Expiratoin MM/YY"
@@ -62,7 +62,7 @@
 
         <div class="form-check">
             <input class="form-check-input" type="checkbox" id="sameDelivery" [checked]="sameAsDelivery == true"
-                (change)="sameAsDelivery = !sameAsDelivery" />
+                (change)=clickedSameAsDelivery() />
             <label class="form-check-label" for="sameDelivery">
                 Same as delivery?
             </label>
