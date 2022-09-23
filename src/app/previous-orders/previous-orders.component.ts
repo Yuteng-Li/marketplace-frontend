@@ -5,6 +5,9 @@ import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { SocialUser } from '@abacritt/angularx-social-login';
 
 
+import { SocialAuthService } from '@abacritt/angularx-social-login';
+import { SocialUser } from '@abacritt/angularx-social-login';
+
 @Component({
   selector: 'app-previous-orders',
   templateUrl: './previous-orders.component.html',
@@ -66,3 +69,4 @@ export class PreviousOrdersComponent implements OnInit {
     });
   }
 }
+
