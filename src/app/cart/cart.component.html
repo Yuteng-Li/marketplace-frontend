@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="http://fonts.cdnfonts.com/css/corbel" rel="stylesheet">
+    <link rel="stylesheet" href="./cart.component.css">
+    <title>Cart</title>
+
+    <script src="./src/bootstrap-input-spinner.js"></script>
+    <script>
+        $("input[type='number']").inputSpinner()
+    </script>
+    
+</head>
+<body>
+    <nav>
+        <a class="button"
+        routerLink="/home-page"
+        routerLinkActive="activebutton"
+        ariaCurrentWhenActive="page">Return to Home Page</a>
+    </nav>
+
+<h1 style="text-align: center">My Cart</h1>
+
+<div class="table-margin">
+<table class="table border">
+ <thead>
+    <tr class="rowbg">
+        <th></th>
+        <th>Item</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Total</th>
+    </tr>
+
+    <tr *ngFor="let item of cartItems; let index = index">
+        <td>Item image placeholder</td>
+        <td>{{ item.itemName }}</td>
+        <td>{{ item.itemPrice | currency: 'USD'}}</td>
+        <td>
+            <input type="number"  [(ngModel)]="item.itemQty" (change)="handleChange(index)" min="1" max="100" step="1" id="btnDis"/>
+            <!--need to fix the delete button-->
+            <button type="button" class="btn btn-outline-primary btn-sm" id="btnDis" (click) = "cartItems.splice(index, 1)">Remove</button>
+        </td>
+        <td>{{ (item.itemPrice * item.itemQty) | currency: 'USD'}}</td>
+    </tr>
+ </thead>
+</table>
+</div>
+
+<button type="button" class="btn btn-primary" style="float: right; margin-right: 160px; margin-bottom: 20px" [routerLink]="['/home-page']">Continue Shopping</button>
+
+
+<div class="table-margin2">
+<table class="table table-bordered border">
+    <thead>
+        <tr>
+            <th class="rowbg2" colspan="2" style="text-align: center">Cart Totals</th>
+        </tr>
+    </thead>
+
+        <tr>
+            <th colspan="1">Total Items</th>
+            <td style="text-align: center">{{ numItems }}</td>
+        </tr>
+
+        <tr>
+            <th colspan="1">Subtotal</th>
+            <td style="text-align: center">{{ cartSubtotal | currency:'USD'}}</td>
+        </tr>
+</table>
+</div>
+
+<!-- Not linked to the checkout page yet. Need routerLink for it-->
+<button type="button" class="btn btn-primary" style="float: right; margin-right: 160px">Proceed to Checkout</button>
+    
+</body>
+</html>
