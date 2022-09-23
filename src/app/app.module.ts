@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
@@ -9,6 +9,12 @@ import { PreviousOrdersComponent } from './previous-orders/previous-orders.compo
 import { RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HomePageComponent } from './home-page/home-page.component';
+import { HttpClientModule } from '@angular/common/http';
+import { CreditCardComponent } from './credit-card/credit-card.component';
+import { PaymentFormComponent } from './payment-form/payment-form.component';
+
+import { SearchBarComponent } from './search-bar/search-bar.component';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
 
 import { CategoriesComponent } from './categories/categories.component';
 import { ItemGirdComponent } from './item-gird/item-gird.component';
@@ -17,14 +23,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 
-import {HttpClientModule} from '@angular/common/http';
-
 import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
-import {  GoogleLoginProvider } from '@abacritt/angularx-social-login';
+import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
 import { LoginComponent } from './login/login.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
-
 
 
 @NgModule({
@@ -33,17 +36,25 @@ import { ReactiveFormsModule } from '@angular/forms';
     PreviousOrdersComponent,
     PageNotFoundComponent,
     HomePageComponent,
+    CreditCardComponent,
+    PaymentFormComponent,
     CartComponent,
     CategoriesComponent,
     ItemGirdComponent,
-    LoginComponent
+    LoginComponent,
+    SearchBarComponent,
+    NavBarComponent,
   ],
+  
   imports: [
+    HttpClientModule,
     BrowserModule,
     RouterModule.forRoot([
       {path: 'home-page', component: HomePageComponent },
       {path: 'previous-orders', component: PreviousOrdersComponent},
       {path: 'cart', component: CartComponent},
+      {path: 'credit-card', component: CreditCardComponent},
+      {path: 'payment-form', component: PaymentFormComponent},
       {path: 'login', component: LoginComponent},
       {path: 'categories', component: CategoriesComponent},
       {path: 'item-gird', component: ItemGirdComponent},
