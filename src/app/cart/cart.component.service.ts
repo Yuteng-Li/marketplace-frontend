@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import{ HttpClient} from '@angular/common/http'
-import { ShopppingCart } from "./cart.component.model";
+import { Product } from "./cart.component.model";
 import {Observable, tap } from "rxjs";
 
 @Injectable({
@@ -13,8 +13,8 @@ export class CartService{
     constructor(private http:HttpClient){}
 
     //need to do exception handling
-   testhttp():Observable<ShopppingCart>{
-        return this.http.get<ShopppingCart>(this.productUrl).pipe(
+   testhttp():Observable<Product>{
+        return this.http.get<Product>(this.productUrl).pipe(
             tap(data=>console.log('All: ',JSON.stringify(data)))
         );
    }

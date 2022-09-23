@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit, Output } from '@angular/core';
-import { ShopppingCart } from './cart.component.model';
+import { Product } from './cart.component.model';
 import { CartService } from './cart.component.service';
 
 @Component({
@@ -11,7 +11,8 @@ export class CartComponent implements OnInit {
   constructor(private cartservice:CartService) {}
   cartItems = this.cartservice.getCart();
 
-  testing!:ShopppingCart; 
+  testing!:Product; 
+  
 
 
   /*diff(difference) is used when determining if we increase qty 
@@ -36,7 +37,6 @@ export class CartComponent implements OnInit {
   }
   handleChange(index:number){
       this.diff = this.cartItems[index].itemQty-this.temp[index];
-      console.log(this.testing);
       //also handle subtotal
       //rewrite cartsubtotal using itemQty*itemPrice
       //two cases, when increase qty and decrease qty
