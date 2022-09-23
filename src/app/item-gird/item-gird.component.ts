@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ItemService } from '../item.service';
-
+import { ActivatedRoute, Router } from '@angular/router';
+import { HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-item-gird',
@@ -13,7 +14,8 @@ export class ItemGirdComponent implements OnInit {
 
   product : any[] = [];
 
-  constructor(private ItemService:ItemService) { 
+  constructor(private ItemService:ItemService, private route: ActivatedRoute,
+    private router: Router) { 
 
   }
 
@@ -22,6 +24,7 @@ export class ItemGirdComponent implements OnInit {
     //These API calls are temporary as the DBs are still changing so these will
     //eventually be changed but right now if you use the inventory db it should work until they change it
     this.DisplayAll();
+    this.getByQuery();
   }
 
   displayByID(id:string){
@@ -35,6 +38,24 @@ export class ItemGirdComponent implements OnInit {
     this.ItemService.getProduct().subscribe(product => {
       this.product=product;
       console.log(product);
+    })
+  }
+
+  getByQuery(){
+    let queryParams = new HttpParams();
+
+    this.route.queryParamMap
+      .subscribe(paramMap => {
+        paramMap.keys.forEach(key => {
+          let value = paramMap.get(key);
+          if(value != null)
+          queryParams = queryParams.append(key,value)
+        });
+      }
+    );
+
+    this.ItemService.getProducts(queryParams).subscribe(product => {
+      this.product=product;
     })
   }
 
