@@ -25,7 +25,8 @@ import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-s
 import {  GoogleLoginProvider } from '@abacritt/angularx-social-login';
 import { LoginComponent } from './login/login.component';
 
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
+import {AddressFormComponent} from "./address-form/address-form.component";
 
 
 
@@ -40,7 +41,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     CartComponent,
     CategoriesComponent,
     ItemGirdComponent,
-    LoginComponent
+    LoginComponent,
+    AddressFormComponent
   ],
   imports: [
     HttpClientModule,
@@ -51,6 +53,7 @@ import { ReactiveFormsModule } from '@angular/forms';
       {path: 'cart', component: CartComponent},
       {path: 'credit-card', component: CreditCardComponent},
       {path: 'payment-form', component: PaymentFormComponent},
+      {path: 'address-form', component: AddressFormComponent},
       {path: 'login', component: LoginComponent},
       {path: 'categories', component: CategoriesComponent},
       {path: 'item-gird', component: ItemGirdComponent},
@@ -64,7 +67,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     SocialLoginModule,
     ReactiveFormsModule
   ],
-  
+
   providers: [{
     provide: 'SocialAuthServiceConfig',
     useValue: {

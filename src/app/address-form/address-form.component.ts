@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import {Observable, throwError} from "rxjs";
 import {HttpClient} from "@angular/common/http";
+import {SocialAuthService, SocialUser} from "@abacritt/angularx-social-login";
 
 
 @Component({
@@ -12,7 +13,14 @@ import {HttpClient} from "@angular/common/http";
 
 export class AddressFormComponent implements OnInit{
 
-  // addressForm?:FormGroup;
+  user!: SocialUser;
+
+  /*
+  Below we include the different form fields that are needed for display, and HTTP method purposes (Post, put,...)
+   */
+
+  // userData is in this format because I need to add user info into this userData and send this object to HTTP Methods
+  // without the {[index: string]:any} i can't really index or add anything to the object
   userData: {[index: string]:any} = {};
   userID?:string;
   addressid?:string;
@@ -24,9 +32,12 @@ export class AddressFormComponent implements OnInit{
   zip?:string;
 
 
+  // the form builder making the different fields with a generic validator for now
   addressForm = this.fb.group
   (
     {
+      // addressid and userid are included in the form code, BUT!! not presented to the user, as they don't need to
+      // know their ids, these 2 fields are just kept for ease of coding(sending the PUT/Post/Patch... requests)
       addressid: [''],
       userid: [''],
       recipient_name: ['', Validators.required],
@@ -40,12 +51,20 @@ export class AddressFormComponent implements OnInit{
     }
   );
 
-  constructor(private fb: FormBuilder, private http: HttpClient)
+  constructor(private fb: FormBuilder, private http: HttpClient, private authService: SocialAuthService)
   {
   }
 
   ngOnInit(): void {
-    this.http.get("http://localhost:9090/api/address/getAddress/1")
+
+    this.authService.authState.subscribe((user) => {
+      this.user = user;
+      console.log(`THIS IS THE LOGIN LOG FROM ADDRESS FORM COMPONENT\n\n `,user);
+    });
+
+    // after user logs in, GET their info from the DB, and assign the result to various vars specified for storage
+    // and HTTP methods
+    this.http.get(`http://localhost:9090/api/address/getAddress/${this.user.id}`)
       .subscribe
       (data =>
         {
@@ -69,8 +88,11 @@ export class AddressFormComponent implements OnInit{
 
   onSubmit(): void
   {
+
     if (this.addressForm.valid == true)
     {
+      // once all the required fields of the FORMBUILDER is valid, then add the userID and addressID to the FB,
+      // and send for PUT request.
       this.addressForm.value.userid = this.userID;
       this.addressForm.value.addressid = this.addressid;
 
@@ -97,62 +119,8 @@ export class AddressFormComponent implements OnInit{
 
   userLog(): void
   {
-    // this.http.get("http://localhost:9090/api/address/getAddress/1")
-    //   .subscribe
-    //   (data =>
-    //     {
-    //       // console.log(data);
-    //       this.userData = data;
-    //
-    //     }
-    //   );
-
-    // // console.log(this.userData);
-    // this.userID = this.userData['userID'];
-    // this.recipient_name = this.userData['recipientName'];
-    // this.street = this.userData['street'];
-    // this.street2 = this.userData['street2'];
-    // this.state = this.userData['state'];
-    // this.zip = this.userData['zip'];
-    // this.city = this.userData['city'];
-
+    // STUB
   }
 }
 
 
-// export class AddressFormComponent implements OnInit {
-//
-//   addressForm:FormGroup = new FormGroup
-//     (
-//       {
-//       _recipientName: new FormControl(''),
-//       _street: new FormControl(''),
-//       _street2: new FormControl(''),
-//       _city: new FormControl(''),
-//       _state: new FormControl(''),
-//       _zip: new FormControl(''),
-//       _isShipping: new FormControl(''),
-//       _isBilling: new FormControl(''),
-//       }
-//     );
-//
-//   constructor(fb: FormBuilder)
-//   {
-//     // this.myForm = fb.group
-//     // (
-//     //   {
-//     //     recipientName : ['James']
-//     //   }
-//     // );
-//   }
-//
-//   ngOnInit(): void {
-//   }
-//
-//
-//   onSubmit(): void
-//   {
-//     console.log('You entered value: ', this.addressForm.value);
-//   }
-//
-// }
