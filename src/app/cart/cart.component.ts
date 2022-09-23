@@ -2,13 +2,17 @@ import { ChangeDetectionStrategy, Component, Input, OnInit, Output } from '@angu
 import { ShopppingCart } from './cart.component.model';
 import { CartService } from './cart.component.service';
 
+import { SocialAuthService } from '@abacritt/angularx-social-login';
+import { SocialUser } from '@abacritt/angularx-social-login';
+
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-  constructor(private cartservice:CartService) {}
+  user!: SocialUser;
+  constructor(private cartservice:CartService,private authService: SocialAuthService) {}
   cartItems = this.cartservice.getCart();
 
   testing!:ShopppingCart; 
@@ -70,6 +74,15 @@ export class CartComponent implements OnInit {
     this.cartItems.forEach(item => {
       this.numItems += item.itemQty
     })
+
+    this.authService.authState.subscribe((user) => {
+      this.user = user;
+      console.log(user);
+    });
+}
+
+signOut(): void {
+  this.authService.signOut();
 }
 
 }
