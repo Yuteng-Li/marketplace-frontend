@@ -22,14 +22,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 
-import {HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
-import {  GoogleLoginProvider } from '@abacritt/angularx-social-login';
+import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
 import { LoginComponent } from './login/login.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
-
 
 
 @NgModule({
@@ -47,7 +46,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     SearchBarComponent,
     NavBarComponent,
   ],
+  
   imports: [
+    HttpClientModule,
     BrowserModule,
     RouterModule.forRoot([
       {path: 'home-page', component: HomePageComponent },
