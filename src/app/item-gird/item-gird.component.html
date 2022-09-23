@@ -1,0 +1,97 @@
+
+<p>display</p>
+<nav>
+    <a class="button"
+    routerLink="/home-page"
+    routerLinkActive="activebutton"
+    ariaCurrentWhenActive="page">Return to Home Page</a>
+</nav>
+
+<div class="container">
+    <div class="row py-4">
+        <div class="col-2 order-2" id="sticky-sidebar">
+
+                <h4>Filter options?(maybe be removed)</h4>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+
+                    <label class="form-check-label" for="flexCheckDefault">
+                      Default checkbox
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+
+                    <label class="form-check-label" for="flexCheckDefault">
+                      Default checkbox
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+
+                    <label class="form-check-label" for="flexCheckDefault">
+                      Default checkbox
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+
+                    <label class="form-check-label" for="flexCheckDefault">
+                      Default checkbox
+                    </label>
+                </div>
+        </div>
+        <div class="col" id="main">
+          <div class="content">
+
+            <div fxLayout="row wrap" fxLayoutGap="16px grid">
+          
+              <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let num of [1,2,3,4,5,6]">
+
+                <div class="card">
+          
+                  <div *ngIf="num % 2==0; else elseBlock">
+                    <img class="card-img-top" src = "./../assets/images/defaultMilk.jpg">
+                  </div>
+                  <ng-template #elseBlock>
+                    <img class="card-img-top" src = "./../assets/images/cereal.jpg">
+                  </ng-template>
+          
+                  <h5 class="card-title">Card title</h5>
+          
+                  <div class="card-body">
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  </div>
+          
+                  <a href="#" class="btn btn-primary">Add to Cart</a>
+                </div>
+          
+              </div>
+          
+              <!-- For tester let me know how this code works as the inventory DB must have been update whihc means I need to update this
+          
+          
+                This is for API call to BackEnd this works if you have the inventory backend up and will display the ID set in item-grid
+                ts file  Continue development after DB are further along
+            
+              <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let num of product">
+          
+                <div class="card">
+                  <img class="card-img-top" src="num.imageURL">
+          
+          
+                <div class="card-body">
+                  <h2 class="card-text text-justify">Price: {{num.pricePerUnit}}</h2>
+                  <p class="card-text text-justify">{{num.prodName}}</p>
+                </div>
+          
+                <a href="#" class="btn btn-primary">Add to Cart</a>
+              </div> -->
+              
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
