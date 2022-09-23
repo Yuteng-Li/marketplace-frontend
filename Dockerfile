@@ -9,6 +9,6 @@ RUN npm run build
 # Run
 FROM nginx:stable
 COPY --from=build /usr/src/app/dist/* /usr/share/nginx/html/
-COPY */*.conf /etc/nginx/conf*/default.conf
+COPY conf /etc/nginx
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
