@@ -1,13 +1,14 @@
 # Build using node as base image
 FROM node AS build
 WORKDIR /usr/src/app
-COPY package.json package-lock.json ./
+COPY package.json ./
 COPY . ./
+RUN npm update
 RUN npm install
 RUN npm run build
 
 # Run
-FROM nginx:1.22.0-alpine
+FROM nginx:stable
 COPY --from=build /usr/src/app/dist/* /usr/share/nginx/html/
 COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
