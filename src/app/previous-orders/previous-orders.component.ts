@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PreviousOrdersService } from '../previous-orders.service';
 
+import { SocialAuthService } from '@abacritt/angularx-social-login';
+import { SocialUser } from '@abacritt/angularx-social-login';
+
 @Component({
   selector: 'app-previous-orders',
   templateUrl: './previous-orders.component.html',
@@ -8,7 +11,7 @@ import { PreviousOrdersService } from '../previous-orders.service';
 })
 export class PreviousOrdersComponent implements OnInit {
   previousOrders: any = [];
-  constructor(private previousOrdersService: PreviousOrdersService) {}
+  constructor(private previousOrdersService: PreviousOrdersService,private authService: SocialAuthService) {}
 
   getPreviousOrders(): void {
     this.previousOrdersService
@@ -24,9 +27,19 @@ export class PreviousOrdersComponent implements OnInit {
       );
     });
   }
-
+  user!: SocialUser;
   ngOnInit(): void {
     this.getPreviousOrders();
+
+    this.authService.authState.subscribe((user) => {
+      this.user = user;
+      console.log(user);
+    });
   }
 
+
+
+  signOut(): void {
+    this.authService.signOut();
+  }
 }
