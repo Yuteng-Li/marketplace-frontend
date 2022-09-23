@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<nav>
+    <a class="button"
+    routerLink="/home-page"
+    routerLinkActive="activebutton"
+    ariaCurrentWhenActive="page">Return to Home Page</a>
+</nav>
+<h1>
+    Payment Methods
+</h1>
+<div>
+    <a class="button1"
+    routerLink="/payment-form"
+    routerLinkActive="activebutton"
+    ariaCurrentWhenActive="page">Add New Payment</a>
+</div>
+
+
+<div>
+    <table border = 1>
+        <tr class="a">
+            <th>Name</th>
+            <th>Bank</th>
+            <th>Type</th>
+            <th>Card Number</th>
+            <th></th>
+        </tr>
+        <tr *ngFor = "let card of listOfCards; let index = index">
+            <td>{{card.bankName}}</td>
+            <td>{{card.cardholderName}}</td>
+            <td>{{card.cardType}}</td>
+            <td>{{card.cardNumber}}</td>
+            <td>
+                <button type="button" class="button1" id="removeCard" (click)="listOfCards.splice(index, 1)">Remove Card</button>
+            </td>
+        </tr>
+    </table>
+</div>
