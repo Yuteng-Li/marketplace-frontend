@@ -3,7 +3,6 @@ FROM node AS build
 WORKDIR /usr/src/app
 COPY package.json ./
 COPY . ./
-RUN npm update
 RUN npm install
 RUN npm run build
 
