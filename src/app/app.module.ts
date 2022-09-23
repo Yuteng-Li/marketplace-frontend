@@ -28,6 +28,7 @@ import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
 import { LoginComponent } from './login/login.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
+import { ConfirmOrderComponent } from './confirm-order/confirm-order.component';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     LoginComponent,
     SearchBarComponent,
     NavBarComponent,
+    ConfirmOrderComponent,
   ],
   
   imports: [
