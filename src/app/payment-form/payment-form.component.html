@@ -1,3 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
 <nav>
     <div>
         <a class="button"
@@ -11,16 +19,17 @@
         ariaCurrentWhenActive="page">Back to Credit Cards</a>
     </div>
 </nav>
+
 <div>
     <div class="center1">
-        <h1>Card Information</h1>
+        <h1 class="titles">Add a credit or debit card</h1>
     </div>
     <div class="center1">
-        <form class="a">
+        <form class="a" #paymentForm="ngForm" (ngSubmit)="createCard(paymentForm.value)">
             <body>
-                <fieldset style="border: 0.2em solid #33d8ff;">
-                    <legend style="font-weight:bold;">Select Bank</legend>
-                    <input type="radio" id="chase" name="bank" value="Chase" required>
+                <fieldset>
+                    <legend class="titles">Select Bank</legend>
+                    <input type="radio" id="chase" name="bank" value="Chase" required ngModel>
                     <label for="chase">Chase</label><br>
                 
                     <input type="radio" id="wellsFargo" name="bank" value="Wells Fargo">
@@ -36,21 +45,22 @@
             </body>
             <body>
                 <label for="cardNum">Card Number:</label><br>
-                <input type="text" id="cardNum" placeholder="Card Number" pattern="[0-9]{16}" required class="a" ><br>
+                <input type="text" id="cardNum" name ="cardNum" placeholder="Card Number" pattern="[0-9]{16}" class="a" required ngModel><br>
         
                 <label for="sCode">Security Code:</label><br>
-                <input type="text" id="sCode" placeholder="CVV" pattern="[0-9]{3-4}" required class="a"><br>
+                <input type="text" id="sCode" name ="sCode" placeholder="CVV" pattern="[0-9]{3-4}" class="a" required ngModel><br>
         
                 <label for="name">Name:</label><br>
-                <input type="text" id="name" placeholder="Card Holder Name" pattern="[A-Za-z]{1-40}" required class="a"><br><br>
+                <input type="text" id="name" name ="name" placeholder="Card Holder Name" pattern="[A-Za-z]{1-40}" class="a" required ngModel><br><br>
         
                 <label for="exp">Expiration Date:</label><br>
-                <input type="text" id="exp" placeholder="MM/YY" pattern="[0-9]{2}/[0-9]{2}" required class="a"><br><br>
-                
-                <input type="submit" value="Submit" class="b" ><br><br>
+                <input type="text" id="exp" name ="exp" placeholder="MM/YYYY" pattern="[1-9]{2}/[0-9]{4}" class="a" required ngModel><br><br>
+
+                <div class="buttonHolder">
+                    <input type="submit" value="Submit" class="b"><br><br>
+                </div>     
+                         
             </body>
         </form>
     </div>
 </div>
-
-
