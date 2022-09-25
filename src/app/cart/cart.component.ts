@@ -55,51 +55,51 @@ export class CartComponent implements OnInit,OnDestroy {
   }
   
   ngOnInit() {
-    //  this.subscription=this.cartservice.getProdByUpc("100000000001")
-    //  .pipe(map(ProdRes=><ShoppingCart>{
-    //     itemName:ProdRes.product.prod_name,
-    //     itemPrice:ProdRes.product.price_per_unit,
-    //     itemUpc:ProdRes.product.upc,
-    //     itemImgUrl:ProdRes.product.image_url,
-    //     itemDesc:ProdRes.product.prod_description,
-    //     itemQty:1
-    //  }))
-    // .subscribe(
-    //   shopCart =>{ this.shoppingCartArray.push(shopCart)
-    //     // this.temp=new Array(this.shoppingCartArray.length).fill(0);
-    //     // this.popluateTemp(this.shoppingCartArray);
-    //     // this.shoppingCartArray.forEach(item => { 
-    //     //   this.cartSubtotal += (item.itemPrice * item.itemQty)
-    //     // });
-    //     // this.shoppingCartArray.forEach(
-    //     //   item => {
-    //     //     this.numItems += item.itemQty
-    //     //   })
-    //   }
-    // );
+     this.subscription=this.cartservice.getProdByUpc("100000000001")
+     .pipe(map(ProdRes=><ShoppingCart>{
+        itemName:ProdRes.product.prod_name,
+        itemPrice:ProdRes.product.price_per_unit,
+        itemUpc:ProdRes.product.upc,
+        itemImgUrl:ProdRes.product.image_url,
+        itemDesc:ProdRes.product.prod_description,
+        itemQty:1
+     }))
+    .subscribe(
+      shopCart =>{ this.shoppingCartArray.push(shopCart)
+        // this.temp=new Array(this.shoppingCartArray.length).fill(0);
+        // this.popluateTemp(this.shoppingCartArray);
+        // this.shoppingCartArray.forEach(item => { 
+        //   this.cartSubtotal += (item.itemPrice * item.itemQty)
+        // });
+        // this.shoppingCartArray.forEach(
+        //   item => {
+        //     this.numItems += item.itemQty
+        //   })
+      }
+    );
 
-    // this.subscription=this.cartservice.getProdByUpc("100000000011")
-    //  .pipe(map(ProdRes=><ShoppingCart>{
-    //     itemName:ProdRes.product.prod_name,
-    //     itemPrice:ProdRes.product.price_per_unit,
-    //     itemUpc:ProdRes.product.upc,
-    //     itemImgUrl:ProdRes.product.image_url,
-    //     itemDesc:ProdRes.product.prod_description,
-    //     itemQty:1
-    //  }))
-    // .subscribe(
-    //   shopCart => {this.shoppingCartArray.push(shopCart);
-    //     this.temp=new Array(this.shoppingCartArray.length).fill(0);
-    //     this.popluateTemp(this.shoppingCartArray);
-    //     this.shoppingCartArray.forEach(item => { 
-    //       this.cartSubtotal += (item.itemPrice * item.itemQty)
-    //     });
-    //     this.shoppingCartArray.forEach(
-    //       item => {
-    //         this.numItems += item.itemQty
-    //       })
-    //     }
-    // );
+    this.subscription=this.cartservice.getProdByUpc("100000000011")
+     .pipe(map(ProdRes=><ShoppingCart>{
+        itemName:ProdRes.product.prod_name,
+        itemPrice:ProdRes.product.price_per_unit,
+        itemUpc:ProdRes.product.upc,
+        itemImgUrl:ProdRes.product.image_url,
+        itemDesc:ProdRes.product.prod_description,
+        itemQty:1
+     }))
+    .subscribe(
+      shopCart => {this.shoppingCartArray.push(shopCart);
+        this.temp=new Array(this.shoppingCartArray.length).fill(0);
+        this.popluateTemp(this.shoppingCartArray);
+        this.shoppingCartArray.forEach(item => { 
+          this.cartSubtotal += (item.itemPrice * item.itemQty)
+        });
+        this.shoppingCartArray.forEach(
+          item => {
+            this.numItems += item.itemQty
+          })
+        }
+    );
 
     
 
