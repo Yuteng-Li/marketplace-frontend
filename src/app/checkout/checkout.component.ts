@@ -66,6 +66,7 @@ export class CheckoutComponent implements OnInit {
 
     this.addressService.getAllAddresses().subscribe((addresses) => {
       addresses.forEach((address) => {
+        //USER ID IS HARDCODED, CHANGE LATER
         if (address.userID == 1) {
           this.userAddresses.push(address);
         }

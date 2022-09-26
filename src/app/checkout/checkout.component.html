@@ -1,5 +1,11 @@
+
+
+
 <form id="checkoutForm" class="col-lg-6 offset-lg-3 position-relative" [formGroup]="checkoutForm"
     (ngSubmit)="onSubmit()"> 
+    
+  
+    
     <div formGroupName="deliveryAddress">
         <h3>Delivery Address</h3>
         <div class="row justify-content-center">
@@ -106,7 +112,7 @@
     </div>
 
     <div class="w-75 position-absolute end-0">
-        <table class="table table-sm mt-3">
+        <!-- <table class="table table-sm mt-3">
             <thead class="">
                 <tr>
                     <th scope="col" colspan="2">Order Summary</th>
@@ -126,10 +132,21 @@
                     <td>$200</td>
                 </tr>
             </tbody>
-        </table>
+        </table> -->
         <div class="d-flex flex-row justify-content-end">
             <button type="button" class="btn btn-danger me-3">Cancel</button>
-            <button type="submit" class="btn btn-primary" [disabled]="!checkoutForm.valid">Place Your Order</button>
+            <button type="submit" class="btn btn-primary" [disabled]="!checkoutForm.valid">Go to Confirm Order</button>
+        </div>
+        <div class="btn-group">
+            <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle='dropdown' aria-expanded="false">
+                Addresses
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Astion</a></li>
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Action11</a></li>
+                <li><a class="dropdown-item" href="#">Actio1n</a></li>
+            </ul>
         </div>
     </div>
 </form>
