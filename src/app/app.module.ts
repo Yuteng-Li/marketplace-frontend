@@ -28,6 +28,7 @@ import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
 import { LoginComponent } from './login/login.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
+import { FilterPipe } from './Pipes/filter.pipe';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     LoginComponent,
     SearchBarComponent,
     NavBarComponent,
+    FilterPipe,
   ],
   
   imports: [
