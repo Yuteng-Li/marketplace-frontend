@@ -1,27 +1,63 @@
-<div>
-    <div>
+<div class="container">
+    <div class="top d-flex justify-content-between">
         <h2>Order Confirmation</h2>
-        <h3>Order Total: $</h3>
+        <span class="d-flex align-items-row">
+            <h3>Order Total: $</h3>
+            <button class="btn btn-primary" type="button" >Confirm Order</button>
+        </span>
     </div>
-    <div>
-        <h3>Your Information:</h3>
-        <div>
+    <div class="info-container">
+        <div class="info">
+            <h3>Your Information:</h3>
+            <div>
 
+            </div>
         </div>
-        <h3>Shipping address</h3>
-        <div>
+        <div class="info">
+            <h3>Shipping Address:</h3>
+            <div>
 
+            </div>
         </div>
+        <div class="info">
+            <h3>Payment:</h3>
+            <div>
 
-        <h3>Payment</h3>
-        <div>
-
+            </div>
         </div>
+        <div class="info">
+            <h3>Billing Address:</h3>
+            <div>
 
-        <h3>Billing Address</h3>
-        <div>
-            
+            </div>
         </div>
+    </div>
+    <div class="items d-flex flex-column">
+        <h3>Cart</h3>
+        <table class="table text-center">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Item</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of cartItems">
+                    <td>Item image placeholder</td>
+                    <td>{{ item.itemName }}</td>
+                    <td>{{ item.itemPrice | currency: 'USD'}}</td>
+                    <td>{{ item.itemQty}}</td>
+                    <td>{{ (item.itemPrice * item.itemQty) | currency: 'USD'}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <span class="d-flex align-items-row align-self-end">
+            <h3>Order Total: $</h3>
+            <button class="btn btn-primary" type="button" >Confirm Order</button>
+        </span>
     </div>
 
 </div>

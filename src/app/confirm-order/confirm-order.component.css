@@ -1,0 +1,21 @@
+.confirm-orders{
+   width: 85vw;
+   margin: 0 auto;
+}
+.info-container {
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+   grid-gap: 30px;
+}  
+.info{
+    background-color: #F6F6F6;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid grey;
+    border-radius: 5px;
+    padding: 25px;
+    cursor: pointer;
+}
+.top, .items{
+    padding:25px;
+}
