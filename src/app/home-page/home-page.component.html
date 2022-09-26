@@ -1,19 +1,21 @@
 
 <div class="hp">
-<p>home-page works!</p>
+    <app-nav-bar></app-nav-bar>
+    
+    <homepage-search-bar></homepage-search-bar>
+
 
 <nav>
-<a class="button"
-routerLink="/previous-orders"
+<a class="button" 
+routerLink="/previous-orders" 
 routerLinkActive="activebutton"
 ariaCurrentWhenActive="page">Previous Orders</a>
 
 <br>
-
 <a class="button"
-routerLink="/cart"
+routerLink="/categories"
 routerLinkActive="activebutton"
-ariaCurrentWhenActive="page">Cart</a>
+ariaCurrentWhenActive="page">Categories</a>
 <br>
 <a class="button"
 routerLink="/item-gird"
@@ -21,28 +23,9 @@ routerLinkActive="activebutton"
 ariaCurrentWhenActive="page">display</a>
 
 <br>
-<a class="button"
-routerLink="/login"
-routerLinkActive="activebutton"
-ariaCurrentWhenActive="page">login</a>
-</nav>
-<nav>
-    <a class="button"
-    routerLink="/credit-card"
-    routerLinkActive="activebutton"
-    ariaCurrentWhenActive="page">Credit Cards</a>
-</nav>
 
-<div *ngIf="user" class="card text-center">
-    <h6 class="card-header">
-    </h6>
-    <div class="card-block"></div>
-    <div class="card-block">
-      <h4 class="card-title">{{ user.name }}</h4>
-      <p class="card-text">{{ user.email }}</p>
-    </div>
-    <div class="card-block">
-      <button class="btn btn-danger" (click)="signOut()">Sign out</button>
-    </div>
-  </div>
-</div>
+<a class="button"
+routerLink="/credit-card"
+routerLinkActive="activebutton"
+ariaCurrentWhenActive="page">Credit Cards</a>
+</nav>

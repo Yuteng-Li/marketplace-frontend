@@ -30,6 +30,7 @@ export class CreditCardComponent implements OnInit {
   removeCard(creditCardID:number):void{
     this.creditCardService.deleteCard(creditCardID).subscribe();
     window.location.reload();
+
   }
 
 }

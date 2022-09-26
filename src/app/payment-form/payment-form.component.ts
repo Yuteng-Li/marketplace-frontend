@@ -3,6 +3,9 @@ import { PaymentService } from './payment-form-component.service';
 import { CreditCard } from '../credit-card/credit-card.component.credit-card-model';
 import { CreditCardService } from '../credit-card/credit-card.component.service';
 
+import { SocialAuthService } from '@abacritt/angularx-social-login';
+import { SocialUser } from '@abacritt/angularx-social-login';
+
 @Component({
   selector: 'app-payment-form',
   templateUrl: './payment-form.component.html',

@@ -1,43 +1,40 @@
 
-<p>display</p>
-<nav>
-    <a class="button"
-    routerLink="/home-page"
-    routerLinkActive="activebutton"
-    ariaCurrentWhenActive="page">Return to Home Page</a>
-</nav>
+<app-nav-bar></app-nav-bar>
+    
+<homepage-search-bar></homepage-search-bar>
+
 
 <div class="container">
     <div class="row py-4">
         <div class="col-2 order-2" id="sticky-sidebar">
 
-                <h4>Filter options?(maybe be removed)</h4>
+                <h4>Filter By Still in works</h4>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
 
                     <label class="form-check-label" for="flexCheckDefault">
-                      Default checkbox
+                      Meat
                     </label>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
 
                     <label class="form-check-label" for="flexCheckDefault">
-                      Default checkbox
+                      Price
                     </label>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
 
                     <label class="form-check-label" for="flexCheckDefault">
-                      Default checkbox
+                      Dairy
                     </label>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
 
                     <label class="form-check-label" for="flexCheckDefault">
-                      Default checkbox
+                      fruits
                     </label>
                 </div>
         </div>
@@ -46,25 +43,29 @@
 
             <div fxLayout="row wrap" fxLayoutGap="16px grid">
           
-              <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let num of [1,2,3,4,5,6]">
+              <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let prod of product">
 
                 <div class="card">
-          
+                  <!--
                   <div *ngIf="num % 2==0; else elseBlock">
                     <img class="card-img-top" src = "./../assets/images/defaultMilk.jpg">
                   </div>
                   <ng-template #elseBlock>
                     <img class="card-img-top" src = "./../assets/images/cereal.jpg">
                   </ng-template>
-          
-                  <h5 class="card-title">Card title</h5>
+                -->
+                  <h5 class="card-title" >{{prod.prod_name}}</h5>
           
                   <div class="card-body">
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <p class="card-text">{{prod.prod_description}}</p>
+                    <img src ="{{prod.image_url}}">
+                    <p class="card-text">{{prod.price_per_unit|currency: 'USD'}}</p>
                   </div>
-          
-                  <a href="#" class="btn btn-primary">Add to Cart</a>
+
+                  <button class="btn btn-primary" (click)="cartService.addToCart(prod)">Add to Cart</button>
+
                 </div>
+
           
               </div>
           
@@ -85,11 +86,23 @@
                   <p class="card-text text-justify">{{num.prodName}}</p>
                 </div>
           
-                <a href="#" class="btn btn-primary">Add to Cart</a>
+                <div *ngIf="user != null">
+                    <a href="#" class="btn btn-primary d-flex justify-content-center">Add to Cart</a>
+                  </div>
+                  <div *ngIf="user == null">
+                    <a href="#" class="btn btn-primary d-flex justify-content-center"
+                    routerLink="/login"
+                    routerLinkActive="activebutton"
+                    ariaCurrentWhenActive="page">Add to Cart</a>
+                  </div>
               </div> -->
               
+
             </div>
             </div>
+            <div>
+              <button type="button" class="btn btn-primary" style="float: right; margin-right: 160px" [routerLink]="['/cart']">Go To Cart</button>
+              <div>
         </div>
     </div>
 </div>
