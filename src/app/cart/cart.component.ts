@@ -16,7 +16,7 @@ import { SocialUser } from '@abacritt/angularx-social-login';
 export class CartComponent implements OnInit,OnDestroy {
   constructor(private cartservice:CartService) {}
   shoppingCartArray = this.cartservice.shoppingCartArray;
-
+  
 
   /*diff(difference) is used when determining if we increase qty 
   or decrease qty */
@@ -146,6 +146,8 @@ export class CartComponent implements OnInit,OnDestroy {
       item => {
           this.totalTax += (item.itemPrice * item.itemQty)*this.taxRate;
     });
+
+
 }
 
 ngOnDestroy(): void {
