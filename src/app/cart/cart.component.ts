@@ -67,6 +67,13 @@ export class CartComponent implements OnInit,OnDestroy {
   }
 
   handleChange(index:number){
+      if (this.shoppingCartArray[index].itemQty<1){
+        this.shoppingCartArray[index].itemQty=1;
+      }
+      if (this.shoppingCartArray[index].itemQty>100){
+        this.shoppingCartArray[index].itemQty=100;
+      }
+
       this.diff = this.shoppingCartArray[index].itemQty-this.tempDiffArray[index];
       this.diffInTaxBefore[index]=this.totalTaxArray[index];
       // also handle subtotal
