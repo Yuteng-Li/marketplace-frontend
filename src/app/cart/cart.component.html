@@ -37,7 +37,7 @@
     </tr>
 
     <tr *ngFor="let item of shoppingCartArray; let index = index">
-            <td *ngIf="(item | json)!=({} | json)"><img src="{{item.itemImgUrl}}"  width="100px"></td>
+            <td *ngIf="(item | json)!=({} | json)"><img src="{{item.itemImgUrl}}"  width="50%" height="40%"></td>
             <td *ngIf="(item | json)!=({} | json)">{{ item.itemName }}</td>
             <td *ngIf="(item | json)!=({} | json)">{{ item.itemPrice| currency: 'USD'}}</td>
             <td *ngIf="(item | json)!=({} | json)">
