@@ -3,12 +3,13 @@
 }
 
 .card-text {
-    font-size: 10px;
+    font-size: 1vw;
 }
 
-.card{
-    width: auto;
+h4{
+    font-size: 2vw;
 }
+
 
 img {
     display: block;
@@ -20,7 +21,8 @@ img {
     padding-top: 10px;
   }
 
-.btn{
-    background-color: #4788e9;
+.card-header{
+    background-color: #00cfff;
+    width: auto;
 }
 
