@@ -1,0 +1,16 @@
+.hp {
+    text-align: center;
+
+}
+
+
+
+.btn-nisum {
+    background: #00cfff;
+    background: linear-gradient(to bottom, #6e12ff, #0019ff, #00cfff);
+    color: #fff;
+    border-radius: 0%;
+    border: none;
+    font-family: 'Corbel', Verdana, "Bitstream Vera Sans", sans-serif;
+    
+}

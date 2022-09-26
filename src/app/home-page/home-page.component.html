@@ -1,0 +1,39 @@
+
+<div class="hp">
+    <app-nav-bar></app-nav-bar>
+    
+    <homepage-search-bar></homepage-search-bar>
+
+
+<nav>
+<div *ngIf="user != null" style="padding-top:1%">
+<a class="btn btn-primary btn-nisum rounded justify-content-center"
+routerLink="/previous-orders" 
+routerLinkActive="activebutton"
+ariaCurrentWhenActive="page">Previous Orders</a>
+</div>
+<div *ngIf="user == null" style="padding-top:1%">
+<a class="btn btn-primary btn-nisum rounded justify-content-center disabled"
+routerLink="/previous-orders" 
+routerLinkActive="activebutton"
+ariaCurrentWhenActive="page">Previous Orders</a>
+</div>
+
+<br>
+<a class="button"
+routerLink="/categories"
+routerLinkActive="activebutton"
+ariaCurrentWhenActive="page">Categories</a>
+<br>
+<a class="button"
+routerLink="/item-gird"
+routerLinkActive="activebutton"
+ariaCurrentWhenActive="page">display</a>
+
+<br>
+
+<a class="button"
+routerLink="/credit-card"
+routerLinkActive="activebutton"
+ariaCurrentWhenActive="page">Credit Cards</a>
+</nav>
