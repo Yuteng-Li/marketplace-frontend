@@ -39,22 +39,22 @@
         <th>Total</th>
     </tr>
 
-    <tr *ngFor="let item of cartItems; let index = index">
-        <td>Item image placeholder</td>
-        <td>{{ item.itemName }}</td>
-        <td>{{ item.itemPrice | currency: 'USD'}}</td>
-        <td>
-            <input type="number"  [(ngModel)]="item.itemQty" (change)="handleChange(index)" min="1" max="100" step="1" id="btnDis"/>
-            <!--need to fix the delete button-->
-            <button type="button" class="btn btn-outline-primary btn-sm" id="btnDis" (click) = "cartItems.splice(index, 1)">Remove</button>
-        </td>
-        <td>{{ (item.itemPrice * item.itemQty) | currency: 'USD'}}</td>
+    <tr *ngFor="let item of shoppingCartArray; let index = index">
+            <td *ngIf="(item | json)!=({} | json)"><img src="{{item.itemImgUrl}}"  width="50%" height="40%"></td>
+            <td *ngIf="(item | json)!=({} | json)">{{ item.itemName }}</td>
+            <td *ngIf="(item | json)!=({} | json)">{{ item.itemPrice| currency: 'USD'}}</td>
+            <td *ngIf="(item | json)!=({} | json)">
+                <input type="number"  [(ngModel)]="item.itemQty" (change)="handleChange(index)" min="1" max="100" step="1" id="btnDis"/>
+                <button type="button" class="btn btn-outline-primary btn-sm" id="btnDis" (click) = "handleRemove(index)">Remove</button>
+            </td>
+            <td *ngIf="(item | json)!=({} | json)">{{ (item.itemPrice * item.itemQty) | currency: 'USD'}}</td>
+      
     </tr>
  </thead>
 </table>
 </div>
 
-<button type="button" class="btn btn-primary" style="float: right; margin-right: 160px; margin-bottom: 20px" [routerLink]="['/home-page']">Continue Shopping</button>
+<button type="button" class="btn btn-primary" style="float: right; margin-right: 160px; margin-bottom: 20px" [routerLink]="['/item-gird']">Continue Shopping</button>
 
 
 <div class="table-margin2">
@@ -65,20 +65,20 @@
         </tr>
     </thead>
 
-        <tr>
+        <tr >
             <th colspan="1">Total Items</th>
-            <td style="text-align: center">{{ numItems }}</td>
+            <td style="text-align: center">{{numItems}}</td>
         </tr>
 
-        <tr>
+        <tr >
             <th colspan="1">Subtotal</th>
-            <td style="text-align: center">{{ cartSubtotal | currency:'USD'}}</td>
+            <td style="text-align: center">{{cartSubtotal| currency: 'USD'}}</td>
         </tr>
 </table>
 </div>
 
 <!-- Not linked to the checkout page yet. Need routerLink for it-->
-<button type="button" class="btn btn-primary" style="float: right; margin-right: 160px">Proceed to Checkout</button>
+<button type="button" class="btn btn-primary" style="float: right; margin-right: 160px" [routerLink]="['/payment-form']">Proceed to Checkout</button>
     
 </body>
 </html>
