@@ -1,21 +1,15 @@
 export class CreditCard {
 
-    creditCardID!: number;
+    credit_card_id!: number;
 
-    userID!: number;
+    user_id!: number;
 
-    bankName!: String;
+    cardholder_name!: String;
 
-    cardholderName!: String;
+    last_four_card_number!: String;
 
-    cardType!: String;
+    expiration_year!: String;
 
-    cardNumber!: String;
-
-    securityNumber!: String;
-
-    expirationYear!: String;
-
-    expirationMonth!: String;
+    expiration_month!: String;
     
 }

@@ -17,14 +17,14 @@
     <h2 class ="a">
         Payment Methods
     </h2>
-    <div *ngIf="credits.length; else emptyCredit">
+    <div *ngIf="credits?.length; else emptyCredit">
+        <div class="general">
+            <a class="button1"
+            routerLink="/payment-form"
+            routerLinkActive="activebutton"
+            ariaCurrentWhenActive="page">Add New Payment</a>
+        </div>
         <table>
-            <div>
-                <a class="button1"
-                routerLink="/payment-form"
-                routerLinkActive="activebutton"
-                ariaCurrentWhenActive="page">Add New Payment</a>
-            </div>
             <tr class="a">
                 <th>Name</th>
                 <th>Expiration Date</th>
@@ -32,11 +32,11 @@
                 <th></th>
             </tr>
             <tr *ngFor = "let card of credits; let index = index">
-                <td>{{card.cardholderName}}</td>
-                <td>{{card.expirationMonth}}/{{card.expirationYear}}</td>
-                <td>{{card.cardType}} card ending in {{card.cardNumber}}</td>
+                <td>{{card.cardholder_name}}</td>
+                <td>{{card.expiration_month}}/{{card.expiration_year}}</td>
+                <td>Card ending in {{card.last_four_card_number}}</td>
                 <td>
-                    <button type="button" class="button1" id="removeCard" (click)="removeCard(index)">Remove Card</button>
+                    <button type="button" class="button1" id="removeCard" (click)="removeCard(card.credit_card_id)">Remove Card</button>
                 </td>
             </tr>
         </table>
@@ -45,6 +45,12 @@
 <ng-template  #emptyCredit>
     <div>
         <p class="a">No payments have been added yet!</p>
+    </div>
+    <div>
+        <a class="button1"
+        routerLink="/payment-form"
+        routerLinkActive="activebutton"
+        ariaCurrentWhenActive="page">Add New Payment</a>
     </div>
 </ng-template>
 

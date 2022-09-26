@@ -8,17 +8,19 @@ import {Observable, tap } from "rxjs";
 })
 export class CreditCardService{
 
-    //url from inventory team api
+    //Credit card API url
     private cardUrl = "http://localhost:8080/api/creditCard";
     constructor(private http:HttpClient){}
 
+    /*GET method to return all cards in database.*/ 
     getAllCards():Observable<CreditCard[]>{
         return this.http.get<CreditCard[]>(this.cardUrl + "/getCards").pipe(
             tap(data=>JSON.stringify(data))
         );
     }
-    deleteCard(id:number):void{
-        // return this.http.delete<CreditCard>(this.cardUrl+"/deleteCard/"+id);
+    /*DELETE method delete card by creditCardID*/ 
+    deleteCard(creditCardID:number):Observable<unknown>{
+        return this.http.delete<CreditCard>(this.cardUrl+"/deleteCard/"+creditCardID);
     }
 
 }

@@ -15,6 +15,7 @@ input.a{
     margin: auto;
     width: 100%;
     padding: 5px;
+    /* padding-bottom: 0%; */
 }
 input.b{
 text-align: center;
@@ -54,7 +55,9 @@ form.a {
 }
 
 body{
-  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
 }
 
 .button1{
@@ -80,3 +83,11 @@ body{
     font-weight: bold;
     background: white;
 }
+
+input.ng-invalid.ng-touched{
+  border: red 1px solid;
+}
+small{
+  color: red;
+}
+
