@@ -1,4 +1,7 @@
-<p>previous-orders works!</p>
+<app-nav-bar></app-nav-bar>
+    
+<homepage-search-bar></homepage-search-bar>
+
 <nav>
   <a
     class="button"
@@ -9,7 +12,6 @@
   >
 </nav>
 
-<h1>Previous Orders</h1>
 <div class="container-my-1">
   <div class="row">
     <div class="col-md-12">
@@ -19,6 +21,11 @@
           *ngIf="previousOrders.length; else emptyli"
         >
           <table>
+            <tr>
+              <td colspan="10" style="text-align: left;"><h1>Previous Orders</h1></td>
+
+            </tr>
+
             <tr class="thh">
               <th>OrderID</th>
               <th>UserID</th>
@@ -35,20 +42,25 @@
             <tr>
             </tr>
 
-            <tr class="shadow" *ngFor="let order of previousOrders">
+            <tr class="shadow" *ngFor="let order of previousOrders; let index=index">
               <!-- for template syntax anything inside the brackets {{}} is considered an expression, and will try to solve it by looking in the component logic -->
               <td>{{ order.OrderID }}</td>
               <td>{{ order.UserID }}</td>
               <td>{{ order.AddressID }}</td>
               <td>{{ order.Price }}</td>
               <td>{{ order.CreditCardID }}</td>
-              <td>{{ order.DateOrdered }}</td>
-              <td>{{ order.DateShipped }}</td>
-              <td>{{ order.DateDelivered }}</td>
+              <td >{{ order.DateOrdered }}</td>
+
+              <td class="hasShipped" *ngIf="(order.DateShipped | date:'dd/MM/yyyy') != (invalidDate | date:'dd/MM/yyyy'); else hasntShipped">{{ order.DateShipped }}</td>
+              <ng-template #hasntShipped><td>Not Available</td></ng-template>
+              
+              <td class="hasDevliered" *ngIf="(order.DateDelivered | date:'dd/MM/yyyy') != (invalidDate | date:'dd/MM/yyyy'); else hasntDelivered">{{ order.DateDelivered }}</td>
+              <ng-template #hasntDelivered><td>Not Available</td></ng-template>
+              
               <td>{{ order.OrderStatus }}</td>
 
               <td>
-                <form action="/api/orders/updateOrder/cancelled/{{order.OrderID}}" method="POST" onsubmit="alert(this.action)">
+                <form action="/api/orders/updateOrder/cancelled/{{order.OrderID}}" method="POST" onsubmit="alert(this.action); return false;">
                   <input
                     class="cancelbtn"
                     type="submit"
@@ -56,9 +68,9 @@
                       order.OrderStatus == 'Not Shipped Yet';
                       else cantCancel
                     "
-                  
                     value="Cancel Order"
                   >
+
                 </form>
               </td>
               <td><ng-template #cantCancel>Not Available</ng-template></td>

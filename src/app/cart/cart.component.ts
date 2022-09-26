@@ -4,15 +4,20 @@ import { ShoppingCart } from './cart.component.shopcartmodel';
 import {map} from "rxjs";
 
 
+import { SocialAuthService } from '@abacritt/angularx-social-login';
+import { SocialUser } from '@abacritt/angularx-social-login';
+
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css']
 })
+
 export class CartComponent implements OnInit,OnDestroy {
   constructor(private cartservice:CartService) {}
   // shoppingCartArray = new Array<ShoppingCart>();
   shoppingCartArray = this.cartservice.shoppingCartArray;
+
 
   /*diff(difference) is used when determining if we increase qty 
   or decrease qty */
@@ -91,6 +96,7 @@ export class CartComponent implements OnInit,OnDestroy {
     this.tempDiffArray=new Array(this.shoppingCartArray.length).fill(0);
     this.popluateDiffQty(this.shoppingCartArray);
     
+
     this.removePriceArray=new Array(this.shoppingCartArray.length).fill(0);
     this.popluateRemovePrice(this.shoppingCartArray);
     
@@ -104,6 +110,7 @@ export class CartComponent implements OnInit,OnDestroy {
           item => {
             this.numItems += item.itemQty
           })
+
 }
 
 ngOnDestroy(): void {

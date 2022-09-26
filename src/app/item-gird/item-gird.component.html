@@ -1,43 +1,40 @@
 
-<p>display</p>
-<nav>
-    <a class="button"
-    routerLink="/home-page"
-    routerLinkActive="activebutton"
-    ariaCurrentWhenActive="page">Return to Home Page</a>
-</nav>
+<app-nav-bar></app-nav-bar>
+    
+<homepage-search-bar></homepage-search-bar>
+
 
 <div class="container">
     <div class="row py-4">
         <div class="col-2 order-2" id="sticky-sidebar">
 
-                <h4>Filter options?(maybe be removed)</h4>
+                <h4>Filter By Still in works</h4>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
 
                     <label class="form-check-label" for="flexCheckDefault">
-                      Default checkbox
+                      Meat
                     </label>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
 
                     <label class="form-check-label" for="flexCheckDefault">
-                      Default checkbox
+                      Price
                     </label>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
 
                     <label class="form-check-label" for="flexCheckDefault">
-                      Default checkbox
+                      Dairy
                     </label>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
 
                     <label class="form-check-label" for="flexCheckDefault">
-                      Default checkbox
+                      fruits
                     </label>
                 </div>
         </div>
@@ -64,9 +61,11 @@
                     <img src ="{{prod.image_url}}">
                     <p class="card-text">{{prod.price_per_unit|currency: 'USD'}}</p>
                   </div>
-          
+
                   <button class="btn btn-primary" (click)="cartService.addToCart(prod)">Add to Cart</button>
+
                 </div>
+
           
               </div>
           
@@ -87,7 +86,15 @@
                   <p class="card-text text-justify">{{num.prodName}}</p>
                 </div>
           
-                <a href="#" class="btn btn-primary">Add to Cart</a>
+                <div *ngIf="user != null">
+                    <a href="#" class="btn btn-primary d-flex justify-content-center">Add to Cart</a>
+                  </div>
+                  <div *ngIf="user == null">
+                    <a href="#" class="btn btn-primary d-flex justify-content-center"
+                    routerLink="/login"
+                    routerLinkActive="activebutton"
+                    ariaCurrentWhenActive="page">Add to Cart</a>
+                  </div>
               </div> -->
               
 
