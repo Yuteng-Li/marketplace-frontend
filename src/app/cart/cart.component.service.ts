@@ -13,8 +13,7 @@ export class CartService{
     shoppingCartArray:ShoppingCart[]=[];
     cartItem!:ShoppingCart;
     addToCart(product:Product){
-      //change the Product to the shoppingcart 
-      //then push it to the shoppingcart array
+      //figure out how to double click on add to cart;
       this.cartItem =<ShoppingCart>{
         itemName:product.prod_name,
         itemPrice:product.price_per_unit,
@@ -22,8 +21,10 @@ export class CartService{
         itemImgUrl:product.image_url,
         itemDesc:product.prod_description,
         itemQty:1
-      }
+      };
       this.shoppingCartArray.push(this.cartItem);
+     
+      
     }
 
     

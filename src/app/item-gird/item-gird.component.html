@@ -62,6 +62,7 @@
                   <div class="card-body">
                     <p class="card-text">{{prod.prod_description}}</p>
                     <img src ="{{prod.image_url}}">
+                    <p class="card-text">{{prod.price_per_unit|currency: 'USD'}}</p>
                   </div>
           
                   <button class="btn btn-primary" (click)="cartService.addToCart(prod)">Add to Cart</button>
@@ -89,8 +90,12 @@
                 <a href="#" class="btn btn-primary">Add to Cart</a>
               </div> -->
               
+
             </div>
             </div>
+            <div>
+              <button type="button" class="btn btn-primary" style="float: right; margin-right: 160px" [routerLink]="['/cart']">Go To Cart</button>
+              <div>
         </div>
     </div>
 </div>
