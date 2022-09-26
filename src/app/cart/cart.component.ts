@@ -13,8 +13,11 @@ import { SocialUser } from '@abacritt/angularx-social-login';
   styleUrls: ['./cart.component.css']
 })
 
+
 export class CartComponent implements OnInit,OnDestroy {
-  constructor(private cartservice:CartService) {}
+  user!: SocialUser;
+  constructor(private cartservice:CartService,private authService: SocialAuthService) {}
+
   // shoppingCartArray = new Array<ShoppingCart>();
   shoppingCartArray = this.cartservice.shoppingCartArray;
 
