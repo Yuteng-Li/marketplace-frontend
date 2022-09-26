@@ -4,12 +4,7 @@
 <homepage-search-bar></homepage-search-bar>
 
 <nav>
-    <div>
-        <a class="button"
-        routerLink="/home-page"
-        routerLinkActive="activebutton"
-        ariaCurrentWhenActive="page">Return to Home Page</a>
-
+    <div class="general">
         <a class="button1"
         routerLink="/credit-card"
         routerLinkActive="activebutton"
@@ -23,25 +18,6 @@
     </div>
     <div class="center1">
         <form class="a" #paymentForm="ngForm" (ngSubmit)="createCard(paymentForm.value)">
-            <!-- <body>
-                <fieldset>
-                    <legend class="titles">Select Bank</legend>
-                    <input type="radio" id="chase" name="bank" value="Chase" required ngModel #bank="ngModel">
-                    <label for="chase">Chase</label><br>
-                
-                    <input type="radio" id="wellsFargo" name="bank" value="Wells Fargo" ngModel>
-                    <label for="wellsFargo">Wells Fargo</label><br>
-                
-                    <input type="radio" id="citibank" name="bank" value="CitiBank" ngModel>
-                    <label for="citibank">CitiBank</label><br>
-                
-                    <input type="radio" id="bofa" name="bank" value="Bank Of America" ngModel>
-                    <label for="bofa">Bank Of America</label><br>
-                </fieldset>
-                <small *ngIf="bank.invalid && bank.touched">
-                    Required field
-                </small>
-            </body> -->
             <body>
                 <label for="cardNum">Card Number:</label><br>
                 <input type="text" class="a" id="cardNum" name ="cardNum" placeholder="Card Number" pattern="[0-9]{16}"  required ngModel #cardNum="ngModel">
