@@ -46,24 +46,25 @@
 
             <div fxLayout="row wrap" fxLayoutGap="16px grid">
           
-              <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let num of [1,2,3,4,5,6]">
+              <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let prod of product">
 
                 <div class="card">
-          
+                  <!--
                   <div *ngIf="num % 2==0; else elseBlock">
                     <img class="card-img-top" src = "./../assets/images/defaultMilk.jpg">
                   </div>
                   <ng-template #elseBlock>
                     <img class="card-img-top" src = "./../assets/images/cereal.jpg">
                   </ng-template>
-          
-                  <h5 class="card-title">Card title</h5>
+                -->
+                  <h5 class="card-title" >{{prod.prod_name}}</h5>
           
                   <div class="card-body">
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <p class="card-text">{{prod.prod_description}}</p>
+                    <img src ="{{prod.image_url}}">
                   </div>
           
-                  <a href="#" class="btn btn-primary">Add to Cart</a>
+                  <button class="btn btn-primary" (click)="cartService.addToCart(prod)">Add to Cart</button>
                 </div>
           
               </div>

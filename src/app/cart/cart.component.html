@@ -37,13 +37,13 @@
     </tr>
 
     <tr *ngFor="let item of shoppingCartArray; let index = index">
-        <td>item image lol</td>
+        <td><img src="{{item.itemImgUrl}}"  width="100px"></td>
         <td>{{ item.itemName }}</td>
         <td>{{ item.itemPrice| currency: 'USD'}}</td>
         <td>
             <input type="number"  [(ngModel)]="item.itemQty" (change)="handleChange(index)" min="1" max="100" step="1" id="btnDis"/>
             <!--need to fix the delete button-->
-            <button type="button" class="btn btn-outline-primary btn-sm" id="btnDis" (click) = "shoppingCartArray.splice(index, 1)">Remove</button>
+            <button type="button" class="btn btn-outline-primary btn-sm" id="btnDis" (click) = "handleRemove(index)">Remove</button>
         </td>
         <td>{{ (item.itemPrice * item.itemQty) | currency: 'USD'}}</td>
     </tr>

@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Product } from '../cart/cart.component.model';
+import { CartService } from '../cart/cart.component.service';
 import { ItemService } from '../item.service';
 
 
@@ -11,12 +13,14 @@ export class ItemGirdComponent implements OnInit {
 
 
 
-  product : any[] = [];
+  product : Product[] = [];
 
-  constructor(private ItemService:ItemService) { 
+  constructor(private ItemService:ItemService, public cartService:CartService) { 
 
   }
 
+  
+  
 
   ngOnInit(): void {
     //These API calls are temporary as the DBs are still changing so these will
@@ -27,14 +31,12 @@ export class ItemGirdComponent implements OnInit {
   displayByID(id:string){
       this.ItemService.getProductById(id).subscribe(product => {
         this.product.push(product.product);
-        console.log(product);
       })
   }
 
   DisplayAll(){
     this.ItemService.getProduct().subscribe(product => {
       this.product=product;
-      console.log(product);
     })
   }
 
