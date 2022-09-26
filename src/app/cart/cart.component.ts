@@ -16,7 +16,7 @@ import { SocialUser } from '@abacritt/angularx-social-login';
 export class CartComponent implements OnInit,OnDestroy {
   constructor(private cartservice:CartService) {}
   shoppingCartArray = this.cartservice.shoppingCartArray;
-  
+
 
   /*diff(difference) is used when determining if we increase qty 
   or decrease qty */
@@ -34,6 +34,7 @@ export class CartComponent implements OnInit,OnDestroy {
   diffInTaxAfter!:Array<number>; 
   diffTaxTempArray!:Array<number>;
   diffTax:number = 0;
+  totalPrice:number = 0;
 
   //this was used to keep track of the itemQty in the begining
   //Was used to compared with updated itemQty after ngModel
@@ -94,6 +95,7 @@ export class CartComponent implements OnInit,OnDestroy {
         this.tempDiffArray[index] = this.shoppingCartArray[index].itemQty;
         this.numItems+=this.diff;
         this.totalTax+=this.diffTax;
+        this.totalPrice=this.cartSubtotal+this.totalTax;
   }
   
   handleRemove(index:number){
@@ -103,6 +105,7 @@ export class CartComponent implements OnInit,OnDestroy {
     this.numItems-=this.removeQtyArray[index];
     this.cartSubtotal-=this.removePriceArray[index];
     this.totalTax-=this.totalTaxArray[index];
+    this.totalPrice=this.totalPrice-this.removePriceArray[index]-this.totalTaxArray[index];
      //assign some dummy variable after remove
      this.shoppingCartArray[index]={} as ShoppingCart ;
      this.removePriceArray[index]=0;
@@ -147,6 +150,7 @@ export class CartComponent implements OnInit,OnDestroy {
           this.totalTax += (item.itemPrice * item.itemQty)*this.taxRate;
     });
 
+    this.totalPrice= this.cartSubtotal+this.totalTax;
 
 }
 
