@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Pipe } from '@angular/core';
+import { ItemService } from '../item.service';
+
 
 @Component({
   selector: 'homepage-search-bar',
@@ -6,8 +8,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./search-bar.component.css']
 })
 export class SearchBarComponent implements OnInit {
+  data: any;
+  constructor(private itemService: ItemService) { }
 
-  constructor() { }
+  getItemsSearch(name: any){
+    const keyword = name.target.value;
+    const search = this.itemService.getSearchProductName().then(response => {
+      this.data = response;
+      response
+      console.log(this.data)
+    })
+  }
 
   ngOnInit(): void {
   }

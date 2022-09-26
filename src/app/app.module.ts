@@ -59,7 +59,8 @@ import { ReactiveFormsModule } from '@angular/forms';
       {path: 'categories', component: CategoriesComponent},
       {path: 'item-gird', component: ItemGirdComponent},
       {path: '', pathMatch: 'full', redirectTo: 'home-page' },
-      {path: '**', pathMatch: 'full', component: PageNotFoundComponent}
+      {path: '**', pathMatch: 'full', component: PageNotFoundComponent},
+      {path: '', component: SearchBarComponent}
     ]),
     FormsModule,
     BrowserAnimationsModule,

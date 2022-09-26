@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Item } from '../item';
 import { ItemService } from '../item.service';
 
 
@@ -11,7 +12,7 @@ export class ItemGirdComponent implements OnInit {
 
 
 
-  product : any[] = [];
+  product : Item[] = [];
 
   constructor(private ItemService:ItemService) { 
 
@@ -22,6 +23,7 @@ export class ItemGirdComponent implements OnInit {
     //These API calls are temporary as the DBs are still changing so these will
     //eventually be changed but right now if you use the inventory db it should work until they change it
     this.DisplayAll();
+    console.log('>>> in onInit')
   }
 
   displayByID(id:string){
