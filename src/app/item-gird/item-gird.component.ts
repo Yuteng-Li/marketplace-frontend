@@ -23,6 +23,9 @@ export class ItemGirdComponent implements OnInit {
   setMinPrice = 0.00;
   setMaxPrice = 250.00;
 
+  savedProducCategories!: string[];
+
+
   constructor(private ItemService:ItemService, private authService: SocialAuthService, private route: ActivatedRoute,
     private router: Router, public cartService:CartService) { 
   }
@@ -38,6 +41,8 @@ export class ItemGirdComponent implements OnInit {
       console.log(user);
     });
     this.DisplayAll();
+
+    console.log(this.savedProducCategories)
     //this.getByQuery();
     
   }
@@ -52,9 +57,14 @@ export class ItemGirdComponent implements OnInit {
     this.ItemService.getProduct().subscribe(product => {
       this.product=product;
       this.savedProduct=product;
+      this.gatherCategories(this.product);
     })
+
   }
 
+  gatherCategories(product:any[]){
+    this.savedProducCategories = [...new Set(product.map(item => item.category))]
+  }
   getByQuery(){
     let queryParams = new HttpParams();
 
