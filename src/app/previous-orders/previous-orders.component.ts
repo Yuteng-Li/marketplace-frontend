@@ -1,3 +1,5 @@
+
+
 import { Component, OnInit, ɵgetUnknownElementStrictMode } from '@angular/core';
 import { PreviousOrdersService } from './previous-orders.service';
 
@@ -30,7 +32,7 @@ export class PreviousOrdersComponent implements OnInit {
   }
   user!: SocialUser;
   ngOnInit(): void {
-    this.getPreviousOrders();
+    this.getPreviousOrdersUser();
 
     this.authService.authState.subscribe((user) => {
       this.user = user;
@@ -44,25 +46,25 @@ export class PreviousOrdersComponent implements OnInit {
     this.authService.signOut();
   }
 
-  getPreviousOrdersUser(userID: number) {
+  getPreviousOrdersUser() {
     this.previousOrdersService
-      .getPrevOrders(userID)
+      .getPrevOrders()
       .subscribe((previousOrders) => {
-        this.previousOrders = previousOrders;
+        this.previousOrders = previousOrders
+        .sort((a: any, b: any) => {
+          return (
+            new Date(b.dateOrdered).getTime() - new Date(a.dateOrdered).getTime()
+          );
+        });
+
         console.log(this.previousOrders);
       });
-    this.previousOrders.sort((a: any, b: any) => {
-      return (
-        new Date(b.DateOrdered).getTime() - new Date(a.DateOrdered).getTime()
-      );
-    });
   }
 
   cancelPreviousOrder(orderID: number, userID: number) {
     this.previousOrdersService.cancelOrder(orderID).subscribe((data) => {
       console.log(data);
-      this.getPreviousOrdersUser(userID);
+      this.getPreviousOrdersUser();
     });
   }
 }
-
