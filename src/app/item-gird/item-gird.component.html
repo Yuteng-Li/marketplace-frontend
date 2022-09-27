@@ -6,37 +6,49 @@
 
 <div class="container">
     <div class="row py-4">
-        <div class="col-2 order-2 bg-light border border-primary rounded" id="sticky-sidebar">
-
-                <h4>Filter By Still in works</h4>
+        <div class="col-md-2 justify-content-start bg-light border border-primary rounded" id="sticky-sidebar">
+              <h4>Filter By Still in works</h4>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1" (change)="addToFilter($event,'Snacks')">
 
-                    <label class="form-check-label" for="flexCheckDefault">
-                      Meat
+                    <label class="form-check-label" for="flexCheckDefault1">
+                      Snacks
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2" (change)="addToFilter($event,'Breakfast Cereals')">
+
+                  <label class="form-check-label" for="flexCheckDefault2">
+                    Breakfast Cereals
+                  </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" (change)="addToFilter($event,'Drinks')">
 
                     <label class="form-check-label" for="flexCheckDefault">
-                      Price
+                      Drinks
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" (change)="addToFilter($event,'Household')">
 
                     <label class="form-check-label" for="flexCheckDefault">
-                      Dairy
+                      Household
                     </label>
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <br>
+                <div>
+                  <p>Min price:</p>
+                  <input [(ngModel)]='setMinPrice' type="text" class="form-control" placeholder="0.00" value="0" (ngModelChange)="setMin(setMinPrice)">
+                </div>
+                <div>
+                  <p>Max price:</p>
+                  <input [(ngModel)]='setMaxPrice' type="text" class="form-control" placeholder="250.00" value="250" (ngModelChange)="setMax(setMaxPrice)">
+                </div>
+                
+                <br>
 
-                    <label class="form-check-label" for="flexCheckDefault">
-                      fruits
-                    </label>
-                </div>
+                <button class="btn btn-primary" (click)="filterBy()">Submit</button>
           </div>
 
         <div class="col" id="main">
