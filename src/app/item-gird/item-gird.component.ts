@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Product } from '../cart/cart.component.model';
+import { CartService } from '../cart/cart.component.service';
 import { ItemService } from '../item.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpParams } from '@angular/common/http';
@@ -14,14 +16,15 @@ export class ItemGirdComponent implements OnInit {
 
 
 
-  product : any[] = [];
+  product : Product[] = [];
   user!: SocialUser;
 
-
   constructor(private ItemService:ItemService, private authService: SocialAuthService, private route: ActivatedRoute,
-    private router: Router) { 
+    private router: Router, public cartService:CartService) { 
   }
 
+  
+  
 
   ngOnInit(): void {
     //These API calls are temporary as the DBs are still changing so these will
@@ -31,24 +34,18 @@ export class ItemGirdComponent implements OnInit {
       console.log(user);
     });
     this.DisplayAll();
-    this.getByQuery();
-  }
-
-  signOut(): void {
-    this.authService.signOut();
+    //this.getByQuery();
   }
 
   displayByID(id:string){
       this.ItemService.getProductById(id).subscribe(product => {
         this.product.push(product.product);
-        console.log(product);
       })
   }
 
   DisplayAll(){
     this.ItemService.getProduct().subscribe(product => {
       this.product=product;
-      console.log(product);
     })
   }
 
