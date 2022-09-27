@@ -29,15 +29,12 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     this.filteredItems = this.performFilter(value);
   }
 
-  // Want a create a search event, so when we click the search icon button it redirects us 
-  // To the item-grid page while filtering the items based on the chars in the search box 
-
   //Method will filter our list of items to only those with a item name that includes the list filter string
   // If it is empty it will return all items 
   performFilter(filterBy: string): Item[] {
     filterBy = filterBy.toLocaleLowerCase();
     return this.items.filter((item: Item) =>
-      item.ProdName.toLowerCase().includes(filterBy))
+      item.prodName.toLowerCase().includes(filterBy));
   }
 
   // Need to create a lifecycle hook to call to perform component initialization
