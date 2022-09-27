@@ -1,3 +1,5 @@
+
+
 import { Injectable } from '@angular/core';
 import{ HttpClient} from '@angular/common/http'
 import { Orders } from "./previous-orders.component.model";
@@ -11,7 +13,7 @@ import { PREVIOUSORDERS } from "./mock-previous-orders";
 export class PreviousOrdersService {
 
   //url from inventory team api
-  private productUrl = "http://localhost:8081/api/orders";
+  private productUrl = "http://localhost:8080/api/orders";
   constructor(private http:HttpClient){}
 
   /**
@@ -25,7 +27,7 @@ export class PreviousOrdersService {
   }  
 
   getPrevOrders(userID:number){
-    return this.http.get<any>(`${this.productUrl}/getOrders/${userID}`);
+    return this.http.get<any>(`${this.productUrl}/getOrders/user/${userID}`);
   }
 
   cancelOrder(orderID:number): Observable<Orders>{
