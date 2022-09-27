@@ -50,7 +50,7 @@
               <td>{{ order.creditCardID }}</td>
               <td >{{ order.dateOrdered }}</td>
 
-              <td class="hasShipped" *ngIf="order.dateShipped != ''; else hasntShipped">{{ order.dateShipped }}</td>
+              <td class="hasShipped" *ngIf="order.dateShipped != null; else hasntShipped">{{ order.dateShipped }}</td>
               <ng-template #hasntShipped><td>Not Available</td></ng-template>
               
               <!--<td class="hasDevliered" *ngIf="order.DateDelivered != ''; else hasntDelivered">{{ order.dateDelivered }}</td>
