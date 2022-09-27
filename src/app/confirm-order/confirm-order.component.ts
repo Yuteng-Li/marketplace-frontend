@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CartService } from '../cart/cart.component.service';
 import { OrderService } from './order.service';
 import { Router } from '@angular/router';
-import { Order } from './order'; 
+import { Order } from './Order';
 import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { SocialUser } from '@abacritt/angularx-social-login';
 
@@ -28,7 +28,7 @@ export class ConfirmOrderComponent implements OnInit {
     /*Get Addresses from Address API*/
 
     /*Get User info from User API*/
-    this.authService.authState.subscribe((user) => {
+    this.authService.authState.subscribe((user: SocialUser) => {
       this.user = user;
       console.log(this.user);
     });

@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { offset } from '@popperjs/core';
 import { catchError, Observable, of, throwError } from 'rxjs';
-import { Order } from './order';
+import { Order } from './Order';
 
 @Injectable({
   providedIn: 'root'

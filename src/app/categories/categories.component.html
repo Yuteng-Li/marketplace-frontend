@@ -8,7 +8,7 @@
     <div class="categories-container">
         <div class="category" *ngFor="let category of categories"
          [routerLink]="['/item-gird']" [queryParams]="{category: category.category}">
-                <img src="" alt="{{category.category}} img">
+                <img src="{{category.img}}" alt="{{category.category}} img">
                 <h3>{{category.category}}</h3>
                 <a>View Products</a>
         </div>
