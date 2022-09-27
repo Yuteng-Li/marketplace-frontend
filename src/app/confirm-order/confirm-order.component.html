@@ -1,8 +1,10 @@
+<app-nav-bar></app-nav-bar>
+
 <div class="container">
     <div class="top d-flex justify-content-between">
         <h2>Order Confirmation</h2>
         <span class="d-flex align-items-row">
-            <h3>Order Total: $</h3>
+            <h3 class="total">Order Total: $ {{total}}</h3>
             <button class="btn btn-primary" type="button" (click)="placeOrder()">Confirm Order</button>
         </span>
     </div>
@@ -10,7 +12,9 @@
         <div class="info">
             <h3>Your Information:</h3>
             <div>
-
+                <h4>Name: {{user.name}}</h4>
+                <div>Name: {{user.name}}</div>
+                <div>Email: {{user.email}}</div>
             </div>
         </div>
         <div class="info">
@@ -55,7 +59,7 @@
             </tbody>
         </table>
         <span class="d-flex align-items-row align-self-end">
-            <h3>Order Total: $</h3>
+            <h3 class="total">Order Total: $ {{total}}</h3>
             <button class="btn btn-primary" type="button" (click)="placeOrder()">Confirm Order</button>
         </span>
     </div>

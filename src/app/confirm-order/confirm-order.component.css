@@ -14,8 +14,10 @@
     border: 1px solid grey;
     border-radius: 5px;
     padding: 25px;
-    cursor: pointer;
 }
 .top, .items{
     padding:25px;
+}
+.total{
+    padding-right: 10px;
 }
