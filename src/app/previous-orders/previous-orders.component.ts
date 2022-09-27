@@ -3,8 +3,7 @@
 import { Component, OnInit, ɵgetUnknownElementStrictMode } from '@angular/core';
 import { PreviousOrdersService } from './previous-orders.service';
 
-import { SocialAuthService } from '@abacritt/angularx-social-login';
-import { SocialUser } from '@abacritt/angularx-social-login';
+import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 
 @Component({
   selector: 'app-previous-orders',
@@ -15,6 +14,7 @@ export class PreviousOrdersComponent implements OnInit {
   previousOrders: any = [];
   constructor(private previousOrdersService: PreviousOrdersService,private authService: SocialAuthService) {}
   invalidDate: Date = new Date(0);
+  user!: SocialUser;
 
   getPreviousOrders(): void {
     this.previousOrdersService
@@ -30,25 +30,23 @@ export class PreviousOrdersComponent implements OnInit {
       );
     });
   }
-  user!: SocialUser;
   ngOnInit(): void {
-    this.getPreviousOrdersUser();
-
     this.authService.authState.subscribe((user) => {
       this.user = user;
       console.log(user);
     });
+    this.getPreviousOrdersUser(5);
   }
-
 
 
   signOut(): void {
     this.authService.signOut();
   }
 
-  getPreviousOrdersUser() {
+  getPreviousOrdersUser(user: number) {
+ 
     this.previousOrdersService
-      .getPrevOrders()
+      .getPrevOrders(user)
       .subscribe((previousOrders) => {
         this.previousOrders = previousOrders
         .sort((a: any, b: any) => {
@@ -64,7 +62,7 @@ export class PreviousOrdersComponent implements OnInit {
   cancelPreviousOrder(orderID: number, userID: number) {
     this.previousOrdersService.cancelOrder(orderID).subscribe((data) => {
       console.log(data);
-      this.getPreviousOrdersUser();
+      this.getPreviousOrdersUser(userID);
     });
   }
 }
