@@ -8,11 +8,15 @@ import { Address } from '../shared/address';
 })
 export class AddressService {
 
-  baseUrl = 'http://localhost:8080/api/address/getAllAddresses';
+  baseUrl = 'http://localhost:8080/api/address/';
   constructor(private http: HttpClient) { 
   }
 
   getAllAddresses(): Observable<Address[]>{
-    return this.http.get<Address[]>(this.baseUrl)
+    return this.http.get<Address[]>(this.baseUrl + "getAllAddresses")
   }
+
+  getById(id: Number): Observable<Address>{
+    return this.http.get<Address>(this.baseUrl + id)
+  };
 }

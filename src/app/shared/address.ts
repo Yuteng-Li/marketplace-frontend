@@ -1,12 +1,12 @@
 export interface Address {
-    addressID: Number;
-    userID: Number;
-	recipientName: String;
+    address_id: Number;
+    user_id: Number;
+	recipient_name: String;
 	street: String;
 	street2: String;
 	city: String;
 	state: String;
 	zip: String;
-	isShipping: Boolean;
-	isBilling: Boolean;
+	is_shipping: Boolean;
+	is_billing: Boolean;
 }
