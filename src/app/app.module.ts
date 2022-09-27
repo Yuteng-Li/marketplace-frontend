@@ -8,6 +8,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthGuard } from './auth.guard';
 
 import { AppComponent } from './app.component';
 import { CartComponent } from 'src/app/cart/cart.component';
@@ -19,6 +20,8 @@ import { CreditCardComponent } from './credit-card/credit-card.component';
 import { PaymentFormComponent } from './payment-form/payment-form.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
+
+
 import { CategoriesComponent } from './categories/categories.component';
 import { ItemGirdComponent } from './item-gird/item-gird.component';
 import { LoginComponent } from './login/login.component';
@@ -51,10 +54,10 @@ import { CheckoutComponent } from './checkout/checkout.component';
     ReactiveFormsModule,
     RouterModule.forRoot([
       {path: 'home-page', component: HomePageComponent },
-      {path: 'previous-orders', component: PreviousOrdersComponent},
-      {path: 'cart', component: CartComponent},
-      {path: 'credit-card', component: CreditCardComponent},
-      {path: 'payment-form', component: PaymentFormComponent},
+      {path: 'previous-orders', component: PreviousOrdersComponent, canActivate: [AuthGuard]},
+      {path: 'cart', component: CartComponent, canActivate: [AuthGuard]},
+      {path: 'credit-card', component: CreditCardComponent, canActivate: [AuthGuard]},
+      {path: 'payment-form', component: PaymentFormComponent, canActivate: [AuthGuard]},
       {path: 'login', component: LoginComponent},
       {path: 'categories', component: CategoriesComponent},
       {path: 'item-gird', component: ItemGirdComponent},

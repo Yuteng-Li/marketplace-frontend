@@ -44,10 +44,12 @@
             <td *ngIf="(item | json)!=({} | json)">{{ item.itemName }}</td>
             <td *ngIf="(item | json)!=({} | json)">{{ item.itemPrice| currency: 'USD'}}</td>
             <td *ngIf="(item | json)!=({} | json)">
-                <input type="number"  [(ngModel)]="item.itemQty" (change)="handleChange(index)" min="1" max="100" step="1" id="btnDis"/>
+                <!--the onKeyUp is kinda werid, not 100% working ,werid stuff happen if go above 100 or below 1 -->
+                <input type="number"  [(ngModel)]="item.itemQty" (change)="handleChange(index)" 
+                onKeyUp="if(this.value>100){this.value='100';}else if(this.value<1){this.value='1';}" min="1" max="100" step="1" id="btnDis"/>
                 <button type="button" class="btn btn-outline-primary btn-sm" id="btnDis" (click) = "handleRemove(index)">Remove</button>
             </td>
-            <td *ngIf="(item | json)!=({} | json)">{{ (item.itemPrice * item.itemQty) | currency: 'USD'}}</td>
+            <td *ngIf="(item | json)!=({} | json)">{{ item.itemQty*item.itemPrice | currency: 'USD'}}</td>
       
     </tr>
  </thead>
@@ -64,6 +66,10 @@
             <th class="rowbg2" colspan="2" style="text-align: center">Cart Totals</th>
         </tr>
     </thead>
+        <tr>
+            <th colspan="1">Total Tax</th>
+            <td style="text-align: center">{{totalTax| currency: 'USD'}}</td>
+        </tr>
 
         <tr >
             <th colspan="1">Total Items</th>
@@ -74,6 +80,12 @@
             <th colspan="1">Subtotal</th>
             <td style="text-align: center">{{cartSubtotal| currency: 'USD'}}</td>
         </tr>
+
+        <tr >
+            <th colspan="1">Total Price</th>
+            <td style="text-align: center">{{totalPrice| currency: 'USD'}}</td>
+        </tr>
+
 </table>
 </div>
 
