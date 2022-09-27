@@ -32,7 +32,7 @@
               <!--<th>UserID</th>-->
               <th>AddressID</th>
               <th>Price</th>
-              <th>CreditCardID</th>
+              <th>CreditCard</th>
               <th>DateOrdered</th>
               <th>DateShipped</th>
               <!--<th>DateDelivered</th>-->
@@ -45,9 +45,9 @@
               <!-- for template syntax anything inside the brackets {{}} is considered an expression, and will try to solve it by looking in the component logic -->
               <td>{{ order.orderID }}</td>
               <!--<td>{{ order.userId }}</td>-->
-              <td>{{ order.addressID }}</td>
+              <td>{{ order.street }}</td>
               <td>{{ order.price }}</td>
-              <td>{{ order.creditCardID }}</td>
+              <td>{{ order.cardNumber }}</td>
               <td >{{ order.dateOrdered }}</td>
 
               <td class="hasShipped" *ngIf="order.dateShipped != null; else hasntShipped">{{ order.dateShipped }}</td>

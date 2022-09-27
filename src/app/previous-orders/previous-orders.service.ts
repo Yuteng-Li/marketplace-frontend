@@ -26,6 +26,10 @@ export class PreviousOrdersService {
     return prevOrders;
   }  
 
+  getAllPrevOrders(){
+    return this.http.get<any>(`${this.productUrl}/getOrders`);
+  }
+
   getPrevOrders(userID:number){
     return this.http.get<any>(`${this.productUrl}/getOrders/user/${userID}`);
   }

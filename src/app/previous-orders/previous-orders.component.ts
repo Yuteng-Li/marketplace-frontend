@@ -36,6 +36,7 @@ export class PreviousOrdersComponent implements OnInit {
       console.log(user);
     });
     this.getPreviousOrdersUser(5);
+    //this.getAllPreviousOrders();
   }
 
 
@@ -54,6 +55,24 @@ export class PreviousOrdersComponent implements OnInit {
             new Date(b.dateOrdered).getTime() - new Date(a.dateOrdered).getTime()
           );
         });
+
+        console.log(this.previousOrders);
+      });
+  }
+
+  getAllPreviousOrders() {
+ 
+    this.previousOrdersService
+      .getAllPrevOrders()
+      .subscribe((previousOrders) => {
+        this.previousOrders = previousOrders
+        
+        .sort((a: any, b: any) => {
+          return (
+            new Date(b.dateOrdered).getTime() - new Date(a.dateOrdered).getTime()
+          );
+        });
+        
 
         console.log(this.previousOrders);
       });
