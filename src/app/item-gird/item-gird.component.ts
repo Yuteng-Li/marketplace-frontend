@@ -84,11 +84,16 @@ export class ItemGirdComponent implements OnInit {
   }
 
   setMin(minPrice:number){
+    if(minPrice < 0 || isNaN(minPrice))
+    {
+      this.setMinPrice = 0.00;
+    }else{
       this.setMinPrice = minPrice;
+    }
   }
 
   setMax(maxPrice:number){
-    if(maxPrice == 0)
+    if(maxPrice <= 0 || isNaN(maxPrice))
     {
       this.setMaxPrice= 250.00
     }else{
