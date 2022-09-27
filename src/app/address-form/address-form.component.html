@@ -7,7 +7,7 @@
 
 <div class="mx-auto" style="width: 400px;">
   <h3>Current User Address</h3>
-  <p>UserID: {{this.userID}}</p>
+  <p>UserID: {{this.user_id}}</p>
   <p>Recipient Name: {{this.recipient_name}}</p>
   <p>Street: {{this.street}}</p>
   <p>Street2: {{this.street2}}</p>
@@ -17,16 +17,18 @@
 
 
 <!--  <button class="btn btn-primary" (click)="userLog()">Show Shipping Details</button>-->
-  <button class="btn btn-danger px-2" (click)="deleteAddress()" [disabled]="userID==''" >Delete Address</button>
+  <button class="btn btn-danger px-2" (click)="deleteAddress()" [disabled]="user_id==''" >Delete Address</button>
 </div>
 
 
-<div class="mx-auto" style="width: 400px;">
+<div  class="mx-auto" style="width: 400px;">
   <h3>Edit User Address</h3>
-  <form [formGroup]="addressForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="addressForm" >
     <div class="form-group">
-      <label for="recipientName">Recipient Name</label>
-      <input id="recipientName" class="form-control" type="text" formControlName="recipient_name">
+      <label for="recipient_name">Recipient Name</label>
+      <input id="recipient_name" class="form-control" type="text" formControlName="recipient_name">
+      <div  class="alert alert-danger" *ngIf="addressForm.controls['recipient_name'].errors?.['required']">Recipient Name is required</div>
+      <div class="alert alert-danger" *ngIf="addressForm.controls['recipient_name'].errors?.['maxlength'] ">Name is too long</div>
 
     </div>
 
@@ -56,16 +58,24 @@
     </div>
 
     <div class="form-group">
-      <label for="isShipping"> Above is a Shipping Address? </label>
-      <input id="isShipping" type="radio" formControlName="is_shipping">
+      <label for="is_shipping"> Above is a Shipping Address? </label>
+      <input id="is_shipping" type="radio" formControlName="is_shipping">
     </div>
 
     <div class="form-group">
-      <label for="isBilling">Above is a Billing Address? </label>
-      <input id="isBilling"  type="radio" formControlName="is_billing">
+      <label for="is_billing">Above is a Billing Address? </label>
+      <input id="is_billing" type="radio" formControlName="is_billing">
     </div>
     <!-- <label for="submit">Submit</label> -->
-    <button type="submit" class="btn btn-outline-primary" [disabled]="!addressForm.valid">Submit</button>
+    <button type="submit" class="btn btn-outline-primary"
+            (click)="onSubmitUpdate()"
+            *ngIf="recipient_name.length!=0"
+            [disabled]="!addressForm.valid">Update</button>
+    <button type="submit" class="btn btn-outline-primary"
+            (click)="onSubmitAdd()"
+            *ngIf="recipient_name==''"
+            [disabled]="!addressForm.valid">Add</button>
   </form>
 </div>
+
 
