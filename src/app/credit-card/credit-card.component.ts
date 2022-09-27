@@ -15,20 +15,20 @@ export class CreditCardComponent implements OnInit {
     private authService: SocialAuthService
   ){}
   
-  credits!:CreditCard[];
-  user!:SocialUser;
-  currUserID:number=parseInt(this.user.id);
+  credits:CreditCard[]=[];
+  user:SocialUser = new SocialUser;
+  currUserID!:number;
 
   ngOnInit(): void {
-
     this.authService.authState.subscribe((user) => {
       this.user = user;
-      console.log(user);
+      this.currUserID=parseInt(user.id);
     });
-    console.log(this.currUserID);
 
+    console.log(this.currUserID)
+    
     /*GET cards service call*/
-    this.creditCardService.getAllCards().subscribe(data => {
+      this.creditCardService.getAllCards().subscribe(data => {
         this.credits = data.filter(object=>{
           //pass in current usedID from user class into the number 3 below
           object['last_four_card_number'] = "****"+object['last_four_card_number'];
@@ -42,10 +42,5 @@ export class CreditCardComponent implements OnInit {
     this.creditCardService.deleteCard(creditCardID).subscribe();
     window.location.reload();
   }
-
-  signOut(): void {
-    this.authService.signOut();
-  }
-
 }
 

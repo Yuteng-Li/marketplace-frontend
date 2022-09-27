@@ -42,14 +42,17 @@
     </div>
 </div>
 <ng-template  #emptyCredit>
-    <div>
-        <p class="a">No payments have been added yet!</p>
+    <div class="center">
+        <div>
+            <p class="a">No payments have been added yet!</p>
+        </div>
+        <div class="shorten">
+            <a class="button1"
+            routerLink="/payment-form"
+            routerLinkActive="activebutton"
+            ariaCurrentWhenActive="page">Add New Payment</a>
+        </div>
     </div>
-    <div>
-        <a class="button1"
-        routerLink="/payment-form"
-        routerLinkActive="activebutton"
-        ariaCurrentWhenActive="page">Add New Payment</a>
-    </div>
+
 </ng-template>
 

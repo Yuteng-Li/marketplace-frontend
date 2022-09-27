@@ -21,6 +21,15 @@
     background: white;
     font-weight: bold;
 }
+.center{
+    margin: auto;
+    width: 50%;
+    padding: 5px;
+    text-align: center;
+}
+.shorten{
+    min-width: 200px;
+}
 .general{
     margin-left: 5%;
     width: 10%;
@@ -65,6 +74,8 @@ tr:hover{
 p.a{
     text-align: center;
     font-size: 20pt;
+    min-width: 200px;
+
 }
 h2.a{
     font-weight: bold;
