@@ -20,12 +20,17 @@ export class ConfirmOrderComponent implements OnInit {
      private router: Router, private authService: SocialAuthService) { }
 
   ngOnInit(): void {
-    this.cartItems = this.cartService.getCart();
-    this.getTotal();
-    
+    /*Get Items from Cart API*/
+    this.cartItems = this.cartService.shoppingCartArray;
+    //this.getTotal();
+    /*Get Card info from CreditCard API*/
+
+    /*Get Addresses from Address API*/
+
+    /*Get User info from User API*/
     this.authService.authState.subscribe((user) => {
       this.user = user;
-      console.log(user);
+      console.log(this.user);
     });
   }
 
