@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from './category.service';
-import { Category } from './category';
+import { Category } from './Category';
 import { CATEGORIES } from './mock-categories';
 
 @Component({
@@ -18,7 +18,7 @@ export class CategoriesComponent implements OnInit {
   }
 
   getCategories(): void {
-    this.categoryService.getCategories().subscribe( categories => {this.categories = categories; console.log(this.categories)});
+    this.categoryService.getCategories().subscribe( (categories: Category[]) => {this.categories = categories; console.log(this.categories)});
   }
 
 }
