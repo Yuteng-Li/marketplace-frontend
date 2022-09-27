@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, Observable, tap, throwError } from 'rxjs';
 import { Item } from './item';
+
 
 @Injectable({
   providedIn: 'root'
@@ -11,15 +12,29 @@ export class ItemService {
   //Needed to change my localhost server
   private baseUrl = 'http://localhost:8000/api/products';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  getAll() : Observable<Item[]> {
-    return this.http.get<Item[]>(this.baseUrl);
+  getItems(): Observable<Item[]> {
+    return this.http.get<Item[]>(`${this.baseUrl}/fetchAllItems`).pipe(
+      tap(data => console.log('All', JSON.stringify(data))),
+      catchError(this.handleError)
+    );
   }
 
-  getSearchProductName(){
+  private handleError(err: HttpErrorResponse) {
+    let errorMessage = '';
+    if (err.error instanceof ErrorEvent) {
+      errorMessage = `An error occurred: ${err.error.message}`;
+    } else {
+      errorMessage = `Server returned code: ${err.status}, error message is ${err.message}`;
+    }
+    console.log(errorMessage);
+    return throwError(() => errorMessage);
+  }
+
+  getSearchProductName() {
     const response = new Promise(resolve => [
-      this.http.get(`${this.baseUrl}/fetchAllItems`).subscribe(data =>{
+      this.http.get(`${this.baseUrl}/fetchAllItems`).subscribe(data => {
         resolve(data);
       }, err => {
         console.log(err);
@@ -28,10 +43,10 @@ export class ItemService {
     return response
   }
 
-  getProductById(id:string){
+  getProductById(id: string) {
     return this.http.get<any>(`${this.baseUrl}/get/${id}`);
   }
-  getProduct(){
+  getProduct() {
     return this.http.get<any>(`${this.baseUrl}/fetchAllItems`);
   }
 }
