@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand"
@@ -24,8 +24,14 @@
                         <li><a class="dropdown-item" href="#"></a>Link 3</li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Profile</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Profile</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" type="submit" routerLink="/previous-orders" routerLinkActive="activebutton"ariaCurrentWhenActive="page"
+                                value="Previous Orders">Previous Orders</a>
+                            <a class="dropdown-item" type="submit" routerLink="/credit-card" routerLinkActive="activebutton"ariaCurrentWhenActive="page"
+                                value="Credit Cards">Manage Credit Cards</a>
+                        </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link"
