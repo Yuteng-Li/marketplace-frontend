@@ -34,11 +34,7 @@ export class ItemGirdComponent implements OnInit {
       console.log(user);
     });
     this.DisplayAll();
-    this.getByQuery();
-  }
-
-  signOut(): void {
-    this.authService.signOut();
+    //this.getByQuery();
   }
 
   displayByID(id:string){
