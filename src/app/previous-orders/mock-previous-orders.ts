@@ -46,8 +46,13 @@ export const PREVIOUSORDERS = [
         Price: 8.99,
         CreditCardID: 4,
         DateOrdered: new Date(),
+<<<<<<< HEAD
         DateShipped: '',
         DateDelivered: '',
+=======
+        DateShipped: new Date(0),
+        DateDelivered: new Date(0),
+>>>>>>> 2f37d89c9f5f1905e36e3c599c1945d79ebe6217
         OrderStatus: 'Not Shipped Yet',
       },
       {

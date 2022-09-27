@@ -18,6 +18,7 @@ export class CreditCardComponent implements OnInit {
         this.user = user;
         console.log(user);
       });
+      console.log(this.user.id);
     }
   
     signOut(): void {

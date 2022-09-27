@@ -15,6 +15,10 @@ import { PaymentFormComponent } from './payment-form/payment-form.component';
 
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
+<<<<<<< HEAD
+=======
+import { AuthGuard } from './auth.guard';
+>>>>>>> 2f37d89c9f5f1905e36e3c599c1945d79ebe6217
 
 import { CategoriesComponent } from './categories/categories.component';
 import { ItemGirdComponent } from './item-gird/item-gird.component';
@@ -53,10 +57,17 @@ import { ConfirmOrderComponent } from './confirm-order/confirm-order.component';
     BrowserModule,
     RouterModule.forRoot([
       {path: 'home-page', component: HomePageComponent },
+<<<<<<< HEAD
       {path: 'previous-orders', component: PreviousOrdersComponent},
       {path: 'cart', component: CartComponent},
       {path: 'credit-card', component: CreditCardComponent},
       {path: 'payment-form', component: PaymentFormComponent},
+=======
+      {path: 'previous-orders', component: PreviousOrdersComponent, canActivate: [AuthGuard]},
+      {path: 'cart', component: CartComponent, canActivate: [AuthGuard]},
+      {path: 'credit-card', component: CreditCardComponent, canActivate: [AuthGuard]},
+      {path: 'payment-form', component: PaymentFormComponent, canActivate: [AuthGuard]},
+>>>>>>> 2f37d89c9f5f1905e36e3c599c1945d79ebe6217
       {path: 'login', component: LoginComponent},
       {path: 'categories', component: CategoriesComponent},
       {path: 'item-gird', component: ItemGirdComponent},

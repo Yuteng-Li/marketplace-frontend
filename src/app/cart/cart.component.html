@@ -39,6 +39,7 @@
         <th>Total</th>
     </tr>
 
+<<<<<<< HEAD
     <tr *ngFor="let item of cartItems; let index = index">
         <td>Item image placeholder</td>
         <td>{{ item.itemName }}</td>
@@ -49,12 +50,30 @@
             <button type="button" class="btn btn-outline-primary btn-sm" id="btnDis" (click) = "cartItems.splice(index, 1)">Remove</button>
         </td>
         <td>{{ (item.itemPrice * item.itemQty) | currency: 'USD'}}</td>
+=======
+    <tr *ngFor="let item of shoppingCartArray; let index = index">
+            <td *ngIf="(item | json)!=({} | json)"><img src="{{item.itemImgUrl}}"  width="50%" height="40%"></td>
+            <td *ngIf="(item | json)!=({} | json)">{{ item.itemName }}</td>
+            <td *ngIf="(item | json)!=({} | json)">{{ item.itemPrice| currency: 'USD'}}</td>
+            <td *ngIf="(item | json)!=({} | json)">
+                <!--the onKeyUp is kinda werid, not 100% working ,werid stuff happen if go above 100 or below 1 -->
+                <input type="number"  [(ngModel)]="item.itemQty" (change)="handleChange(index)" 
+                onKeyUp="if(this.value>100){this.value='100';}else if(this.value<1){this.value='1';}" min="1" max="100" step="1" id="btnDis"/>
+                <button type="button" class="btn btn-outline-primary btn-sm" id="btnDis" (click) = "handleRemove(index)">Remove</button>
+            </td>
+            <td *ngIf="(item | json)!=({} | json)">{{ item.itemQty*item.itemPrice | currency: 'USD'}}</td>
+      
+>>>>>>> 2f37d89c9f5f1905e36e3c599c1945d79ebe6217
     </tr>
  </thead>
 </table>
 </div>
 
+<<<<<<< HEAD
 <button type="button" class="btn btn-primary" style="float: right; margin-right: 160px; margin-bottom: 20px" [routerLink]="['/home-page']">Continue Shopping</button>
+=======
+<button type="button" class="btn btn-primary" style="float: right; margin-right: 160px; margin-bottom: 20px" [routerLink]="['/item-gird']">Continue Shopping</button>
+>>>>>>> 2f37d89c9f5f1905e36e3c599c1945d79ebe6217
 
 
 <div class="table-margin2">
@@ -64,6 +83,7 @@
             <th class="rowbg2" colspan="2" style="text-align: center">Cart Totals</th>
         </tr>
     </thead>
+<<<<<<< HEAD
 
         <tr>
             <th colspan="1">Total Items</th>
@@ -74,11 +94,37 @@
             <th colspan="1">Subtotal</th>
             <td style="text-align: center">{{ cartSubtotal | currency:'USD'}}</td>
         </tr>
+=======
+        <tr>
+            <th colspan="1">Total Tax</th>
+            <td style="text-align: center">{{totalTax| currency: 'USD'}}</td>
+        </tr>
+
+        <tr >
+            <th colspan="1">Total Items</th>
+            <td style="text-align: center">{{numItems}}</td>
+        </tr>
+
+        <tr >
+            <th colspan="1">Subtotal</th>
+            <td style="text-align: center">{{cartSubtotal| currency: 'USD'}}</td>
+        </tr>
+
+        <tr >
+            <th colspan="1">Total Price</th>
+            <td style="text-align: center">{{totalPrice| currency: 'USD'}}</td>
+        </tr>
+
+>>>>>>> 2f37d89c9f5f1905e36e3c599c1945d79ebe6217
 </table>
 </div>
 
 <!-- Not linked to the checkout page yet. Need routerLink for it-->
+<<<<<<< HEAD
 <button type="button" class="btn btn-primary" style="float: right; margin-right: 160px">Proceed to Checkout</button>
+=======
+<button type="button" class="btn btn-primary" style="float: right; margin-right: 160px" [routerLink]="['/payment-form']">Proceed to Checkout</button>
+>>>>>>> 2f37d89c9f5f1905e36e3c599c1945d79ebe6217
     
 </body>
 </html>

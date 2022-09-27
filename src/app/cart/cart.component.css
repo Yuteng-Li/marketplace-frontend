@@ -4,6 +4,13 @@
     text-align: center;
 }
 
+<<<<<<< HEAD
+=======
+.table{
+    table-layout: fixed;
+}
+
+>>>>>>> 2f37d89c9f5f1905e36e3c599c1945d79ebe6217
 .table-margin{
     margin-right: 160px; 
     margin-left: 160px

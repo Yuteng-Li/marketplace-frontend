@@ -4,3 +4,15 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+<<<<<<< HEAD
+=======
+
+.background-nisum {
+    background: #00cfff;
+    background: linear-gradient(to right, #6e12ff, #0019ff, #00cfff);
+    color: #fff;
+    border-radius: 0%;
+    border: none;
+    font-family: 'Corbel', Verdana, "Bitstream Vera Sans", sans-serif;
+}
+>>>>>>> 2f37d89c9f5f1905e36e3c599c1945d79ebe6217

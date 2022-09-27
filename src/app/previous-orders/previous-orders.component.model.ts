@@ -7,5 +7,9 @@ export class Orders{
     DateOrdered: Date = new Date(0);
     DateShipped: Date = new Date(0);
     DateDelivered: Date = new Date(0);
+<<<<<<< HEAD
     OrderStatus: string = "";
+=======
+    OrderStatus: String = "";
+>>>>>>> 2f37d89c9f5f1905e36e3c599c1945d79ebe6217
 }

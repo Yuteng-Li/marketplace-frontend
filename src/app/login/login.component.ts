@@ -16,15 +16,29 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: SocialAuthService, private router:Router) { }
 
+<<<<<<< HEAD
   ngOnInit() {
     this.authService.authState.subscribe((user) => {
       this.user = user;
       console.log(user);
+=======
+
+   
+  ngOnInit() {
+    this.authService.authState.subscribe((user) => {
+      this.user = user;
+        localStorage.setItem('APP_TOKEN', JSON.stringify(this.user.authToken));
+        this.router.navigate(['/home-page']);
+ 
+>>>>>>> 2f37d89c9f5f1905e36e3c599c1945d79ebe6217
     });
   }
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2f37d89c9f5f1905e36e3c599c1945d79ebe6217
   signOut(): void {
     this.authService.signOut();
   }

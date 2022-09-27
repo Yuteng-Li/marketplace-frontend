@@ -1,4 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
+<<<<<<< HEAD
+=======
+import { Product } from '../cart/cart.component.model';
+import { CartService } from '../cart/cart.component.service';
+>>>>>>> 2f37d89c9f5f1905e36e3c599c1945d79ebe6217
 import { ItemService } from '../item.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpParams } from '@angular/common/http';
@@ -14,6 +19,7 @@ export class ItemGirdComponent implements OnInit {
 
 
 
+<<<<<<< HEAD
   product : any[] = [];
   user!: SocialUser;
 
@@ -22,6 +28,17 @@ export class ItemGirdComponent implements OnInit {
     private router: Router) { 
   }
 
+=======
+  product : Product[] = [];
+  user!: SocialUser;
+
+  constructor(private ItemService:ItemService, private authService: SocialAuthService, private route: ActivatedRoute,
+    private router: Router, public cartService:CartService) { 
+  }
+
+  
+  
+>>>>>>> 2f37d89c9f5f1905e36e3c599c1945d79ebe6217
 
   ngOnInit(): void {
     //These API calls are temporary as the DBs are still changing so these will
@@ -31,24 +48,34 @@ export class ItemGirdComponent implements OnInit {
       console.log(user);
     });
     this.DisplayAll();
+<<<<<<< HEAD
     this.getByQuery();
   }
 
   signOut(): void {
     this.authService.signOut();
+=======
+    //this.getByQuery();
+>>>>>>> 2f37d89c9f5f1905e36e3c599c1945d79ebe6217
   }
 
   displayByID(id:string){
       this.ItemService.getProductById(id).subscribe(product => {
         this.product.push(product.product);
+<<<<<<< HEAD
         console.log(product);
+=======
+>>>>>>> 2f37d89c9f5f1905e36e3c599c1945d79ebe6217
       })
   }
 
   DisplayAll(){
     this.ItemService.getProduct().subscribe(product => {
       this.product=product;
+<<<<<<< HEAD
       console.log(product);
+=======
+>>>>>>> 2f37d89c9f5f1905e36e3c599c1945d79ebe6217
     })
   }
 

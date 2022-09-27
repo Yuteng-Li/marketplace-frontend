@@ -8,4 +8,31 @@
   .navbar {
     background-color: lightblue;
   }
+<<<<<<< HEAD
   
+=======
+
+.background-nisum {
+    background: #00cfff;
+    background: linear-gradient(to right, #6e12ff, #0019ff, #00cfff);
+    color: #fff;
+    border-radius: 0%;
+    border: none;
+    font-family: 'Corbel', Verdana, "Bitstream Vera Sans", sans-serif;
+    
+}
+
+.btn-nisum:hover {
+    color: #fff;
+}
+
+.card{
+  height: 60vh;
+  width: 80vh;
+  flex-direction: column;
+}
+
+.btn-sign{
+  flex-direction: column;
+}
+>>>>>>> 2f37d89c9f5f1905e36e3c599c1945d79ebe6217

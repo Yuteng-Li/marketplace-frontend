@@ -58,6 +58,7 @@ tr:nth-child(even) {
 
 .cancelbtn:hover {
   color: red;
+<<<<<<< HEAD
 }
 
 
@@ -71,3 +72,6 @@ tr:nth-child(even) {
   font-family: 'Corbel', Verdana, "Bitstream Vera Sans", sans-serif;
   
 }
+=======
+}
+>>>>>>> 2f37d89c9f5f1905e36e3c599c1945d79ebe6217

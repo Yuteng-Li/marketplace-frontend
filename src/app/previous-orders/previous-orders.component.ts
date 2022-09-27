@@ -3,8 +3,6 @@ import { PreviousOrdersService } from './previous-orders.service';
 
 import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { SocialUser } from '@abacritt/angularx-social-login';
-import { Orders } from './previous-orders.component.model';
-import { map } from 'rxjs';
 
 @Component({
   selector: 'app-previous-orders',
