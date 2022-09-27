@@ -61,6 +61,7 @@ import { ConfirmOrderComponent } from './confirm-order/confirm-order.component';
       {path: 'login', component: LoginComponent},
       {path: 'categories', component: CategoriesComponent},
       {path: 'item-gird', component: ItemGirdComponent},
+      {path: 'confirm-order', component: ConfirmOrderComponent},
       {path: '', pathMatch: 'full', redirectTo: 'home-page' },
       {path: '**', pathMatch: 'full', component: PageNotFoundComponent}
     ]),

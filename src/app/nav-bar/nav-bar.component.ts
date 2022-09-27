@@ -32,7 +32,6 @@ export class NavBarComponent implements OnInit {
       this.displayByID(this.user.email);
     }
 
-    console.log(this.user);
 
   }
 
@@ -42,14 +41,11 @@ export class NavBarComponent implements OnInit {
     this.router.navigate(['/home-page'])
   }
   displayByID(Email:string){
-    this.UserService.getUsersByEmail(Email).subscribe(user => {
-      this.user.id = user.user_id;
-    console.log(this.user.id)},
-      (error) => {
-      {
-        this.UserService.createUsersByEmail(this.user.email, this.user.firstName, this.user.lastName, "confiential",  "510-101-1010")
-        .subscribe(user => this.user.id = user.user_id)
-      }
-    })
-}
+    this.UserService.getUsersByEmail(Email).subscribe(
+     { next: user => 
+      this.user.id = user.user_id,
+      error: e => this.UserService.createUsersByEmail(this.user.email, this.user.firstName, this.user.lastName, "confiential",  "510-101-1010")
+      .subscribe(user => this.user.id = user.user_id),
+     })
+     }
 }

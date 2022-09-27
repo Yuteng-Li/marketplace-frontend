@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class ItemService {
   //change to an actual server when that is running
-  baseUrl = 'http://localhost:8080/api/products';
+  baseUrl = 'http://localhost:8081/api/products';
 
   constructor(private http: HttpClient) {}
 
