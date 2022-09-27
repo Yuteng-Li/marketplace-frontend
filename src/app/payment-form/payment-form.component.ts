@@ -14,6 +14,8 @@ import { SocialUser } from '@abacritt/angularx-social-login';
 export class PaymentFormComponent implements OnInit {
   newCard: CreditCard = new CreditCard;
   credits!:CreditCard[];
+  user!:SocialUser;
+  currUserID:number=parseInt(this.user.id);
 
   constructor(private paymentService: PaymentService, private creditCardService:CreditCardService) { }
 
