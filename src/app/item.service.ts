@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, tap, throwError } from 'rxjs';
+import { Product } from './cart/cart.component.model';
 import { Item } from './item';
 
 
@@ -14,9 +15,9 @@ export class ItemService {
 
   constructor(private http: HttpClient) { }
 
-  getItems(): Observable<Item[]> {
-    return this.http.get<Item[]>(`${this.baseUrl}/fetchAllItems`).pipe(
-      tap(data => console.log('Item[] Observable', JSON.stringify(data))),
+  getItems(): Observable<Product[]> {
+    return this.http.get<Product[]>(`${this.baseUrl}/fetchAllItems`).pipe(
+      tap(data => console.log('Product[] Observable', JSON.stringify(data))),
       catchError(this.handleError)
     );
   }
@@ -32,16 +33,16 @@ export class ItemService {
     return throwError(() => errorMessage);
   }
 
-  getSearchProductName() {
-    const response = new Promise(resolve => [
-      this.http.get(`${this.baseUrl}/fetchAllItems`).subscribe(data => {
-        resolve(data);
-      }, err => {
-        console.log(err);
-      })
-    ]);
-    return response
-  }
+  // getSearchProductName() {
+  //   const response = new Promise(resolve => [
+  //     this.http.get(`${this.baseUrl}/fetchAllItems`).subscribe(data => {
+  //       resolve(data);
+  //     }, err => {
+  //       console.log(err);
+  //     })
+  //   ]);
+  //   return response
+  // }
 
   getProductById(id: string) {
     return this.http.get<any>(`${this.baseUrl}/get/${id}`);

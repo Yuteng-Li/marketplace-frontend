@@ -3,6 +3,14 @@
     
 <homepage-search-bar></homepage-search-bar>
 
+<div card='row'>
+  <div class='col-md-2'>Filter by:</div>
+  <div class='col-md-4'>
+      <input type='search' 
+              [(ngModel)] = 'listFilter'/>
+  </div>
+</div>
+
 
 <div class="container">
     <div class="row py-4">
@@ -55,8 +63,9 @@
           <div class="content">
 
             <div fxLayout="row wrap" fxLayoutGap="16px grid">
-          
-              <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let prod of product">
+              
+               <!-- Filter the items by their prodName since searchProducts is a Filtered array  -->
+              <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let prod of searchProduct">
 
                 <div class="card h-100 ">
 

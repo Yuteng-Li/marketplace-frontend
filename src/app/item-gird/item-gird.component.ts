@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HttpParams } from '@angular/common/http';
 import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { SocialUser } from '@abacritt/angularx-social-login';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-item-gird',
@@ -15,21 +16,31 @@ import { SocialUser } from '@abacritt/angularx-social-login';
 })
 export class ItemGirdComponent implements OnInit {
 
-  item : Item[] = [];
   product : Product[] = [];
   savedProduct : Product[] = [];
   Filters: String[]=[];
   user!: SocialUser;
   setMinPrice = 0.00;
   setMaxPrice = 250.00;
+  searchProduct: Product[] = [];
+  sub!: Subscription
+  errorMessage: string = '';
 
+  private _listFilter: string ='';
+  get listFilter(): string{
+      return this._listFilter;
+  }
+  set listFilter(value: string){
+      this._listFilter = value;
+      console.log('In setter: ' + value);
+      this.searchProduct = this.performFilter(value);
+  }
 
-  product : Product[] = [];
-  savedProduct : Product[] = [];
-  Filters: String[]=[];
-  user!: SocialUser;
-  setMinPrice = 0.00;
-  setMaxPrice = 250.00;
+  performFilter(filterBy: string): Product[] {
+    filterBy = filterBy.toLocaleLowerCase();
+    return this.product.filter((products: Product) => 
+    products.prod_name.toLocaleLowerCase().includes(filterBy));
+  }
 
   constructor(private ItemService:ItemService, private authService: SocialAuthService, private route: ActivatedRoute,
     private router: Router, public cartService:CartService) { 
@@ -46,6 +57,13 @@ export class ItemGirdComponent implements OnInit {
       console.log(user);
     });
     this.DisplayAll();
+    this.sub = this.ItemService.getItems().subscribe({
+      next: product => {
+        this.product = product;
+        this.searchProduct = this.product;
+      },
+      error: err => this.errorMessage = err
+    })
     console.log('>>> in onInit')
     //this.getByQuery();
     

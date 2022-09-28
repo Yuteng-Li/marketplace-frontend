@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit, Pipe } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { Product } from '../cart/cart.component.model';
 import { Item } from '../item';
 import { ItemService } from '../item.service';
 
@@ -11,13 +12,14 @@ import { ItemService } from '../item.service';
 })
 export class SearchBarComponent implements OnInit, OnDestroy {
   data: any;
-  items: Item[] = [];
-  filteredItems: Item[] = [];
+  // items: Item[] = [];
+  product: Product[] = [];
+  filteredProducts: Product[] = [];
   errorMessage: string = '';
   sub!: Subscription
 
   // Injecting the Item Service
-  constructor(private itemService: ItemService) { }
+  constructor(private ItemService: ItemService) { }
 
   private _filteredString: string = '';
   get filteredString(): string {
@@ -26,23 +28,26 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   set filteredString(value: string) {
     this._filteredString = value;
     console.log('In setter: ', value)
-    this.filteredItems = this.performFilter(value);
+    this.filteredProducts = this.performFilter(value);
   }
 
-  //Method will filter our list of items to only those with a item name that includes the list filter string
+  // Method will filter our list of items to only those with a item name that includes the list filter string
   // If it is empty it will return all items 
-  performFilter(filterBy: string): Item[] {
+
+  // Filter through the chars set in the search bar 
+  performFilter(filterBy: string): Product[] {
     filterBy = filterBy.toLocaleLowerCase();
-    return this.items.filter((item: Item) =>
-      item.prodName.toLowerCase().includes(filterBy));
+    return this.product.filter((products: Product) => 
+    products.prod_name.toLocaleLowerCase().includes(filterBy));
   }
 
   // Need to create a lifecycle hook to call to perform component initialization
   ngOnInit(): void {
-    this.sub = this.itemService.getItems().subscribe({
-      next: items => {
-        this.items = items;
-        this.filteredItems = this.items;
+    this.sub = this.ItemService.getItems().subscribe({
+      next: product => {
+        this.product = product;
+        this.filteredProducts = this.product;
+
       },
       error: err => this.errorMessage = err
     });
@@ -62,7 +67,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
 
   // getItemsSearch(name: any){
   //   const keyword = name.target.value;
-  //   const search = this.itemService.getSearchProductName().then(response => {
+  //   const search = this.ItemService.getSearchProductName().then(response => {
   //     this.data = response;
   //     response
   //     console.log(this.data)
