@@ -1,4 +1,4 @@
-import { Category } from "./Category";
+import { Category } from "../shared/Category";
 export const CATEGORIES: Category[] = [
   {
     category : 'Beverages',
