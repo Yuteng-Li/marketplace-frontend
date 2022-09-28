@@ -8,13 +8,13 @@
             <!-- This is the dropdown menu for the users addresses -->
             <div class="col" *ngIf="userAddresses.length != 0">
                 <div ngbDropdown class="d-inline-block">
-                    <button ngbDropdownToggle class="btn btn-outline-primary" id="dropdownBasic1">
+                    <a ngbDropdownToggle class="btn btn-outline-primary" id="dropdownBasic1">
                         My Addresses
-                    </button>
+                    </a>
                     <div ngbDropdownMenu aria-labelledby="dropdownBasic1" *ngFor="let address of userAddresses">
-                        <button ngbDropdownItem (click)="autoFillAddress(address)">
+                        <a ngbDropdownItem (click)="autoFillAddress(address)">
                             {{ address.street }}
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -125,13 +125,13 @@
             <!-- This is the dropdown menu for the users credit cards -->
             <div class="col" *ngIf="userCreditCards.length != 0">
                 <div ngbDropdown class="d-inline-block">
-                    <button ngbDropdownToggle class="btn btn-outline-primary" id="dropdownBasic2">
+                    <a ngbDropdownToggle class="btn btn-outline-primary" id="dropdownBasic2">
                         My Credit Cards
-                    </button>
+                    </a>
                     <div ngbDropdownMenu aria-labelledby="dropdownBasic2" *ngFor="let card of userCreditCards">
-                        <button ngbDropdownItem (click)="autoFillCard(card)">
+                        <a ngbDropdownItem (click)="autoFillCard(card)">
                             ************-{{ card.last_four_card_number }}
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>

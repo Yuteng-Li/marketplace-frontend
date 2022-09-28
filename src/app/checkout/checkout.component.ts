@@ -17,6 +17,7 @@ import { concatMap } from 'rxjs/operators';
 import { CreditCard } from '../shared/CreditCard';
 import { CreditCardService } from '../credit-card/credit-card.component.service';
 import { CheckoutDataService } from '../checkout-data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-checkout',
@@ -30,7 +31,7 @@ export class CheckoutComponent implements OnInit {
   checkoutForm!: FormGroup;
   userAddresses: Address[] = [];
   userCreditCards: CreditCard[] = [];
-  selectedAddress: Address | undefined ;
+  selectedAddress: Address | undefined;
 
   constructor(
     private fb: FormBuilder,
@@ -38,7 +39,8 @@ export class CheckoutComponent implements OnInit {
     private addressService: AddressService,
     private userService: UserService,
     private creditCardService: CreditCardService,
-    private dataService: CheckoutDataService
+    private dataService: CheckoutDataService,
+    private router: Router
   ) {
     this.checkoutForm = this.fb.group({
       // userAddress: [''],
@@ -132,13 +134,18 @@ export class CheckoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const localUser = localStorage.getItem('user');
+    if (localUser != null) {
+      this.socialUser = JSON.parse(localUser);
+    }
     this.authService.authState
       .pipe(
         concatMap((user) => {
           console.log('Getting google user...');
-          this.socialUser = user;
-          console.log(user)
-          return this.userService.getUsersByEmail(user.email);
+          if (user != null) {
+            this.socialUser = user;
+          }
+          return this.userService.getUsersByEmail(this.socialUser.email);
         })
       )
       .pipe(
@@ -175,43 +182,50 @@ export class CheckoutComponent implements OnInit {
   }
 
   onSubmit(): void {
+    console.log('SUBMIT IS BEING DUMB');
     if (this.sameAsDelivery === true) {
       this.setBillingAddressAsDelivery();
     }
-    const dAddress:Address = new Address();
+    //Creating the delivery address
+    const dAddress: Address = new Address();
     dAddress.user_id = this.userID;
     dAddress.is_shipping = true;
     dAddress.is_billing = false;
-    dAddress.recipient_name = this.deliveryFirstName.value + this.deliveryLastName.value;
+    dAddress.recipient_name =
+    this.deliveryFirstName.value + this.deliveryLastName.value;
     dAddress.street = this.deliveryStreet1.value;
     dAddress.street2 = this.deliveryStreet2.value;
     dAddress.city = this.deliveryCity.value;
     dAddress.state = this.deliveryState.value;
     dAddress.zip = this.deliveryZip.value;
-    
-    const bAddress:Address = new Address();
+
+    //Creating the billing address
+    const bAddress: Address = new Address();
     bAddress.user_id = this.userID;
     bAddress.is_shipping = false;
     bAddress.is_billing = true;
-    bAddress.recipient_name = this.deliveryFirstName.value + this.deliveryLastName.value;
+    bAddress.recipient_name =
+    this.deliveryFirstName.value + this.deliveryLastName.value;
     bAddress.street = this.deliveryStreet1.value;
     bAddress.street2 = this.deliveryStreet2.value;
     bAddress.city = this.deliveryCity.value;
     bAddress.state = this.deliveryState.value;
     bAddress.zip = this.deliveryZip.value;
 
+    //Creating the credit card
     const card: CreditCard = new CreditCard();
     card.user_id = this.userID;
     card.cardholder_name = this.cardholderName.value;
-    const expiration_date = this.cardExpireDate.value.split("/");
+    const expiration_date = this.cardExpireDate.value.split('/');
     card.expiration_month = expiration_date[0];
     card.expiration_year = expiration_date[1];
-    card.last_four_card_number = this.cardNumber.value.slice(-4)
-    console.log(card)
+    card.last_four_card_number = this.cardNumber.value.slice(-4);
+
+    //This is sending data to the service so that confirm-order can use it
     this.dataService.changeDeliveryAddress(dAddress);
     this.dataService.changeBillingAddress(bAddress);
-    this.dataService.changeCreditCard
-
+    this.dataService.changeCreditCard(card);
+    this.router.navigate(['/confirm-order']);
   }
 
   setBillingAddressAsDelivery(): void {
@@ -254,6 +268,8 @@ export class CheckoutComponent implements OnInit {
   }
   autoFillCard(card: CreditCard) {
     this.cardholderName.setValue(card.cardholder_name);
-    this.cardExpireDate.setValue(card.expiration_month + "/" + card.expiration_year);
+    this.cardExpireDate.setValue(
+      card.expiration_month + '/' + card.expiration_year
+    );
   }
 }
