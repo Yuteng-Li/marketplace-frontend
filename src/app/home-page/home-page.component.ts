@@ -22,7 +22,6 @@ export class HomePageComponent implements OnInit {
   ngOnInit() {
     this.authService.authState.subscribe((user) => {
       this.user = user;
-      console.log(user);
     });
 
     this.getCategories();
