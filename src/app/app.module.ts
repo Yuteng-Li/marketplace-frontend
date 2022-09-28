@@ -70,7 +70,8 @@ import {AddressFormComponent} from "./address-form/address-form.component";
       {path: 'confirm-order', component: ConfirmOrderComponent},
       {path: 'checkout', component: CheckoutComponent},
       {path: '', pathMatch: 'full', redirectTo: 'home-page' },
-      {path: '**', pathMatch: 'full', component: PageNotFoundComponent}
+      {path: '**', pathMatch: 'full', component: PageNotFoundComponent},
+      {path: '', component: SearchBarComponent}
     ]),
     HttpClientModule,
     BrowserAnimationsModule,
