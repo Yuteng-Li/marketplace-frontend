@@ -23,7 +23,7 @@ import {SocialAuthService, SocialUser} from "@abacritt/angularx-social-login";
 export class AddressFormComponent implements OnInit{
 
   user!: SocialUser;
-  port_number:number = 9090;
+  port_number:number = 8080;
   // get_address_api:string = `http://localhost:${this.port_number}/api/address/getAddress/${this.user.id}`
   /*
   Below we include the different form fields that are needed for display, and HTTP method purposes (Post, put,...)
@@ -137,7 +137,7 @@ export class AddressFormComponent implements OnInit{
       this.addressForm.value.user_id = this.user_id;
       this.addressForm.value.address_id = this.address_id;
       console.log(this.addressForm.value);
-      this.http.put(`http://localhost:9090/api/address/updateAddress/${this.address_id}`, this.addressForm.value)
+      this.http.put(`http://localhost:${this.port_number}/api/address/updateAddress/${this.address_id}`, this.addressForm.value)
         .subscribe
           (resp=>
             {
@@ -162,7 +162,7 @@ export class AddressFormComponent implements OnInit{
       delete this.addressForm.value.address_id;
       let new_user: {  [index: string]:any  } = {};
       console.log(this.addressForm.value);
-      this.http.post(`http://localhost:9090/api/address/createAddress`, this.addressForm.value)
+      this.http.post(`http://localhost:${this.port_number}/api/address/createAddress`, this.addressForm.value)
         .subscribe
         (resp=>
           {
