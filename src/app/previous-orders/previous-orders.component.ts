@@ -1,12 +1,13 @@
 import { CreditCardService } from './../credit-card/credit-card.component.service';
 import { CreditCard } from './../credit-card/credit-card.component.credit-card-model';
-import { CcServiceService } from './cc-service.service';
+import { CcserviceService } from './../credit-card/ccservice.service';
 import { BehaviorSubject, catchError, combineLatest, concat, first, flatMap, forkJoin, map, mergeMap, Observable, of, switchMap, zip } from 'rxjs';
 
 import { Component, OnInit, ɵgetUnknownElementStrictMode } from '@angular/core';
 import { PreviousOrdersService } from './previous-orders.service';
 
 import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
+import { AddressService } from './address.service';
 
 @Component({
   selector: 'app-previous-orders',
@@ -21,7 +22,7 @@ export class PreviousOrdersComponent implements OnInit {
   myData: BehaviorSubject<any> = new BehaviorSubject<any>(0);
 
   constructor(private previousOrdersService: PreviousOrdersService,private authService: SocialAuthService,
-    private addressService: AddressService, private ccService: CcServiceService) {}
+    private addressService: AddressService, private ccService: CcserviceService) {}
   user!: SocialUser;
 
   ngOnInit(): void {
