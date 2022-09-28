@@ -22,8 +22,11 @@
  }
 
  img{
-   width: auto;
+  max-width: 100%;
+   width:fit-content;
    height: 200px;
+   border-radius: 5px;
+   object-fit: cover;
  }
  .page{
    padding:25px
