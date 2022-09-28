@@ -16,14 +16,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Shop</a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item" type="submit" routerLink="/categories" routerLinkActive="activebutton"ariaCurrentWhenActive="page"
-                                value="Previous Orders">Categories</a>
-                        </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Profile</a>
+                    <a class="nav-link dropdown-toggle bi bi-person" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"> Profile</a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                             <a class="dropdown-item" type="submit" routerLink="/previous-orders" routerLinkActive="activebutton"ariaCurrentWhenActive="page"
                                 value="Previous Orders">Previous Orders</a>
@@ -31,11 +24,20 @@
                                 value="Credit Cards">Manage Credit Cards</a>
                         </div>
                 </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle bi bi-bag" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"> Shop</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" type="submit" routerLink="/categories" routerLinkActive="activebutton"ariaCurrentWhenActive="page"
+                                value="Previous Orders">Categories</a>
+                        </div>
+                </li>
+                
                 <li class="nav-item">
-                    <a class="nav-link"
+                    <a class="nav-link bi bi-cart"
                     routerLink="/cart"
                     routerLinkActive="activebutton"
-                    ariaCurrentWhenActive="page">Cart</a>
+                    ariaCurrentWhenActive="page"> Cart</a>
                 </li>
             </ul>
         </div>
