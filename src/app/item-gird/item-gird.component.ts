@@ -20,6 +20,7 @@ export class ItemGirdComponent implements OnInit {
   savedProduct : Product[] = [];
   Filters: String[]=[];
   user!: SocialUser;
+  localUser =  localStorage.getItem('user');
   setMinPrice = 0.00;
   setMaxPrice = 250.00;
 
@@ -37,8 +38,13 @@ export class ItemGirdComponent implements OnInit {
     //These API calls are temporary as the DBs are still changing so these will
     //eventually be changed but right now if you use the inventory db it should work until they change it
     this.authService.authState.subscribe((user) => {
-      this.user = user;
-      console.log(user);
+      if(user==null && this.localUser !=null)
+      {
+        this.user = JSON.parse(this.localUser);
+      }else
+      {
+        this.user=user;
+      }
     });
     this.DisplayAll();
 
