@@ -47,4 +47,4 @@ jobs:
 
       - name: Test
         run: |
-          npm run test
+          npm test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
