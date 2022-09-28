@@ -52,6 +52,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
     BrowserModule, 
     FormsModule,
     ReactiveFormsModule,
+    NgbModule,
     RouterModule.forRoot([
       {path: 'home-page', component: HomePageComponent },
       {path: 'previous-orders', component: PreviousOrdersComponent, canActivate: [AuthGuard]},
@@ -68,8 +69,8 @@ import { CheckoutComponent } from './checkout/checkout.component';
     HttpClientModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
-    SocialLoginModule,
-    NgbModule,
+    SocialLoginModule
+    
   ],
   
   providers: [{
