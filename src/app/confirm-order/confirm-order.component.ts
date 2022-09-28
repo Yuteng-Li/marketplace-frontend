@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../cart/cart.component.service';
+import { ShoppingCart } from '../cart/cart.component.shopcartmodel';
 import { OrderService } from './order.service';
 import { Router } from '@angular/router';
 import { Order } from './Order';
 import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { SocialUser } from '@abacritt/angularx-social-login';
+import { UserService } from '../user.service';
+import { User } from '../user.model';
+import { CreditCardService } from '../credit-card/credit-card.component.service'
+import { CreditCard } from '../credit-card/credit-card.component.credit-card-model';
 
 @Component({
   selector: 'app-confirm-order',
@@ -12,29 +17,36 @@ import { SocialUser } from '@abacritt/angularx-social-login';
   styleUrls: ['./confirm-order.component.css']
 })
 export class ConfirmOrderComponent implements OnInit {
-  cartItems: any = [];
+  cartItems!: ShoppingCart[];
   total: number = 0;
   order!: Order;
-  user!: SocialUser;
+  user!: User;
+  cards!: CreditCard[];
   constructor(private cartService: CartService, private orderService: OrderService,
-     private router: Router, private authService: SocialAuthService) { }
+      private router: Router, private authService: SocialAuthService,
+      private userService : UserService, private cardService : CreditCardService) { }
 
   ngOnInit(): void {
-    /*Get Items from Cart API*/
-    this.cartItems = this.cartService.shoppingCartArray;
-    //this.getTotal();
-    /*Get Card info from CreditCard API*/
-
-    /*Get Addresses from Address API*/
-
-    /*Get User info from User API*/
     this.authService.authState.subscribe((user: SocialUser) => {
-      this.user = user;
-      console.log(this.user);
+      console.log(user);
+      /*Get User info from User API*/
+      this.userService.getUsersByEmail(user.email).subscribe((user: User) => {
+        this.user = user;
+        
+        /*Get Items from Cart API*/
+        //this.cartService.getCartbyId(UserID);
+        this.cartItems = this.cartService.shoppingCartArray;
+        this.getTotal();
+        /*Get Card info from CreditCard API*/
+        this.cardService.getAllCards().subscribe((cards: CreditCard[]) => this.cards = cards);
+        /*Get Addresses from Address API*/
+        //this.addresses = ...
+      });
     });
   }
 
   placeOrder(): void {
+
     this.orderService.placeOrder(this.order).subscribe(
       (order: Order) => {
         alert("Order # 123 has been placed!");
@@ -44,8 +56,8 @@ export class ConfirmOrderComponent implements OnInit {
   }
 
   getTotal(): void{
-    this.cartItems.array.forEach((element: { itemPrice: number; itemQty: number; }) => {
-      this.total += element.itemPrice * element.itemQty;
+    this.cartItems.forEach((item : ShoppingCart) => {
+      this.total += item.itemPrice * item.itemQty;
     });
   }
 
