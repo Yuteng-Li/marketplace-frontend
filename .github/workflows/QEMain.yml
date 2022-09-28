@@ -1,0 +1,41 @@
+name: CI Angular app through GitHub Actions
+on:
+  push:
+    branches:
+      - QEMain
+    paths:
+      -'src/app/**'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+      ‐ uses: actions/checkout@v2
+
+      ‐ name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+      - name: Cache node modules
+        id: cache-nodemodules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: node_modules
+          key: ${{runner.os}}-build-${{env.cache-name}}-${{hashFiles('**/packagelock.json')}}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: Install Dependencies
+        if:
+          steps.cache-nodemodules.outputs.cache-hit != 'true'
+        run: npm ci
+      -name: Build
+        run: npm build -- --prod
+
+      ‐ name: Test
+        run: |
+          npm test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
