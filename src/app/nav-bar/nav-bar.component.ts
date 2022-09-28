@@ -20,19 +20,11 @@ export class NavBarComponent implements OnInit {
   ngOnInit() {
     this.authService.authState.subscribe((user) => {
       this.user = user;
-      console.log(user);
       if(this.user != null)
       {
         this.displayByID(this.user.email);
       }
     });
-
-    if(this.user != null)
-    {
-      this.displayByID(this.user.email);
-    }
-
-    console.log(this.user);
 
   }
 
@@ -42,14 +34,17 @@ export class NavBarComponent implements OnInit {
     this.router.navigate(['/home-page'])
   }
   displayByID(Email:string){
-    this.UserService.getUsersByEmail(Email).subscribe(user => {
-      this.user.id = user.user_id;
-    console.log(this.user.id)},
-      (error) => {
-      {
-        this.UserService.createUsersByEmail(this.user.email, this.user.firstName, this.user.lastName, "confiential",  "510-101-1010")
-        .subscribe(user => this.user.id = user.user_id)
-      }
-    })
+     this.UserService.getUsersByEmail(Email).subscribe(
+      { next: user => 
+        //socialuser has string as id. the user from database has integer as id
+       {this.user.id = user.user_id.toString();
+        console.log(this.user);
+       },
+       //phone number is only 10 char long.
+       error: e => this.UserService.createUsersByEmail(this.user.email, this.user.firstName, this.user.lastName, "confiential",  "5101011010")
+       .subscribe(user => {this.user.id = user.user_id.toString();
+                  console.log(this.user);
+      })
+      })
 }
 }

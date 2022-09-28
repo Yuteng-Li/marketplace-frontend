@@ -1,7 +1,7 @@
 import { Component,  OnInit ,OnDestroy} from '@angular/core';
 import { CartService } from './cart.component.service';
 import { ShoppingCart } from './cart.component.shopcartmodel';
-import {map} from "rxjs";
+
 
 
 import { SocialAuthService } from '@abacritt/angularx-social-login';
@@ -36,7 +36,7 @@ export class CartComponent implements OnInit,OnDestroy {
   taxRate:number=0.1;
   diffInTaxBefore!:Array<number>; 
   diffInTaxAfter!:Array<number>; 
-  diffTaxTempArray!:Array<number>;
+  // diffTaxTempArray!:Array<number>;
   diffTax:number = 0;
   totalPrice:number = 0;
 
@@ -101,7 +101,6 @@ export class CartComponent implements OnInit,OnDestroy {
         this.diffInTaxAfter[index]=this.totalTaxArray[index];
       }
         this.diffTax=this.diffInTaxAfter[index]-this.diffInTaxBefore[index];
-        console.log("diffTax after change: "+this.diffTax);
         this.cartSubtotal+=(this.diff*this.shoppingCartArray[index].itemPrice);
         this.tempDiffArray[index] = this.shoppingCartArray[index].itemQty;
         this.numItems+=this.diff;
@@ -144,7 +143,7 @@ export class CartComponent implements OnInit,OnDestroy {
     
     this.diffInTaxBefore=new Array(this.shoppingCartArray.length).fill(0);
     this.diffInTaxAfter=new Array(this.shoppingCartArray.length).fill(0);
-    this.diffTaxTempArray=new Array(this.shoppingCartArray.length).fill(0);
+    // this.diffTaxTempArray=new Array(this.shoppingCartArray.length).fill(0);
 
     //initialize cartsubtotal
     this.shoppingCartArray.forEach(item => { 
@@ -166,7 +165,7 @@ export class CartComponent implements OnInit,OnDestroy {
 }
 
 ngOnDestroy(): void {
-  this.cartservice.shoppingCartArray=[] as any;
+   this.cartservice.shoppingCartArray=[] as any;
   this.cartservice.existInCart=false;
 }
 

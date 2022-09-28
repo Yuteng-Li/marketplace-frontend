@@ -17,7 +17,14 @@ export class ItemGirdComponent implements OnInit {
 
 
   product : Product[] = [];
+  savedProduct : Product[] = [];
+  Filters: String[]=[];
   user!: SocialUser;
+  setMinPrice = 0.00;
+  setMaxPrice = 250.00;
+
+  savedProducCategories!: string[];
+
 
   constructor(private ItemService:ItemService, private authService: SocialAuthService, private route: ActivatedRoute,
     private router: Router, public cartService:CartService) { 
@@ -34,7 +41,10 @@ export class ItemGirdComponent implements OnInit {
       console.log(user);
     });
     this.DisplayAll();
+
+    console.log(this.savedProducCategories)
     //this.getByQuery();
+    
   }
 
   displayByID(id:string){
@@ -46,9 +56,15 @@ export class ItemGirdComponent implements OnInit {
   DisplayAll(){
     this.ItemService.getProduct().subscribe(product => {
       this.product=product;
+      this.savedProduct=product;
+      this.gatherCategories(this.product);
     })
+
   }
 
+  gatherCategories(product:any[]){
+    this.savedProducCategories = [...new Set(product.map(item => item.category))]
+  }
   getByQuery(){
     let queryParams = new HttpParams();
 
@@ -67,6 +83,50 @@ export class ItemGirdComponent implements OnInit {
     })
   }
 
+  addToFilter(event:any,Category:string){
+    if(event.target.checked)
+    {
+      this.Filters.push(Category);
+    }else
+    {
+      this.Filters = this.Filters.filter(values => values !== Category)
+    }
+  }
 
- 
+  setMin(minPrice:number){
+    if(minPrice < 0 || isNaN(minPrice))
+    {
+      this.setMinPrice = 0.00;
+    }else{
+      this.setMinPrice = minPrice;
+    }
+  }
+
+  setMax(maxPrice:number){
+    if(maxPrice <= 0 || isNaN(maxPrice))
+    {
+      this.setMaxPrice= 250.00
+    }else{
+      this.setMaxPrice = maxPrice;
+    }
+  }
+
+
+  filterBy()
+  {
+    if(this.Filters.length==0 )
+    {
+      this.product=this.savedProduct;
+    }
+    else{
+      this.product= this.savedProduct.filter((obj)=> {
+        return this.Filters.includes(obj.category);
+      })
+    }
+
+    this.product= this.product.filter((obj)=> {
+      return (obj.price_per_unit < this.setMaxPrice && obj.price_per_unit > this.setMinPrice);
+    })
+  }
+
 }
