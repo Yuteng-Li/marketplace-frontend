@@ -1,5 +1,5 @@
 import { CreditCardService } from './../credit-card/credit-card.component.service';
-import { CreditCard } from './../credit-card/credit-card.component.credit-card-model';
+import { CreditCard } from '../shared/CreditCard';
 import { CcserviceService } from './../credit-card/ccservice.service';
 import { BehaviorSubject, catchError, combineLatest, concat, first, flatMap, forkJoin, map, mergeMap, Observable, of, switchMap, zip } from 'rxjs';
 
@@ -24,12 +24,20 @@ export class PreviousOrdersComponent implements OnInit {
   constructor(private previousOrdersService: PreviousOrdersService,private authService: SocialAuthService,
     private addressService: AddressService, private ccService: CcserviceService) {}
   user!: SocialUser;
+  localUser =  localStorage.getItem('user');
+
 
   ngOnInit(): void {
     this.authService.authState.subscribe((user) => {
-      this.user = user;
-      console.log(user);
+      if(user==null && this.localUser !=null)
+      {
+        this.user = JSON.parse(this.localUser);
+      }else
+      {
+        this.user=user;
+      }
     });    
+
     this.getMyFriendList();
   }
 

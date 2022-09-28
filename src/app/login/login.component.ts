@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+import { GoogleLoginProvider } from "@abacritt/angularx-social-login";
 import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { SocialUser } from '@abacritt/angularx-social-login';
 import { Router } from '@angular/router';
@@ -12,9 +13,10 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  user!: SocialUser;
+  user: SocialUser | undefined;
+  GoogleLoginProvider = GoogleLoginProvider;
 
-  constructor(private authService: SocialAuthService, private router:Router) { }
+  constructor(private readonly authService: SocialAuthService, private router:Router) { }
 
 
    
@@ -27,14 +29,16 @@ export class LoginComponent implements OnInit {
     });
   }
 
-
   signOut(): void {
     this.authService.signOut();
   }
 
   returnToHome(){
     this.router.navigate(["./home-page"]);
-    console.log("hi");
+  }
+
+  refreshToken(): void {
+    this.authService.refreshAuthToken(GoogleLoginProvider.PROVIDER_ID);
   }
 
 }
