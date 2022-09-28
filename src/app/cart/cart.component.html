@@ -40,17 +40,17 @@
     </tr>
 
     <tr *ngFor="let item of shoppingCartArray; let index = index">
-            <td *ngIf="(item | json)!=({} | json)"><img src="{{item.itemImgUrl}}"  width="50%" height="40%"></td>
-            <td *ngIf="(item | json)!=({} | json)">{{ item.itemName }}</td>
-            <td *ngIf="(item | json)!=({} | json)">{{ item.itemPrice| currency: 'USD'}}</td>
-            <td *ngIf="(item | json)!=({} | json)">
+            <td *ngIf="(item.itemName!='')"><img src="{{item.itemImgUrl}}"  width="50%" height="40%"></td>
+            <td *ngIf="(item.itemName!='')">{{ item.itemName }}</td>
+            <td *ngIf="(item.itemName!='')">{{ item.itemPrice| currency: 'USD'}}</td>
+            <td *ngIf="(item.itemName!='')">
                 <!--onKeyUp="if(this.value>100){this.value='100';}else if(this.value<1){this.value='1';}"-->
                 <!--the onKeyUp is kinda werid, not 100% working ,werid stuff happen if go above 100 or below 1 -->
                 <input type="number"  [(ngModel)]="item.itemQty" (change)="handleChange(index)" 
                  min="1" max="100" step="1" id="btnDis"/>
                 <button type="button" class="btn btn-outline-primary btn-sm" id="btnDis" (click) = "handleRemove(index)">Remove</button>
             </td>
-            <td *ngIf="(item | json)!=({} | json)">{{ item.itemQty*item.itemPrice | currency: 'USD'}}</td>
+            <td *ngIf="(item.itemName!='')">{{ item.itemQty*item.itemPrice | currency: 'USD'}}</td>
       
     </tr>
  </thead>
