@@ -10,18 +10,19 @@ import { SocialUser } from '@abacritt/angularx-social-login';
 })
 export class HomePageComponent implements OnInit {
 
+  localUser =  localStorage.getItem('user');
   user!: SocialUser;
 
-  constructor(private authService: SocialAuthService) { }
+  constructor(private readonly authService: SocialAuthService) { }
 
   ngOnInit() {
-    this.authService.authState.subscribe((user) => {
-      this.user = user;
-    });
+
+    if(this.localUser!=null)
+    {
+      this.user= JSON.parse(this.localUser);
+    }
+
   }
 
-  signOut(): void {
-    this.authService.signOut();
-  }
 
 }

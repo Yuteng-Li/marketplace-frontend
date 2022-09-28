@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PaymentService } from './payment-form-component.service';
-import { CreditCard } from '../credit-card/credit-card.component.credit-card-model';
+import { CreditCard } from '../shared/CreditCard';
 import { CreditCardService } from '../credit-card/credit-card.component.service';
 
 import { SocialAuthService } from '@abacritt/angularx-social-login';
@@ -21,10 +21,18 @@ export class PaymentFormComponent implements OnInit {
     private creditCardService:CreditCardService,
     private authService: SocialAuthService
     ) { }
+  localUser =  localStorage.getItem('user');
+
 
   ngOnInit(): void {
     this.authService.authState.subscribe((user) => {
-      this.user = user;
+      if(user==null && this.localUser !=null)
+      {
+        this.user = JSON.parse(this.localUser);
+      }else
+      {
+        this.user=user;
+      }
       this.currUserID = parseInt(user.id);
     });
     console.log(this.currUserID)

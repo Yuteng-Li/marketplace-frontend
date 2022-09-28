@@ -1,9 +1,13 @@
-
+import { CreditCardService } from './../credit-card/credit-card.component.service';
+import { CreditCard } from '../shared/CreditCard';
+import { CcserviceService } from './../credit-card/ccservice.service';
+import { BehaviorSubject, catchError, combineLatest, concat, first, flatMap, forkJoin, map, mergeMap, Observable, of, switchMap, zip } from 'rxjs';
 
 import { Component, OnInit, ɵgetUnknownElementStrictMode } from '@angular/core';
 import { PreviousOrdersService } from './previous-orders.service';
 
 import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
+import { AddressService } from './address.service';
 
 @Component({
   selector: 'app-previous-orders',
@@ -12,57 +16,68 @@ import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 })
 export class PreviousOrdersComponent implements OnInit {
   previousOrders: any = [];
-  constructor(private previousOrdersService: PreviousOrdersService,private authService: SocialAuthService) {}
-  invalidDate: Date = new Date(0);
-  user!: SocialUser;
+  addresses: any = [];
+  CCs: any = [];
+  
+  myData: BehaviorSubject<any> = new BehaviorSubject<any>(0);
 
-  getPreviousOrders(): void {
-    this.previousOrdersService
-      .getPreviousOrders()
-      .subscribe((previousOrders) => {
-        this.previousOrders = previousOrders;
-        console.log(this.previousOrders);
-      });
-    this.previousOrders.sort((a: any, b: any) => {
-      return (
-        new Date(b.DateOrdered).getTime() - 
-        new Date(a.DateOrdered).getTime()
-      );
-    });
-  }
+  constructor(private previousOrdersService: PreviousOrdersService,private authService: SocialAuthService,
+    private addressService: AddressService, private ccService: CcserviceService) {}
+  user!: SocialUser;
+  localUser =  localStorage.getItem('user');
+
+
   ngOnInit(): void {
     this.authService.authState.subscribe((user) => {
-      this.user = user;
-      console.log(user);
-    });
-    this.getPreviousOrdersUser(5);
+      if(user==null && this.localUser !=null)
+      {
+        this.user = JSON.parse(this.localUser);
+      }else
+      {
+        this.user=user;
+      }
+    });    
+
+    this.getMyFriendList();
   }
 
 
-  signOut(): void {
-    this.authService.signOut();
-  }
-
-  getPreviousOrdersUser(user: number) {
- 
-    this.previousOrdersService
-      .getPrevOrders(user)
-      .subscribe((previousOrders) => {
-        this.previousOrders = previousOrders
-        .sort((a: any, b: any) => {
-          return (
-            new Date(b.dateOrdered).getTime() - new Date(a.dateOrdered).getTime()
-          );
-        });
-
-        console.log(this.previousOrders);
+  getMyFriendList() {
+    this.previousOrdersService.getPrevOrders().subscribe((previousOrders) => {
+      this.myData.next(previousOrders)
+      this.previousOrders = previousOrders
+      .sort((a: any, b: any) => {
+        return (
+          new Date(b.dateOrdered).getTime() - new Date(a.dateOrdered).getTime()
+        );
       });
+
+      this.myData.pipe(switchMap(data => {
+        return combineLatest(data.map((x: { addressID: number; }) => 
+        this.addressService.getAddresses(x.addressID)
+         ));
+    }))        
+    .subscribe((friends: any) => {
+        this.addresses = friends;
+        console.log(this.addresses, "yooo")
+    });
+
+      console.log(this.previousOrders, "prevOrders");
+
+
+      this.myData.pipe(switchMap(data => {
+        return combineLatest(data.map((x: { creditCardID: number; }) => 
+        this.ccService.getCC(x.creditCardID)
+         ));
+    }))        
+    .subscribe((friends: any) => {
+        this.CCs = friends;
+        console.log(this.CCs, "yooo")
+    });
+    });
   }
 
-  cancelPreviousOrder(orderID: number, userID: number) {
-    this.previousOrdersService.cancelOrder(orderID).subscribe((data) => {
-      console.log(data);
-      this.getPreviousOrdersUser(userID);
-    });
+signOut(): void {
+    this.authService.signOut();
   }
 }
