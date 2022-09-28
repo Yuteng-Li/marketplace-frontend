@@ -27,7 +27,6 @@ jobs:
       - uses: actions/cache@v3.0.8
         id: npm-cache
         with:
-          # caching node_modules
           path: ${{steps.npm-cache-dir.outputs.dir}}
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
