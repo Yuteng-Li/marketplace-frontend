@@ -165,7 +165,7 @@ export class CartComponent implements OnInit,OnDestroy {
 }
 
 ngOnDestroy(): void {
-  this.cartservice.shoppingCartArray=[] as any;
+   this.cartservice.shoppingCartArray=[] as any;
   this.cartservice.existInCart=false;
 }
 

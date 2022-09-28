@@ -38,7 +38,7 @@ export class ItemGirdComponent implements OnInit {
       console.log(user);
     });
     this.DisplayAll();
-    //this.getByQuery();
+    // //this.getByQuery();
     
   }
 

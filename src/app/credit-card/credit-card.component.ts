@@ -16,10 +16,10 @@ export class CreditCardComponent implements OnInit {
     ngOnInit() {
       this.authService.authState.subscribe((user) => {
         this.user = user;
-        console.log(user);
+       // console.log(user);
       });
-      console.log(this.user.id);
-    }
+      //console.log(this.user.id);
+     }
   
     signOut(): void {
       this.authService.signOut();
