@@ -65,7 +65,8 @@ import { CheckoutComponent } from './checkout/checkout.component';
       {path: 'confirm-order', component: ConfirmOrderComponent},
       {path: 'checkout', component: CheckoutComponent},
       {path: '', pathMatch: 'full', redirectTo: 'home-page' },
-      {path: '**', pathMatch: 'full', component: PageNotFoundComponent}
+      {path: '**', pathMatch: 'full', component: PageNotFoundComponent},
+      {path: '', component: SearchBarComponent}
     ]),
     HttpClientModule,
     BrowserAnimationsModule,
