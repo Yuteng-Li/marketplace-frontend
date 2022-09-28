@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Category } from './Category';
+import { Category } from '../shared/Category';
 import { CATEGORIES } from './mock-categories';
 
 @Injectable({

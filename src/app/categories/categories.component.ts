@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from './category.service';
-import { Category } from './Category';
+import { Category } from '../shared/Category';
 import { CATEGORIES } from './mock-categories';
 
 @Component({

@@ -3,7 +3,7 @@
 
 
     <!-- This is the dropdown menu for the users addresses -->
-    <div class="col">
+    <div class="col" *ngIf="userAddresses.length != 0">
         <div ngbDropdown class="d-inline-block">
             <button ngbDropdownToggle class="btn btn-outline-primary" id="dropdownBasic1">My Addresses</button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1" *ngFor="let address of userAddresses">
@@ -19,7 +19,7 @@
             <div class="col">
                 <!-- FIRST NAME -->
                 <input id="dfname" class="form-control" type="text" placeholder="First Name"
-                    formControlName="deliveryFirstName" />
+                    formControlName="deliveryFirstName" (change)=setBillingAddressAsDelivery() />
 
                 <!-- ERROR MESSAGES FOR FRONTEND VALIDATION -->
                 <div *ngIf="deliveryFirstName.invalid && (deliveryFirstName.dirty || deliveryFirstName.touched)"
@@ -32,7 +32,7 @@
             <div class="col">
                 <!-- LAST NAME -->
                 <input id="dlname" class="form-control" type="text" placeholder="Last Name"
-                    formControlName="deliveryLastName" />
+                    formControlName="deliveryLastName" (change)=setBillingAddressAsDelivery() />
 
                 <!-- ERROR MESSAGES FOR FRONTEND VALIDATION -->
                 <div *ngIf="deliveryLastName.invalid && (deliveryLastName.dirty || deliveryLastName.touched)"
@@ -47,7 +47,7 @@
             <div class="col">
                 <!-- Street Address 1 -->
                 <input id="daddress1" class="form-control" type="text" placeholder="Street Address"
-                    formControlName="deliveryAddress1" />
+                    formControlName="deliveryAddress1" (change)=setBillingAddressAsDelivery() />
 
                 <!-- ERROR MESSAGES FOR FRONTEND VALIDATION -->
                 <div *ngIf="deliveryAddress1.invalid && (deliveryAddress1.dirty || deliveryAddress1.touched)"
@@ -60,7 +60,7 @@
             <div class="col">
                 <!-- Street Address 2 -->
                 <input id="daddress2" class="form-control" type="text" placeholder="Apt/Suite/Other (optional)"
-                    formControlName="deliveryAddress2" />
+                    formControlName="deliveryAddress2" (change)=setBillingAddressAsDelivery() />
             </div>
         </div>
         <div class="row">
@@ -78,8 +78,8 @@
             </div>
             <div class="col">
                 <!-- State -->
-                <input id="dstate" class="form-control" type="text" placeholder="State"
-                    formControlName="deliveryState" />
+                <input id="dstate" class="form-control" type="text" placeholder="State" formControlName="deliveryState"
+                    (change)=setBillingAddressAsDelivery() />
 
                 <!-- ERROR MESSAGES FOR FRONTEND VALIDATION -->
                 <div *ngIf="deliveryState.invalid && (deliveryState.dirty || deliveryState.touched)"
@@ -91,7 +91,8 @@
             </div>
             <div class="col">
                 <!-- ZIP -->
-                <input id="dzip" class="form-control" type="text" placeholder="Zip" formControlName="deliveryZip" />
+                <input id="dzip" class="form-control" type="text" placeholder="Zip" formControlName="deliveryZip"
+                    (change)=setBillingAddressAsDelivery() />
 
                 <!-- ERROR MESSAGES FOR FRONTEND VALIDATION -->
                 <div *ngIf="deliveryZip.invalid && (deliveryZip.dirty || deliveryZip.touched)"
@@ -104,6 +105,16 @@
         </div>
     </div>
     <br />
+
+    <!-- This is the dropdown menu for the users credit cards -->
+    <div class="col" *ngIf="userCreditCards.length != 0">
+        <div ngbDropdown class="d-inline-block">
+            <button ngbDropdownToggle class="btn btn-outline-primary" id="dropdownBasic2">My Credit Cards</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic2" *ngFor="let card of userCreditCards">
+                <button ngbDropdownItem >************-{{card.last_four_card_number}}</button>
+            </div>
+        </div>
+    </div>
 
     <div formGroupName="payment">
         <h3>Payment</h3>
@@ -237,7 +248,8 @@
                 </div>
                 <div class="col">
                     <input id="bzip" class="form-control" type="text" placeholder="Zip" formControlName="billingZip" />
-                    <div *ngIf="billingZip.invalid && (billingZip.dirty || billingZip.touched)" class="alert alert-danger">
+                    <div *ngIf="billingZip.invalid && (billingZip.dirty || billingZip.touched)"
+                        class="alert alert-danger">
                         <small *ngIf="billingZip.errors?.['required']">
                             Zip is required
                         </small>

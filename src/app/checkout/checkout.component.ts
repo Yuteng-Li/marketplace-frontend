@@ -9,11 +9,12 @@ import { HttpClient } from '@angular/common/http';
 import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { SocialUser } from '@abacritt/angularx-social-login';
 
-import { Address } from '../shared/address';
+import { Address } from '../shared/Address';
 import { AddressService } from './address.service';
-import { UserService} from '../user.service'
+import { UserService } from '../user.service';
 import { Observable } from 'rxjs';
-import { concatMap } from 'rxjs/operators'
+import { concatMap } from 'rxjs/operators';
+import { CreditCard } from '../shared/CreditCard';
 
 @Component({
   selector: 'app-checkout',
@@ -22,18 +23,18 @@ import { concatMap } from 'rxjs/operators'
 })
 export class CheckoutComponent implements OnInit {
   socialUser!: SocialUser;
-  user: any;
+  userID!: Number;
   sameAsDelivery: Boolean = false;
   checkoutForm!: FormGroup;
   userAddresses: Address[] = [];
-  selectedAddressID?: Number;
+  userCreditCards: CreditCard[] = [];
 
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
     private authService: SocialAuthService,
     private addressService: AddressService,
-    private userService: UserService,
+    private userService: UserService
   ) {
     this.checkoutForm = this.fb.group({
       // userAddress: [''],
@@ -68,9 +69,7 @@ export class CheckoutComponent implements OnInit {
     });
   }
 
-  // get userAddress() {
-  //   return this.checkoutForm.get('userAddress')!;
-  // }
+  // Getters for the formControls for the frontend
   get deliveryFirstName() {
     return this.checkoutForm.get('deliveryAddress.deliveryFirstName')!;
   }
@@ -123,89 +122,73 @@ export class CheckoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
-    this.authService.authState.subscribe(users => {
-      
-    })
-    
-    this.authService.authState.subscribe((user) => {
-      this.socialUser = user;
-      console.log(user);
-    });
-
-    console.log(this.socialUser.email)
-    this.userService.getUsersByEmail(this.socialUser.email).subscribe((users) => {
-      users.forEach((user:any) => {
-        this.user = user;
-        console.log(this.user);
-      })
-    });
-
-    this.addressService.getAllAddresses().subscribe((addresses) => {
-      addresses.forEach((address) => {
-        //USER ID IS HARDCODED, CHANGE LATER
-        if (address.user_id == 1) {
-          console.log('pushing new address: ');
-          console.log(address)
-          this.userAddresses.push(address);
-        }
+    this.authService.authState
+      .pipe(
+        concatMap((user) => {
+          console.log('Getting google user...');
+          return this.userService.getUsersByEmail(user.email);
+        })
+      )
+      .pipe(
+        concatMap((retUser) => {
+          console.log('Getting user from API...');
+          this.userID = retUser.user_id;
+          return this.addressService.getAllAddresses();
+        })
+      )
+      .subscribe((ret) => {
+        console.log('Getting user addresses...');
+        ret.forEach((address) => {
+          if (this.userID === address.user_id) {
+            console.log('Got address from user with street: ' + address.street);
+            this.userAddresses.push(address);
+          }
+        });
       });
-    });
-    console.log(this.userAddresses);
-    // this.userAddresses.forEach(address => {
-    //   this.addressService.getById(address.address_id).subscribe((address) => {
-    //   })
-    // });
   }
 
   onSubmit(): void {
-    if(this.sameAsDelivery === true){
+    if (this.sameAsDelivery === true) {
       this.setBillingAddressAsDelivery();
     }
-
-    
   }
 
-  setBillingAddressAsDelivery(){
+  setBillingAddressAsDelivery(): void {
     this.checkoutForm
-    .get('billingAddress.billingFirstName')
-    ?.setValue(
-      this.checkoutForm.get('deliveryAddress.deliveryFirstName')?.value
-    );
-  this.checkoutForm
-    .get('billingAddress.billingLastName')
-    ?.setValue(
-      this.checkoutForm.get('deliveryAddress.deliveryLastName')?.value
-    );
-  this.checkoutForm
-    .get('billingAddress.billingAddress1')
-    ?.setValue(
-      this.checkoutForm.get('deliveryAddress.deliveryAddress1')?.value
-    );
-  this.checkoutForm
-    .get('billingAddress.billingAddress2')
-    ?.setValue(
-      this.checkoutForm.get('deliveryAddress.deliveryAddress2')?.value
-    );
-  this.checkoutForm
-    .get('billingAddress.billingCity')
-    ?.setValue(
-      this.checkoutForm.get('deliveryAddress.deliveryCity')?.value
-    );
-  this.checkoutForm
-    .get('billingAddress.billingState')
-    ?.setValue(
-      this.checkoutForm.get('deliveryAddress.deliveryState')?.value
-    );
-  this.checkoutForm
-    .get('billingAddress.billingZip')
-    ?.setValue(this.checkoutForm.get('deliveryAddress.deliveryZip')?.value);
+      .get('billingAddress.billingFirstName')
+      ?.setValue(
+        this.checkoutForm.get('deliveryAddress.deliveryFirstName')?.value
+      );
+    this.checkoutForm
+      .get('billingAddress.billingLastName')
+      ?.setValue(
+        this.checkoutForm.get('deliveryAddress.deliveryLastName')?.value
+      );
+    this.checkoutForm
+      .get('billingAddress.billingAddress1')
+      ?.setValue(
+        this.checkoutForm.get('deliveryAddress.deliveryAddress1')?.value
+      );
+    this.checkoutForm
+      .get('billingAddress.billingAddress2')
+      ?.setValue(
+        this.checkoutForm.get('deliveryAddress.deliveryAddress2')?.value
+      );
+    this.checkoutForm
+      .get('billingAddress.billingCity')
+      ?.setValue(this.checkoutForm.get('deliveryAddress.deliveryCity')?.value);
+    this.checkoutForm
+      .get('billingAddress.billingState')
+      ?.setValue(this.checkoutForm.get('deliveryAddress.deliveryState')?.value);
+    this.checkoutForm
+      .get('billingAddress.billingZip')
+      ?.setValue(this.checkoutForm.get('deliveryAddress.deliveryZip')?.value);
   }
 
   clickedSameAsDelivery(): void {
     this.sameAsDelivery = !this.sameAsDelivery;
     if (this.sameAsDelivery == true) {
-      this.setBillingAddressAsDelivery(); 
+      this.setBillingAddressAsDelivery();
     } else {
       this.checkoutForm.get('billingAddress.billingFirstName')?.setValue('');
       this.checkoutForm.get('billingAddress.billingLastName')?.setValue('');
@@ -220,11 +203,22 @@ export class CheckoutComponent implements OnInit {
   autoFillAddress(address: Address): void {
     const fullName = address.recipient_name.split(' ');
     this.deliveryFirstName.setValue(fullName[0]);
-    this.checkoutForm.get('deliveryAddress.deliveryLastName')?.setValue(fullName[1]);
-    this.checkoutForm.get('deliveryAddress.deliveryAddress1')?.setValue(address.street);
-    this.checkoutForm.get('deliveryAddress.deliveryAddress2')?.setValue(address.street2);
-    this.checkoutForm.get('deliveryAddress.deliveryCity')?.setValue(address.city);
-    this.checkoutForm.get('deliveryAddress.deliveryState')?.setValue(address.state);
+    this.checkoutForm
+      .get('deliveryAddress.deliveryLastName')
+      ?.setValue(fullName[1]);
+    this.checkoutForm
+      .get('deliveryAddress.deliveryAddress1')
+      ?.setValue(address.street);
+    this.checkoutForm
+      .get('deliveryAddress.deliveryAddress2')
+      ?.setValue(address.street2);
+    this.checkoutForm
+      .get('deliveryAddress.deliveryCity')
+      ?.setValue(address.city);
+    this.checkoutForm
+      .get('deliveryAddress.deliveryState')
+      ?.setValue(address.state);
     this.checkoutForm.get('deliveryAddress.deliveryZip')?.setValue(address.zip);
+    this.setBillingAddressAsDelivery();
   }
 }
