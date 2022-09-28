@@ -42,6 +42,9 @@ export class ItemGirdComponent implements OnInit {
     products.prod_name.toLocaleLowerCase().includes(filterBy));
   }
 
+  savedProducCategories!: string[];
+
+
   constructor(private ItemService:ItemService, private authService: SocialAuthService, private route: ActivatedRoute,
     private router: Router, public cartService:CartService) { 
   }
@@ -57,6 +60,8 @@ export class ItemGirdComponent implements OnInit {
       console.log(user);
     });
     this.DisplayAll();
+
+    console.log(this.savedProducCategories)
     this.sub = this.ItemService.getItems().subscribe({
       next: product => {
         this.product = product;
@@ -79,9 +84,14 @@ export class ItemGirdComponent implements OnInit {
     this.ItemService.getProduct().subscribe(product => {
       this.product=product;
       this.savedProduct=product;
+      this.gatherCategories(this.product);
     })
+
   }
 
+  gatherCategories(product:any[]){
+    this.savedProducCategories = [...new Set(product.map(item => item.category))]
+  }
   getByQuery(){
     let queryParams = new HttpParams();
 

@@ -1,40 +1,51 @@
+.titles{
+  font-weight: bold;
+  font-family: Corbel;
+}
 .center1 {
     margin: auto;
     width: 50%;
-    padding: 10px;
+    padding: 5px;
     text-align: center;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
-
+.general{
+  margin-left: 5%;
+  margin-top: 1%;
+  width: 10%;
+  min-width: 200px;
+  font-size: 13pt;
+  font-family: Corbel;
+}
 input.a{
     display: flex;
     flex-direction: row;
     align-content: stretch;
     margin: auto;
-    width: 75%;
+    width: 100%;
     padding: 5px;
+    /* padding-bottom: 0%; */
 }
 input.b{
-  text-align: center;
-  margin: auto;
+text-align: center;
+margin: auto;
   width: 75%;
   display: inline-block;
   padding: 1.0em 0.5em;
-  background-color: #0019ff;
+  background: linear-gradient(#0019ff,#00cfff);
   color: white;
   font-weight: 300;
   font-weight: bold;
   border-color: white;
   border-radius: 0.5em;
-}
-input.b:hover{
+  }
+  input.b:hover{
   color: #0019ff;
-  background-color: white;
   font-weight: bold;
   border-color: #0019ff;
   border-radius: 0.5em;
-}
-
+  background: white;
+  }
+  .buttonHolder{ text-align: center; }
 form.a {
   position: relative;
   text-align: center;
@@ -42,18 +53,20 @@ form.a {
   border-width: 5px;
   display: inline-block;
   font-size: 14pt;
-  border-radius: 1em;
+  border-radius: 0;
   margin: auto;
   width: 75%;
-  border: 3px solid #0019ff;
-  padding: 20px;
+  border:0px;
+  padding: 5px;
+  background: linear-gradient(60deg, #8b41ff, #00cfff, #0019ff);
+  min-width: 50%;
+  font-family: Corbel;
 }
 
-
 body{
-  padding: 5px;
-  margin: auto;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
 }
 
 .button1{
@@ -69,10 +82,21 @@ body{
     text-align: center;
     transition: all 0.2s;
     font-weight: bold;
+    background: linear-gradient(#0019ff,#00cfff);
+
 }
 .button1:hover{
     border: 0.1em solid #0019ff;
     color: #0019ff;
     background-color: white;
     font-weight: bold;
+    background: white;
 }
+
+input.ng-invalid.ng-touched{
+  border: red 1px solid;
+}
+small{
+  color: red;
+}
+
