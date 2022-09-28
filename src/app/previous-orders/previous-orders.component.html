@@ -30,9 +30,9 @@
             <tr class="thh">
               <th>OrderID</th>
               <!--<th>UserID</th>-->
-              <th>AddressID</th>
+              <th>Address</th>
               <th>Price</th>
-              <th>CreditCardID</th>
+              <th>Last Four #'s of Credit Card</th>
               <th>DateOrdered</th>
               <th>DateShipped</th>
               <!--<th>DateDelivered</th>-->
@@ -44,10 +44,22 @@
             <tr class="shadow" *ngFor="let order of previousOrders; let index=index">
               <!-- for template syntax anything inside the brackets {{}} is considered an expression, and will try to solve it by looking in the component logic -->
               <td>{{ order.orderID }}</td>
-              <!--<td>{{ order.userId }}</td>-->
-              <td>{{ order.addressID }}</td>
-              <td>{{ order.price }}</td>
-              <td>{{ order.creditCardID }}</td>
+              <!---div *ngFor="let addy of addresses; let index=index">--->
+              <!---{{getAddys(order.addressID)}}--->
+              
+              <!---
+              <div *ngFor="let addy of addresses;let i = index">
+              <td *ngIf="(order.addressID == addy.address_id) && (i < 5)">{{ addy.street }} </td>
+              </div>-->
+              
+
+              <!---<td>{{getAddys(order.addressID).street}}</td>--->
+
+              <td>{{ this.addresses[index]?.street }}</td>
+              <td>{{order.price}}</td>
+              
+              <td>{{ this.CCs[index]?.last_four_card_number}}</td>
+              
               <td >{{ order.dateOrdered }}</td>
 
               <td class="hasShipped" *ngIf="order.dateShipped != null; else hasntShipped">{{ order.dateShipped }}</td>

@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import{ HttpClient} from '@angular/common/http'
-import { CreditCard } from "./credit-card.component.credit-card-model";
+import { CreditCard } from "../shared/CreditCard";
 import {Observable, tap } from "rxjs";
 
 @Injectable({
