@@ -77,7 +77,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
   providers: [{
     provide: 'SocialAuthServiceConfig',
     useValue: {
-      autoLogin: false,
+      autoLogin: true,
       providers: [
         {
           id: GoogleLoginProvider.PROVIDER_ID,
@@ -85,6 +85,9 @@ import { CheckoutComponent } from './checkout/checkout.component';
             '693100612539-rtft5b065kqn934urifpj10j075ebm3n.apps.googleusercontent.com'
           )
         }],
+        onError: (err) => {
+          console.error(err);
+        }
     } as SocialAuthServiceConfig,
   }
 ],

@@ -24,12 +24,20 @@ export class PreviousOrdersComponent implements OnInit {
   constructor(private previousOrdersService: PreviousOrdersService,private authService: SocialAuthService,
     private addressService: AddressService, private ccService: CcserviceService) {}
   user!: SocialUser;
+  localUser =  localStorage.getItem('user');
+
 
   ngOnInit(): void {
     this.authService.authState.subscribe((user) => {
-      this.user = user;
-      console.log(user);
+      if(user==null && this.localUser !=null)
+      {
+        this.user = JSON.parse(this.localUser);
+      }else
+      {
+        this.user=user;
+      }
     });    
+
     this.getMyFriendList();
   }
 

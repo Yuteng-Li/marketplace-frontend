@@ -117,7 +117,14 @@ export class CartComponent implements OnInit,OnDestroy {
     this.totalTax-=this.totalTaxArray[index];
     this.totalPrice=this.totalPrice-this.removePriceArray[index]-this.totalTaxArray[index];
      //assign some dummy variable after remove
-     this.shoppingCartArray[index]={} as ShoppingCart ;
+     this.shoppingCartArray[index]={
+      itemDesc:"",
+      itemImgUrl:"",
+      itemName:"",
+      itemPrice:0,
+      itemQty:0,
+      itemUpc:""
+     } as ShoppingCart ;
      this.removePriceArray[index]=0;
      this.removeQtyArray[index]=0;
      this.totalTaxArray[index]=0;
@@ -165,7 +172,7 @@ export class CartComponent implements OnInit,OnDestroy {
 }
 
 ngOnDestroy(): void {
-   this.cartservice.shoppingCartArray=[] as any;
+  //  this.cartservice.shoppingCartArray=[] as any;
   this.cartservice.existInCart=false;
 }
 
