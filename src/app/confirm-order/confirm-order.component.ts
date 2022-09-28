@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CartService } from '../cart/cart.component.service';
 import { OrderService } from './order.service';
 import { Router } from '@angular/router';
-import { Order } from './Order';
+import { Order } from '../shared/Order';
 import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { SocialUser } from '@abacritt/angularx-social-login';
 
