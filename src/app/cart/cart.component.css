@@ -6,6 +6,7 @@
 
 .table{
     table-layout: fixed;
+    box-shadow: 1px 1px 1px #a9a7a7;
 }
 
 .table-margin{
@@ -20,14 +21,14 @@
 
 .rowbg {
     background-repeat: no-repeat;
-    background-image: url("/assets/img5.jpg");
-    background-size: auto 900px;
+    background-image: url("/assets/img2.png");
+    background-size: auto 1000px;
 }
 
 .rowbg2 {
     background-repeat: no-repeat;
-    background-image: url("/assets/img5.jpg");
-    background-size: auto 450px;
+    background-image: url("/assets/img2.png");
+    background-size: auto 500px;
 }
 
 h1 {

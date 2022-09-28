@@ -7,35 +7,17 @@
 <div class="container">
     <div class="row py-4">
         <div class="col-md-2 justify-content-start bg-light border border-primary rounded" id="sticky-sidebar">
-              <h4>Filter By: </h4>
+          <h4>Filter By: </h4>
+          <div *ngFor="let prod of savedProducCategories">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1" (change)="addToFilter($event,'Snacks')">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1" (change)="addToFilter($event, prod)">
 
                     <label class="form-check-label" for="flexCheckDefault1">
-                      Snacks
+                     {{prod}}
                     </label>
                 </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2" (change)="addToFilter($event,'Breakfast Cereals')">
-
-                  <label class="form-check-label" for="flexCheckDefault2">
-                    Breakfast Cereals
-                  </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" (change)="addToFilter($event,'Drinks')">
-
-                    <label class="form-check-label" for="flexCheckDefault">
-                      Drinks
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" (change)="addToFilter($event,'Household')">
-
-                    <label class="form-check-label" for="flexCheckDefault">
-                      Household
-                    </label>
-                </div>
+                <br>
+            </div>
                 <br>
                 <div>
                   <p>Min price:</p>
@@ -83,6 +65,12 @@
                 </div>
               </div>
             </div>
+          </div>
+          <br>
+          <div>
+            <button type="button" class="btn btn-primary" style="float: right; margin-right: 80px" routerLink="/cart"
+            routerLinkActive="activebutton"
+            ariaCurrentWhenActive="page">Go To Cart</button>
           </div>
         </div>
     </div>
