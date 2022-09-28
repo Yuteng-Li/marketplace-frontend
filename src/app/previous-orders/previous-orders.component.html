@@ -1,4 +1,8 @@
-<p>previous-orders works!</p>
+
+<app-nav-bar></app-nav-bar>
+    
+<homepage-search-bar></homepage-search-bar>
+
 <nav>
   <a
     class="button"
@@ -9,7 +13,6 @@
   >
 </nav>
 
-<h1>Previous Orders</h1>
 <div class="container-my-1">
   <div class="row">
     <div class="col-md-12">
@@ -19,46 +22,54 @@
           *ngIf="previousOrders.length; else emptyli"
         >
           <table>
+            <tr>
+              <td colspan="10" style="text-align: left;"><h1>Previous Orders</h1></td>
+
+            </tr>
+
             <tr class="thh">
               <th>OrderID</th>
-              <th>UserID</th>
+              <!--<th>UserID</th>-->
               <th>AddressID</th>
               <th>Price</th>
               <th>CreditCardID</th>
               <th>DateOrdered</th>
               <th>DateShipped</th>
-              <th>DateDelivered</th>
+              <!--<th>DateDelivered</th>-->
               <th>OrderStatus</th>
               <th>Cancel Order?</th>
             </tr>
 
-            <tr>
-            </tr>
 
-            <tr class="shadow" *ngFor="let order of previousOrders">
+            <tr class="shadow" *ngFor="let order of previousOrders; let index=index">
               <!-- for template syntax anything inside the brackets {{}} is considered an expression, and will try to solve it by looking in the component logic -->
-              <td>{{ order.OrderID }}</td>
-              <td>{{ order.UserID }}</td>
-              <td>{{ order.AddressID }}</td>
-              <td>{{ order.Price }}</td>
-              <td>{{ order.CreditCardID }}</td>
-              <td>{{ order.DateOrdered }}</td>
-              <td>{{ order.DateShipped }}</td>
-              <td>{{ order.DateDelivered }}</td>
-              <td>{{ order.OrderStatus }}</td>
+              <td>{{ order.orderID }}</td>
+              <!--<td>{{ order.userId }}</td>-->
+              <td>{{ order.addressID }}</td>
+              <td>{{ order.price }}</td>
+              <td>{{ order.creditCardID }}</td>
+              <td >{{ order.dateOrdered }}</td>
+
+              <td class="hasShipped" *ngIf="order.dateShipped != null; else hasntShipped">{{ order.dateShipped }}</td>
+              <ng-template #hasntShipped><td>Not Available</td></ng-template>
+              
+              <!--<td class="hasDevliered" *ngIf="order.DateDelivered != ''; else hasntDelivered">{{ order.dateDelivered }}</td>
+              <ng-template #hasntDelivered><td>Not Available</td></ng-template>-->
+              
+              <td>{{ order.orderStatus }}</td>
 
               <td>
-                <form action="/api/orders/updateOrder/cancelled/{{order.OrderID}}" method="POST" onsubmit="alert(this.action)">
+                <form action='http://localhost:8080/orders/getOrders/user/1' method="GET" onsubmit="alert(this.action); return false;">
                   <input
-                    class="cancelbtn"
+                    class="cancelbtn btn-nisum rounded"
                     type="submit"
                     *ngIf="
-                      order.OrderStatus == 'Not Shipped Yet';
+                      order.orderStatus == 'Pending';
                       else cantCancel
                     "
-                  
                     value="Cancel Order"
                   >
+
                 </form>
               </td>
               <td><ng-template #cantCancel>Not Available</ng-template></td>

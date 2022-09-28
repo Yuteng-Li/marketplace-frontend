@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { Category } from './Category';
 import { CATEGORIES } from './mock-categories';
 
 @Injectable({
@@ -13,7 +14,7 @@ export class CategoryService {
    * -REFACTOR WITH HTTP GET WITH PROVIDED ENDPOINT-
    * @returns Observable with list of categories from api
    */
-  getCategories(): Observable<any[]>{
+  getCategories(): Observable<Category[]>{
     const categories = of(CATEGORIES);
     return categories;
   }

@@ -1,9 +1,10 @@
+
 .button1{
-    display: inline-block;
+    display:block;
     padding: 1.0em 0.5em;
     border:0.1em solid white;
-    background-color: #0019ff;
-    margin:0 0.3em 0.3em 0;
+    background: linear-gradient(#0019ff,#00cfff);
+    margin: auto;
     border-radius: 1em;
     box-sizing: border-box;
     font-weight: 300;
@@ -11,23 +12,47 @@
     text-align: center;
     transition: all 0.2s;
     font-weight: bold;
+    padding-top: 1em;
+    padding-bottom: 1em;
 }
 .button1:hover{
     border: 0.1em solid #0019ff;
     color: #0019ff;
-    background-color: white;
+    background: white;
     font-weight: bold;
 }
+.center{
+    margin: auto;
+    width: 50%;
+    padding: 5px;
+    text-align: center;
+}
+.shorten{
+    min-width: 200px;
+}
+.general{
+    margin-left: 5%;
+    width: 10%;
+    min-width: 200px;
+    font-size: 15pt;
+    font-family: Corbel;
+}
 table{
-    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    min-width: 50%;
+    align-self: center;
+    padding-left: 5%;
+    font-family: Corbel;
 }
 th{
     background-color: none;
     min-width: 200px;
 }
-tr.a{
+thead.a{
+    text-align: center;
     font-size: 20pt;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     min-height: 20%;
     background-image: url("/assets/img2.png");
 }
@@ -37,13 +62,26 @@ td{
     font-size: 15pt;
 }
 tr:nth-child(even) {
-    background-color: rgb(188, 224, 244);
+    background-color: #baf1fe;
     -o-background-size:100% auto;
     -webkit-background-size:100% auto;
     -moz-background-size:100% auto;
     background-size:100% auto;
-    color: black;
+}
+tr:hover{
+    background-color: #6aa1ff;
+}
+p.a{
+    text-align: center;
+    font-size: 20pt;
+    min-width: 200px;
 
-
+}
+h2.a{
+    font-weight: bold;
+    font-family: 'Corbel';
+    margin: auto;
+    margin-top: 1%;
+    margin-left: 5%;
 }
 

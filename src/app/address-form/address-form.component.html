@@ -1,11 +1,22 @@
-<nav>
-  <a class="button"
-     routerLink="/home-page"
-     routerLinkActive="activebutton"
-     ariaCurrentWhenActive="page">Return to Home Page</a>
-</nav>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<app-nav-bar></app-nav-bar>
 
-<div class="mx-auto" style="width: 400px;">
+<homepage-search-bar></homepage-search-bar>
+
+<!--<nav>-->
+<!--  <a class="button"-->
+<!--     routerLink="/home-page"-->
+<!--     routerLinkActive="activebutton"-->
+<!--     ariaCurrentWhenActive="page">Return to Home Page</a>-->
+<!--</nav>-->
+
+<div class="mx-auto card p-3 bg-light" style="width: 400px;">
   <h3>Current User Address</h3>
   <p>UserID: {{this.user_id}}</p>
   <p>Recipient Name: {{this.recipient_name}}</p>
@@ -21,7 +32,7 @@
 </div>
 
 
-<div  class="mx-auto" style="width: 400px;">
+<div  class="mx-auto card p-3 bg-light" style="width: 400px;">
   <h3 *ngIf="recipient_name==''">Add User Address</h3>
   <h4>Cold-Start not working properly</h4>
   <h3 *ngIf="recipient_name.length!=0">Edit User Address</h3>

@@ -1,8 +1,16 @@
-<h3>Categories</h3>
-<div class="categories-container">
-    <div class="category col-3 d-flex flex-column" *ngFor="let category of categories">
-            <img src="" alt="{{category.category}} img">
-            <h4>{{category.category}}</h4>
-            <a [routerLink]="['/item-gird', category.category]">View Products</a>
+<app-nav-bar></app-nav-bar>
+    
+<homepage-search-bar></homepage-search-bar>
+
+
+<div class="categories">
+    <h2 class="page">Categories</h2>
+    <div class="categories-container">
+        <div class="category" *ngFor="let category of categories"
+         [routerLink]="['/item-gird']" [queryParams]="{category: category.category}">
+                <img src="{{category.img}}" alt="{{category.category}} img">
+                <h3>{{category.category}}</h3>
+                <a>View Products</a>
+        </div>
     </div>
 </div>

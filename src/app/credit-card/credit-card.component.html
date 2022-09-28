@@ -6,40 +6,53 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<nav>
-    <a class="button"
-    routerLink="/home-page"
-    routerLinkActive="activebutton"
-    ariaCurrentWhenActive="page">Return to Home Page</a>
-</nav>
-<h1>
-    Payment Methods
-</h1>
-<div>
-    <a class="button1"
-    routerLink="/payment-form"
-    routerLinkActive="activebutton"
-    ariaCurrentWhenActive="page">Add New Payment</a>
-</div>
-
+<app-nav-bar></app-nav-bar>
+    
+<homepage-search-bar></homepage-search-bar>
 
 <div>
-    <table border = 1>
-        <tr class="a">
-            <th>Name</th>
-            <th>Bank</th>
-            <th>Type</th>
-            <th>Card Number</th>
-            <th></th>
-        </tr>
-        <tr *ngFor = "let card of listOfCards; let index = index">
-            <td>{{card.bankName}}</td>
-            <td>{{card.cardholderName}}</td>
-            <td>{{card.cardType}}</td>
-            <td>{{card.cardNumber}}</td>
-            <td>
-                <button type="button" class="button1" id="removeCard" (click)="listOfCards.splice(index, 1)">Remove Card</button>
-            </td>
-        </tr>
-    </table>
+    <h2 class ="a">
+        Payment Methods
+    </h2>
+    <div *ngIf="credits?.length; else emptyCredit">
+        <div class="general">
+            <a class="button1"
+            routerLink="/payment-form"
+            routerLinkActive="activebutton"
+            ariaCurrentWhenActive="page">Add New Payment</a>
+        </div>
+        <table>
+            <thead class="a">
+                <th>Name</th>
+                <th>Expiration Date</th>
+                <th>Card Number</th>
+                <th></th>
+            </thead>
+            <tbody>
+                <tr *ngFor = "let card of credits; let index = index">
+                    <td>{{card.cardholder_name}}</td>
+                    <td>{{card.expiration_month}}/{{card.expiration_year}}</td>
+                    <td>Card ending in {{card.last_four_card_number}}</td>
+                    <td>
+                        <button type="button" class="button1" id="removeCard" (click)="removeCard(card.credit_card_id)">Remove Card</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
+<ng-template  #emptyCredit>
+    <div class="center">
+        <div>
+            <p class="a">No payments have been added yet!</p>
+        </div>
+        <div class="shorten">
+            <a class="button1"
+            routerLink="/payment-form"
+            routerLinkActive="activebutton"
+            ariaCurrentWhenActive="page">Add New Payment</a>
+        </div>
+    </div>
+
+</ng-template>
+

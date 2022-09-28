@@ -1,95 +1,77 @@
 
-<p>display</p>
-<nav>
-    <a class="button"
-    routerLink="/home-page"
-    routerLinkActive="activebutton"
-    ariaCurrentWhenActive="page">Return to Home Page</a>
-</nav>
+<app-nav-bar></app-nav-bar>
+    
+<homepage-search-bar></homepage-search-bar>
+
 
 <div class="container">
     <div class="row py-4">
-        <div class="col-2 order-2" id="sticky-sidebar">
-
-                <h4>Filter options?(maybe be removed)</h4>
+        <div class="col-md-2 justify-content-start bg-light border border-primary rounded" id="sticky-sidebar">
+          <h4>Filter By: </h4>
+          <div *ngFor="let prod of savedProducCategories">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1" (change)="addToFilter($event, prod)">
 
-                    <label class="form-check-label" for="flexCheckDefault">
-                      Default checkbox
+                    <label class="form-check-label" for="flexCheckDefault1">
+                     {{prod}}
                     </label>
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-
-                    <label class="form-check-label" for="flexCheckDefault">
-                      Default checkbox
-                    </label>
+                <br>
+            </div>
+                <br>
+                <div>
+                  <p>Min price:</p>
+                  <input [(ngModel)]='setMinPrice' type="text" class="form-control" placeholder="0.00" value="0" (ngModelChange)="setMin(setMinPrice)">
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-
-                    <label class="form-check-label" for="flexCheckDefault">
-                      Default checkbox
-                    </label>
+                <div>
+                  <p>Max price:</p>
+                  <input [(ngModel)]='setMaxPrice' type="text" class="form-control" placeholder="250.00" value="250" (ngModelChange)="setMax(setMaxPrice)">
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                
+                <br>
 
-                    <label class="form-check-label" for="flexCheckDefault">
-                      Default checkbox
-                    </label>
-                </div>
-        </div>
+                <button class="btn btn-primary" (click)="filterBy()">Submit</button>
+          </div>
+
         <div class="col" id="main">
           <div class="content">
 
             <div fxLayout="row wrap" fxLayoutGap="16px grid">
           
-              <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let num of [1,2,3,4,5,6]">
+              <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let prod of product">
 
-                <div class="card">
-          
-                  <div *ngIf="num % 2==0; else elseBlock">
-                    <img class="card-img-top" src = "./../assets/images/defaultMilk.jpg">
+                <div class="card h-100 ">
+
+
+                  <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">{{prod.prod_name}}</h4>
                   </div>
-                  <ng-template #elseBlock>
-                    <img class="card-img-top" src = "./../assets/images/cereal.jpg">
-                  </ng-template>
-          
-                  <h5 class="card-title">Card title</h5>
           
                   <div class="card-body">
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+                    <img src ="{{prod.image_url}}">
+                    <br>
+                    <p class="card-text">{{prod.prod_description}}</p>
+                    <p class="card-text">{{prod.price_per_unit|currency: 'USD'}}</p>
+
                   </div>
-          
-                  <a href="#" class="btn btn-primary">Add to Cart</a>
+
+                  <div *ngIf="user != null">
+                    <button class="btn btn-primary w-100 background-nisum" (click)="cartService.addToCart(prod)">Add to Cart</button>
+                  </div>
+                  <div *ngIf="user == null">
+                    <button class="btn btn-primary w-100 disabled background-nisum">Login to add to cart</button>
+                  </div>
                 </div>
-          
               </div>
-          
-              <!-- For tester let me know how this code works as the inventory DB must have been update whihc means I need to update this
-          
-          
-                This is for API call to BackEnd this works if you have the inventory backend up and will display the ID set in item-grid
-                ts file  Continue development after DB are further along
-            
-              <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let num of product">
-          
-                <div class="card">
-                  <img class="card-img-top" src="num.imageURL">
-          
-          
-                <div class="card-body">
-                  <h2 class="card-text text-justify">Price: {{num.pricePerUnit}}</h2>
-                  <p class="card-text text-justify">{{num.prodName}}</p>
-                </div>
-          
-                <a href="#" class="btn btn-primary">Add to Cart</a>
-              </div> -->
-              
             </div>
-            </div>
+          </div>
+          <br>
+          <div>
+            <button type="button" class="btn btn-primary" style="float: right; margin-right: 80px" routerLink="/cart"
+            routerLinkActive="activebutton"
+            ariaCurrentWhenActive="page">Go To Cart</button>
+          </div>
         </div>
     </div>
 </div>

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class ItemService {
   //change to an actual server when that is running
-  baseUrl = 'http://localhost:8080/api/products';
+  baseUrl = 'http://localhost:8081/api/products';
 
   constructor(private http: HttpClient) {}
 
@@ -15,5 +15,8 @@ export class ItemService {
   }
   getProduct(){
     return this.http.get<any>(`${this.baseUrl}/fetchAllItems`);
+  }
+  getProducts(params : HttpParams){
+    return this.http.get<any>(`${this.baseUrl}/get/`, {params: params});
   }
 }
