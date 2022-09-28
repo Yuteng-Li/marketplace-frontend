@@ -14,3 +14,9 @@
   padding-top: 1em;
   padding-bottom: 1em;
 }
+
+.card{
+  height: 60vh;
+  width: 80vh;
+  flex-direction: column;
+}
