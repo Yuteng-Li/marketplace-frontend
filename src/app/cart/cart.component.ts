@@ -101,7 +101,6 @@ export class CartComponent implements OnInit,OnDestroy {
         this.diffInTaxAfter[index]=this.totalTaxArray[index];
       }
         this.diffTax=this.diffInTaxAfter[index]-this.diffInTaxBefore[index];
-        console.log("diffTax after change: "+this.diffTax);
         this.cartSubtotal+=(this.diff*this.shoppingCartArray[index].itemPrice);
         this.tempDiffArray[index] = this.shoppingCartArray[index].itemQty;
         this.numItems+=this.diff;
