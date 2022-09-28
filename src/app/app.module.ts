@@ -15,6 +15,7 @@ import { PaymentFormComponent } from './payment-form/payment-form.component';
 
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { AuthGuard } from './auth.guard';
 
 import { CategoriesComponent } from './categories/categories.component';
 import { ItemGirdComponent } from './item-gird/item-gird.component';
@@ -28,6 +29,7 @@ import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
 import { LoginComponent } from './login/login.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
+import { ConfirmOrderComponent } from './confirm-order/confirm-order.component';
 import { FilterPipe } from './Pipes/filter.pipe';
 
 
@@ -45,6 +47,7 @@ import { FilterPipe } from './Pipes/filter.pipe';
     LoginComponent,
     SearchBarComponent,
     NavBarComponent,
+    ConfirmOrderComponent,
     FilterPipe,
   ],
   
@@ -53,10 +56,10 @@ import { FilterPipe } from './Pipes/filter.pipe';
     BrowserModule,
     RouterModule.forRoot([
       {path: 'home-page', component: HomePageComponent },
-      {path: 'previous-orders', component: PreviousOrdersComponent},
-      {path: 'cart', component: CartComponent},
-      {path: 'credit-card', component: CreditCardComponent},
-      {path: 'payment-form', component: PaymentFormComponent},
+      {path: 'previous-orders', component: PreviousOrdersComponent, canActivate: [AuthGuard]},
+      {path: 'cart', component: CartComponent, canActivate: [AuthGuard]},
+      {path: 'credit-card', component: CreditCardComponent, canActivate: [AuthGuard]},
+      {path: 'payment-form', component: PaymentFormComponent, canActivate: [AuthGuard]},
       {path: 'login', component: LoginComponent},
       {path: 'categories', component: CategoriesComponent},
       {path: 'item-gird', component: ItemGirdComponent},

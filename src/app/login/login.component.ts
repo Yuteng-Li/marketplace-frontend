@@ -16,13 +16,16 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: SocialAuthService, private router:Router) { }
 
+
+   
   ngOnInit() {
     this.authService.authState.subscribe((user) => {
       this.user = user;
-      console.log(user);
+        localStorage.setItem('APP_TOKEN', JSON.stringify(this.user.authToken));
+        this.router.navigate(['/home-page']);
+ 
     });
   }
-
 
 
   signOut(): void {

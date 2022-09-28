@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, tap, throwError } from 'rxjs';
 import { Item } from './item';
@@ -48,6 +48,9 @@ export class ItemService {
   }
   getProduct() {
     return this.http.get<any>(`${this.baseUrl}/fetchAllItems`);
+  }
+  getProducts(params : HttpParams){
+    return this.http.get<any>(`${this.baseUrl}/get/`, {params: params});
   }
 }
 

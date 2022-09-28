@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { SocialAuthService } from '@abacritt/angularx-social-login';
+import { SocialUser } from '@abacritt/angularx-social-login';
 
 @Component({
   selector: 'app-credit-card',
@@ -7,10 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreditCardComponent implements OnInit {
 
-  constructor() { }
+    user!: SocialUser;
 
-  ngOnInit(): void {
-  }
+    constructor(private authService: SocialAuthService) { }
+  
+    ngOnInit() {
+      this.authService.authState.subscribe((user) => {
+        this.user = user;
+        console.log(user);
+      });
+      console.log(this.user.id);
+    }
+  
+    signOut(): void {
+      this.authService.signOut();
+    }
   
   listOfCards = [
     {
