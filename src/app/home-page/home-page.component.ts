@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
 import { CategoryService } from '../categories/category.service';
-import { Category } from '../categories/Category';
+import { Category } from '../shared/Category';
 import { CATEGORIES } from '../categories/mock-categories';
+
+import { Product } from '../shared/Product';
+import { CartService } from '../cart/cart.component.service';
+import { ItemService } from '../item.service';
 
 import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { SocialUser } from '@abacritt/angularx-social-login';
@@ -16,8 +20,10 @@ export class HomePageComponent implements OnInit {
 
   user!: SocialUser;
   catCard : Category[] = [];
+  featProds : Product[] = [];
 
-  constructor(private authService: SocialAuthService, private categoryService: CategoryService) { }
+  constructor(private authService: SocialAuthService, private categoryService: CategoryService,
+    private ItemService:ItemService, public cartService:CartService) { }
 
   ngOnInit() {
     this.authService.authState.subscribe((user) => {
@@ -33,6 +39,13 @@ export class HomePageComponent implements OnInit {
 
   getCategories(): void {
     this.categoryService.getCategories().subscribe( (catCard: Category[]) => {this.catCard = catCard; console.log(this.catCard)});
+  }
+
+  DisplayAll(){
+    this.ItemService.getProduct().subscribe(featProd => {
+      this.featProds=featProd;
+    })
+
   }
 
 }

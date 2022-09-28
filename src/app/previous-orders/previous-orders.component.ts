@@ -1,5 +1,5 @@
 import { CreditCardService } from './../credit-card/credit-card.component.service';
-import { CreditCard } from './../credit-card/credit-card.component.credit-card-model';
+import { CreditCard } from '../shared/CreditCard';
 import { CcserviceService } from './../credit-card/ccservice.service';
 import { BehaviorSubject, catchError, combineLatest, concat, first, flatMap, forkJoin, map, mergeMap, Observable, of, switchMap, zip } from 'rxjs';
 
