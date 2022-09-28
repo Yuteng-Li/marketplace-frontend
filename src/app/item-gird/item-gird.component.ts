@@ -17,7 +17,7 @@ import { Subscription } from 'rxjs';
 export class ItemGirdComponent implements OnInit {
 
   product : Product[] = [];
-  savedProduct : Product[] = [];
+  // savedProduct : Product[] = [];
   Filters: String[]=[];
   user!: SocialUser;
   setMinPrice = 0.00;
@@ -61,16 +61,17 @@ export class ItemGirdComponent implements OnInit {
     });
     this.DisplayAll();
 
-    console.log(this.savedProducCategories)
-    this.sub = this.ItemService.getItems().subscribe({
-      next: product => {
-        this.product = product;
-        this.searchProduct = this.product;
-      },
-      error: err => this.errorMessage = err
-    })
-    console.log('>>> in onInit')
-    //this.getByQuery();
+    // console.log(this.savedProducCategories)
+    // this.sub = this.ItemService.getItems().subscribe({
+    //   next: product => {
+    //     this.product = product;
+    //     // this.savedProduct=product;
+    //     this.searchProduct = this.product;
+    //   },
+    //   error: err => this.errorMessage = err
+    // })
+    // console.log('>>> in onInit')
+    // this.getByQuery();
     
   }
 
@@ -81,9 +82,10 @@ export class ItemGirdComponent implements OnInit {
   }
 
   DisplayAll(){
-    this.ItemService.getProduct().subscribe(product => {
+    this.ItemService.getItems().subscribe(product => {
       this.product=product;
-      this.savedProduct=product;
+      // this.savedProduct=product;
+      this.searchProduct = this.product;
       this.gatherCategories(this.product);
     })
 
@@ -143,10 +145,12 @@ export class ItemGirdComponent implements OnInit {
   {
     if(this.Filters.length==0 )
     {
-      this.product=this.savedProduct;
+      // Gonna change from savedProduct to searchProduct
+      this.product=this.searchProduct;
     }
     else{
-      this.product= this.savedProduct.filter((obj)=> {
+      // Gonna change from savedProduct to searchProduct
+      this.product= this.searchProduct.filter((obj)=> {
         return this.Filters.includes(obj.category);
       })
     }
