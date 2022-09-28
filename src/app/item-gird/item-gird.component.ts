@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HttpParams } from '@angular/common/http';
 import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { SocialUser } from '@abacritt/angularx-social-login';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-item-gird',
@@ -14,15 +15,32 @@ import { SocialUser } from '@abacritt/angularx-social-login';
 })
 export class ItemGirdComponent implements OnInit {
 
-
-
   product : Product[] = [];
-  savedProduct : Product[] = [];
   Filters: String[]=[];
   user!: SocialUser;
   localUser =  localStorage.getItem('user');
   setMinPrice = 0.00;
   setMaxPrice = 250.00;
+  searchProduct: Product[] = [];
+  sub!: Subscription
+  errorMessage: string = '';
+
+  private _listFilter: string ='';
+  get listFilter(): string{
+      return this._listFilter;
+  }
+  set listFilter(value: string){
+      this._listFilter = value;
+      console.log('In setter: ' + value);
+      this.filterBy();
+      this.searchProduct = this.performFilter(value);
+  }
+
+  performFilter(filterBy: string): Product[] {
+    filterBy = filterBy.toLocaleLowerCase();
+    return this.searchProduct.filter((products: Product) => 
+    products.prod_name.toLocaleLowerCase().includes(filterBy));
+  }
 
   savedProducCategories!: string[];
 
@@ -47,10 +65,6 @@ export class ItemGirdComponent implements OnInit {
       }
     });
     this.DisplayAll();
-
-    console.log(this.savedProducCategories)
-    //this.getByQuery();
-    
   }
 
   displayByID(id:string){
@@ -60,12 +74,11 @@ export class ItemGirdComponent implements OnInit {
   }
 
   DisplayAll(){
-    this.ItemService.getProduct().subscribe(product => {
+    this.ItemService.getItems().subscribe(product => {
       this.product=product;
-      this.savedProduct=product;
+      this.searchProduct = this.product;
       this.gatherCategories(this.product);
     })
-
   }
 
   gatherCategories(product:any[]){
@@ -122,17 +135,19 @@ export class ItemGirdComponent implements OnInit {
   {
     if(this.Filters.length==0 )
     {
-      this.product=this.savedProduct;
+      this.searchProduct=this.product;
     }
     else{
-      this.product= this.savedProduct.filter((obj)=> {
+      this.searchProduct= this.product.filter((obj)=> {
         return this.Filters.includes(obj.category);
       })
     }
 
-    this.product= this.product.filter((obj)=> {
+    this.searchProduct= this.searchProduct.filter((obj)=> {
       return (obj.price_per_unit < this.setMaxPrice && obj.price_per_unit > this.setMinPrice);
     })
-  }
 
+    this.searchProduct = this.performFilter(this._listFilter)
+  }
+  
 }
