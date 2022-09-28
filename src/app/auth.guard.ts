@@ -9,18 +9,24 @@ import { SocialUser } from '@abacritt/angularx-social-login';
 })
 export class AuthGuard implements CanActivate {
 
+  localUser =  localStorage.getItem('user');
   user!: SocialUser;
 
   constructor(private authService: SocialAuthService, private router: Router) {
-    this.authService.authState.subscribe((user) => {
-      this.user = user;
-      console.log(user);
-    });
+    if(this.localUser!=null)
+    {
+      this.user= JSON.parse(this.localUser);
+    }
   }
 
   
  
   canActivate(nextRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    this.localUser =  localStorage.getItem('user');
+    if(this.localUser!=null)
+    {
+      this.user= JSON.parse(this.localUser);
+    }
     if (!localStorage.getItem("APP_TOKEN") || this.user==null) {
       this.router.navigate(['/login'])  
       return false;

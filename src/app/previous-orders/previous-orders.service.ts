@@ -26,8 +26,8 @@ export class PreviousOrdersService {
     return prevOrders;
   }  
 
-  getPrevOrders(userID:number){
-    return this.http.get<any>(`${this.productUrl}/getOrders/user/${userID}`);
+  getPrevOrders(): Observable<any>{ //userID:number){
+    return this.http.get<any>(`${this.productUrl}/getOrders`); /*/user/${userID}`); */
   }
 
   cancelOrder(orderID:number): Observable<Orders>{
