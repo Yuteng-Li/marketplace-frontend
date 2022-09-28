@@ -1,35 +1,33 @@
 import { NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
-
+import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthGuard } from './auth.guard';
+
 import { AppComponent } from './app.component';
 import { CartComponent } from 'src/app/cart/cart.component';
 import { PreviousOrdersComponent } from './previous-orders/previous-orders.component';
-import { RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CreditCardComponent } from './credit-card/credit-card.component';
 import { PaymentFormComponent } from './payment-form/payment-form.component';
-
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
-import { AuthGuard } from './auth.guard';
+
 
 import { CategoriesComponent } from './categories/categories.component';
 import { ItemGirdComponent } from './item-gird/item-gird.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { FlexLayoutModule } from '@angular/flex-layout';
-
-
-import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
-import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
 import { LoginComponent } from './login/login.component';
-
-import { ReactiveFormsModule } from '@angular/forms';
 import { ConfirmOrderComponent } from './confirm-order/confirm-order.component';
+import { CheckoutComponent } from './checkout/checkout.component';
+
 
 
 @NgModule({
@@ -47,11 +45,14 @@ import { ConfirmOrderComponent } from './confirm-order/confirm-order.component';
     SearchBarComponent,
     NavBarComponent,
     ConfirmOrderComponent,
+    CheckoutComponent
   ],
   
   imports: [
-    HttpClientModule,
-    BrowserModule,
+    BrowserModule, 
+    FormsModule,
+    ReactiveFormsModule,
+    NgbModule,
     RouterModule.forRoot([
       {path: 'home-page', component: HomePageComponent },
       {path: 'previous-orders', component: PreviousOrdersComponent, canActivate: [AuthGuard]},
@@ -62,15 +63,15 @@ import { ConfirmOrderComponent } from './confirm-order/confirm-order.component';
       {path: 'categories', component: CategoriesComponent},
       {path: 'item-gird', component: ItemGirdComponent},
       {path: 'confirm-order', component: ConfirmOrderComponent},
+      {path: 'checkout', component: CheckoutComponent},
       {path: '', pathMatch: 'full', redirectTo: 'home-page' },
       {path: '**', pathMatch: 'full', component: PageNotFoundComponent}
     ]),
-    FormsModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
-    HttpClientModule,
-    SocialLoginModule,
-    ReactiveFormsModule
+    SocialLoginModule
+    
   ],
   
   providers: [{

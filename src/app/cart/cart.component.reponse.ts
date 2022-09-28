@@ -1,4 +1,4 @@
-import { Product } from "./cart.component.model";
+import { Product } from "../shared/Product";
 
 export interface Response{
     product:Product;
