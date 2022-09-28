@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Product } from '../shared/Product';
 import { CartService } from '../cart/cart.component.service';
-import { Item } from '../item';
 import { ItemService } from '../item.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpParams } from '@angular/common/http';
@@ -17,7 +16,6 @@ import { Subscription } from 'rxjs';
 export class ItemGirdComponent implements OnInit {
 
   product : Product[] = [];
-  // savedProduct : Product[] = [];
   Filters: String[]=[];
   user!: SocialUser;
   setMinPrice = 0.00;
@@ -33,12 +31,13 @@ export class ItemGirdComponent implements OnInit {
   set listFilter(value: string){
       this._listFilter = value;
       console.log('In setter: ' + value);
+      this.filterBy();
       this.searchProduct = this.performFilter(value);
   }
 
   performFilter(filterBy: string): Product[] {
     filterBy = filterBy.toLocaleLowerCase();
-    return this.product.filter((products: Product) => 
+    return this.searchProduct.filter((products: Product) => 
     products.prod_name.toLocaleLowerCase().includes(filterBy));
   }
 
@@ -60,19 +59,6 @@ export class ItemGirdComponent implements OnInit {
       console.log(user);
     });
     this.DisplayAll();
-
-    // console.log(this.savedProducCategories)
-    // this.sub = this.ItemService.getItems().subscribe({
-    //   next: product => {
-    //     this.product = product;
-    //     // this.savedProduct=product;
-    //     this.searchProduct = this.product;
-    //   },
-    //   error: err => this.errorMessage = err
-    // })
-    // console.log('>>> in onInit')
-    // this.getByQuery();
-    
   }
 
   displayByID(id:string){
@@ -84,11 +70,9 @@ export class ItemGirdComponent implements OnInit {
   DisplayAll(){
     this.ItemService.getItems().subscribe(product => {
       this.product=product;
-      // this.savedProduct=product;
       this.searchProduct = this.product;
       this.gatherCategories(this.product);
     })
-
   }
 
   gatherCategories(product:any[]){
@@ -145,19 +129,19 @@ export class ItemGirdComponent implements OnInit {
   {
     if(this.Filters.length==0 )
     {
-      // Gonna change from savedProduct to searchProduct
-      this.product=this.searchProduct;
+      this.searchProduct=this.product;
     }
     else{
-      // Gonna change from savedProduct to searchProduct
-      this.product= this.searchProduct.filter((obj)=> {
+      this.searchProduct= this.product.filter((obj)=> {
         return this.Filters.includes(obj.category);
       })
     }
 
-    this.product= this.product.filter((obj)=> {
+    this.searchProduct= this.searchProduct.filter((obj)=> {
       return (obj.price_per_unit < this.setMaxPrice && obj.price_per_unit > this.setMinPrice);
     })
-  }
 
+    this.searchProduct = this.performFilter(this._listFilter)
+  }
+  
 }

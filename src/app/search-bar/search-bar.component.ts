@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, Pipe } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Product } from '../cart/cart.component.model';
+import { Product } from '../shared/Product';
 import { Item } from '../item';
 import { ItemService } from '../item.service';
 

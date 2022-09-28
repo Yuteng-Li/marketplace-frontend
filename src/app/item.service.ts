@@ -1,8 +1,7 @@
 import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, tap, throwError } from 'rxjs';
-import { Product } from './cart/cart.component.model';
-import { Item } from './item';
+import { Product } from './shared/Product';
 
 
 @Injectable({
@@ -32,17 +31,6 @@ export class ItemService {
     console.log(errorMessage);
     return throwError(() => errorMessage);
   }
-
-  // getSearchProductName() {
-  //   const response = new Promise(resolve => [
-  //     this.http.get(`${this.baseUrl}/fetchAllItems`).subscribe(data => {
-  //       resolve(data);
-  //     }, err => {
-  //       console.log(err);
-  //     })
-  //   ]);
-  //   return response
-  // }
 
   getProductById(id: string) {
     return this.http.get<any>(`${this.baseUrl}/get/${id}`);
