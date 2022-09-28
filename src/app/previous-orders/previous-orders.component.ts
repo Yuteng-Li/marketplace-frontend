@@ -30,11 +30,11 @@ export class PreviousOrdersComponent implements OnInit {
       this.user = user;
       console.log(user);
     });    
-    this.getMyFriendList();
+    this.getCombined();
   }
 
 
-  getMyFriendList() {
+  getCombined() {
     this.previousOrdersService.getPrevOrders().subscribe((previousOrders) => {
       this.myData.next(previousOrders)
       this.previousOrders = previousOrders
@@ -49,8 +49,8 @@ export class PreviousOrdersComponent implements OnInit {
         this.addressService.getAddresses(x.addressID)
          ));
     }))        
-    .subscribe((friends: any) => {
-        this.addresses = friends;
+    .subscribe((add: any) => {
+        this.addresses = add;
         console.log(this.addresses, "yooo")
     });
 
@@ -62,8 +62,8 @@ export class PreviousOrdersComponent implements OnInit {
         this.ccService.getCC(x.creditCardID)
          ));
     }))        
-    .subscribe((friends: any) => {
-        this.CCs = friends;
+    .subscribe((cc: any) => {
+        this.CCs = cc;
         console.log(this.CCs, "yooo")
     });
     });
