@@ -20,28 +20,27 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Cache node modules
+      - name: get npm cache directory
         id: cache-nodemodules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules
+        run: |
+          echo "::set-output name=dir::$(npm config get cache)"
+      - uses: actions/cache@v3.0.8
+        id: npm-cache
         with:
           # caching node_modules
-          path: node_modules
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          path: ${{steps.npm-cache-dir.outputs.dir}}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
+            ${{runner.os}}-node-
 
       - name: Install Dependencies
-        if: steps.cache-nodemodules.outputs.cache-hit != 'true'
+        if: steps.npm-cache.outputs.cache-hit != 'true'
         run: |
           npm ci
 
       - name: Build
         run: |
-          npm run build -- --prod
+          npm run build --prod
 
       - name: Lint
         run: |
@@ -49,4 +48,4 @@ jobs:
 
       - name: Test
         run: |
-          npm run test -- --prod
+          npm run test --prod
