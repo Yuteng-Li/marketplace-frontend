@@ -78,13 +78,11 @@ export class AddressFormComponent implements OnInit{
 
     this.authService.authState.subscribe((user) => {
       this.user = user;
-      console.log(`THIS IS THE LOGIN LOG FROM ADDRESS FORM COMPONENT\n\n `,user);
+      // console.log(`THIS IS THE LOGIN LOG FROM ADDRESS FORM COMPONENT\n\n `,user);
     });
 
     // after user logs in, GET their info from the DB, and assign the result to various vars specified for storage
     // and HTTP methods
-    console.log(`The SSO provided user is: ${this.user.email}\n\n\n`);
-
     this.http.get(`http://localhost:${this.port_number}/api/address/getAllAddresses`)
       .pipe
       (
@@ -125,88 +123,7 @@ export class AddressFormComponent implements OnInit{
 
         )
       ).subscribe(console.log);
-
-    // const getAllAddr = this.http.get(`http://localhost:${this.port_number}/api/address/getAllAddresses`);
-    // const getAddr = this.http.get(`http://localhost:${this.port_number}/api/address/getAddress/${this.address_id}`);
-
-
-    // forkJoin
-    // (
-    //   [
-    //     this.http.get(`http://localhost:${this.port_number}/api/address/getAllAddresses`),
-    //     // this.http.get(`http://localhost:${this.port_number}/api/address/getAddress/${this.address_id}`)
-    //     this.http.get(`http://localhost:${this.port_number}/api/address/getAddress/${1}`)
-    //
-    //
-    //   ]
-    // ).subscribe(console.log) ;
-
-
-    // this.findAddressByName(this.user.name);
-    console.log("after findaddressbyname FUNCTION");
     this.recipient_name = this.user.name;
-    console.log(`name found in ngOnInit is ${this.recipient_name}`);
-    console.log(`address found in ngOnInit is ${this.address_id}`);
-    // this.setAddressFields();
-  }
-
-  private setAddressFields()
-  {
-    this.http.get(`http://localhost:${this.port_number}/api/address/getAddress/${this.address_id}`)
-      .subscribe
-      (data =>
-        {
-          console.log(data);
-          this.user_data = data;
-          this.user_id = this.user_data['user_id'];
-          this.address_id = this.user_data['address_id'];
-          this.recipient_name = this.user_data['recipient_name'];
-          this.street = this.user_data['street'];
-          this.street2 = this.user_data['street2'];
-          this.state = this.user_data['state'];
-          this.zip = this.user_data['zip'];
-          this.city = this.user_data['city'];
-        }
-      );
-  }
-
-
-  private findAddressByName(name: string):Observable<any>
-  {
-    // let searchedAddressId:string = "0";
-    // let list_all_users: {  [index: string]:any  } = {};
-    return this.http.get(`http://localhost:${this.port_number}/api/address/getAllAddresses`);
-
-    // .subscribe
-      // (
-      //   allUsers =>
-      //   {
-      //     list_all_users = allUsers;
-      //     let user_index:number = 0;
-      //     while (true)
-      //     {
-      //       if (list_all_users[user_index] == undefined)
-      //       {
-      //         break;
-      //       }
-      //
-      //       if (list_all_users[user_index]['recipient_name'] === this.user.name)
-      //       {
-      //         console.log("MATCH FOUND IN findaddressByName");
-      //         console.log(list_all_users[user_index]['address_id']);
-      //         console.log(list_all_users[user_index]['user_id']);
-      //         this.address_id = list_all_users[user_index]['address_id'];
-      //         this.user_id =list_all_users[user_index]['user_id'];
-      //         searchedAddressId = list_all_users[user_index]['address_id'];
-      //       }
-      //       // console.log(list_all_users[user_index]['recipient_name']);
-      //       // console.log(this.user.name);
-      //       // console.log(list_all_users[user_index]['address_id']);
-      //       user_index+=1;
-      //
-      //     }
-      //   }
-      // )
   }
 
 
@@ -228,8 +145,8 @@ export class AddressFormComponent implements OnInit{
             }
           );
     }
-    this.ngOnInit();
-    // console.log('You entered value: ', this.addressForm.value);
+    this.ngOnInit(); // call to update the "Current User Address" html form
+
   }
 
 
@@ -273,11 +190,6 @@ export class AddressFormComponent implements OnInit{
     this.state = '';
     this.zip =  '';
     this.city = '';
-  }
-
-  addUser():void
-  {
-    console.log("Add STUB");
   }
 
 }
