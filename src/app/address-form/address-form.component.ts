@@ -8,7 +8,7 @@ import {
   AbstractControl,
   ValidationErrors
 } from '@angular/forms';
-import {forkJoin, Observable, throwError} from "rxjs";
+import {forkJoin, map, mergeMap, Observable, throwError} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {SocialAuthService, SocialUser} from "@abacritt/angularx-social-login";
 
@@ -85,12 +85,66 @@ export class AddressFormComponent implements OnInit{
     // and HTTP methods
     console.log(`The SSO provided user is: ${this.user.email}\n\n\n`);
 
+    this.http.get(`http://localhost:${this.port_number}/api/address/getAllAddresses`)
+      .pipe
+      (
+        map
+        (users =>
+          {
+            let index:number = 0;
 
+
+            // @ts-ignore
+            while (users[index] != undefined)
+            {
+              // @ts-ignore
+              if (users[index].recipient_name === this.user.name)
+              {
+                  break;
+              }
+              index+=1;
+            }
+
+            console.log("Logged user above");
+            // @ts-ignore
+            const found_user = users[index]; // index will now point to the correct user.
+            console.log(found_user.street);
+            this.address_id = found_user.address_id;
+            this.user_id = found_user.user_id;
+            this.zip = found_user.zip;
+            this.street = found_user.street;
+            this.street2 = found_user.street2;
+            this.state = found_user.state;
+            this.city = found_user.city;
+            return found_user;
+          }
+        ),
+        mergeMap
+        (user =>
+          this.http.get(`http://localhost:${this.port_number}/api/address/getAddress/${this.address_id}`)
+
+        )
+      ).subscribe(console.log);
+
+    // const getAllAddr = this.http.get(`http://localhost:${this.port_number}/api/address/getAllAddresses`);
+    // const getAddr = this.http.get(`http://localhost:${this.port_number}/api/address/getAddress/${this.address_id}`);
+
+
+    // forkJoin
+    // (
+    //   [
+    //     this.http.get(`http://localhost:${this.port_number}/api/address/getAllAddresses`),
+    //     // this.http.get(`http://localhost:${this.port_number}/api/address/getAddress/${this.address_id}`)
+    //     this.http.get(`http://localhost:${this.port_number}/api/address/getAddress/${1}`)
+    //
+    //
+    //   ]
+    // ).subscribe(console.log) ;
 
 
     // this.findAddressByName(this.user.name);
     console.log("after findaddressbyname FUNCTION");
-    // this.recipient_name = this.user.name;
+    this.recipient_name = this.user.name;
     console.log(`name found in ngOnInit is ${this.recipient_name}`);
     console.log(`address found in ngOnInit is ${this.address_id}`);
     // this.setAddressFields();
@@ -117,42 +171,42 @@ export class AddressFormComponent implements OnInit{
   }
 
 
-  private findAddressByName(name: string) {
-    let searchedAddressId:string = "0";
-    let list_all_users: {  [index: string]:any  } = {};
-    this.http.get(`http://localhost:${this.port_number}/api/address/getAllAddresses`)
-      .subscribe
-      (
-        allUsers =>
-        {
-          list_all_users = allUsers;
-          let user_index:number = 0;
-          while (true)
-          {
-            if (list_all_users[user_index] == undefined)
-            {
-              break;
-            }
+  private findAddressByName(name: string):Observable<any>
+  {
+    // let searchedAddressId:string = "0";
+    // let list_all_users: {  [index: string]:any  } = {};
+    return this.http.get(`http://localhost:${this.port_number}/api/address/getAllAddresses`);
 
-            if (list_all_users[user_index]['recipient_name'] === this.user.name)
-            {
-              console.log("MATCH FOUND IN findaddressByName");
-              console.log(list_all_users[user_index]['address_id']);
-              console.log(list_all_users[user_index]['user_id']);
-              this.address_id = list_all_users[user_index]['address_id'];
-              this.user_id =list_all_users[user_index]['user_id'];
-              searchedAddressId = list_all_users[user_index]['address_id'];
-            }
-            // console.log(list_all_users[user_index]['recipient_name']);
-            // console.log(this.user.name);
-            // console.log(list_all_users[user_index]['address_id']);
-            user_index+=1;
-
-          }
-        }
-      )
-
-    return searchedAddressId;
+    // .subscribe
+      // (
+      //   allUsers =>
+      //   {
+      //     list_all_users = allUsers;
+      //     let user_index:number = 0;
+      //     while (true)
+      //     {
+      //       if (list_all_users[user_index] == undefined)
+      //       {
+      //         break;
+      //       }
+      //
+      //       if (list_all_users[user_index]['recipient_name'] === this.user.name)
+      //       {
+      //         console.log("MATCH FOUND IN findaddressByName");
+      //         console.log(list_all_users[user_index]['address_id']);
+      //         console.log(list_all_users[user_index]['user_id']);
+      //         this.address_id = list_all_users[user_index]['address_id'];
+      //         this.user_id =list_all_users[user_index]['user_id'];
+      //         searchedAddressId = list_all_users[user_index]['address_id'];
+      //       }
+      //       // console.log(list_all_users[user_index]['recipient_name']);
+      //       // console.log(this.user.name);
+      //       // console.log(list_all_users[user_index]['address_id']);
+      //       user_index+=1;
+      //
+      //     }
+      //   }
+      // )
   }
 
 
@@ -174,6 +228,7 @@ export class AddressFormComponent implements OnInit{
             }
           );
     }
+    this.ngOnInit();
     // console.log('You entered value: ', this.addressForm.value);
   }
 
@@ -210,7 +265,7 @@ export class AddressFormComponent implements OnInit{
     (
       `http://localhost:${this.port_number}/api/address/deleteAddress/${this.address_id}`
     ).subscribe(() => console.log("Deleted"));
-    this.user_id =  '';
+    // this.user_id =  '';
     this.address_id =  '';
     this.recipient_name =  '';
     this.street = '';

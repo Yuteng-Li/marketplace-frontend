@@ -22,10 +22,11 @@
 
 
 <div  class="mx-auto" style="width: 400px;">
-  <h3>Edit User Address</h3>
+  <h3 *ngIf="recipient_name==''">Add User Address</h3>
+  <h3 *ngIf="recipient_name.length!=0">Edit User Address</h3>
   <form [formGroup]="addressForm" >
     <div class="form-group">
-      <label for="recipient_name">Recipient Name</label>
+      <label for="recipient_name">Recipient Name (Must match your full name)</label>
       <input id="recipient_name" class="form-control" type="text" formControlName="recipient_name">
       <div  class="alert alert-danger" *ngIf="addressForm.controls['recipient_name'].errors?.['required']">Recipient Name is required</div>
       <div class="alert alert-danger" *ngIf="addressForm.controls['recipient_name'].errors?.['maxlength'] ">Name is too long</div>
