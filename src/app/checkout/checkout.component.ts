@@ -16,6 +16,7 @@ import { Observable } from 'rxjs';
 import { concatMap } from 'rxjs/operators';
 import { CreditCard } from '../shared/CreditCard';
 import { CreditCardService } from '../credit-card/credit-card.component.service';
+import { CheckoutDataService } from '../checkout-data.service';
 
 @Component({
   selector: 'app-checkout',
@@ -33,11 +34,11 @@ export class CheckoutComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private http: HttpClient,
     private authService: SocialAuthService,
     private addressService: AddressService,
     private userService: UserService,
-    private creditCardService: CreditCardService
+    private creditCardService: CreditCardService,
+    private dataService: CheckoutDataService
   ) {
     this.checkoutForm = this.fb.group({
       // userAddress: [''],
@@ -136,6 +137,7 @@ export class CheckoutComponent implements OnInit {
         concatMap((user) => {
           console.log('Getting google user...');
           this.socialUser = user;
+          console.log(user)
           return this.userService.getUsersByEmail(user.email);
         })
       )
@@ -197,6 +199,19 @@ export class CheckoutComponent implements OnInit {
     bAddress.city = this.deliveryCity.value;
     bAddress.state = this.deliveryState.value;
     bAddress.zip = this.deliveryZip.value;
+
+    const card: CreditCard = new CreditCard();
+    card.user_id = this.userID;
+    card.cardholder_name = this.cardholderName.value;
+    const expiration_date = this.cardExpireDate.value.split("/");
+    card.expiration_month = expiration_date[0];
+    card.expiration_year = expiration_date[1];
+    card.last_four_card_number = this.cardNumber.value.slice(-4)
+    console.log(card)
+    this.dataService.changeDeliveryAddress(dAddress);
+    this.dataService.changeBillingAddress(bAddress);
+    this.dataService.changeCreditCard
+
   }
 
   setBillingAddressAsDelivery(): void {

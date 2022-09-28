@@ -15,7 +15,7 @@ export class PaymentFormComponent implements OnInit {
   newCard: CreditCard = new CreditCard;
   credits:CreditCard[]=[];
   user: SocialUser = new SocialUser;
-  currUserID!:number;
+  currUserID!:Number;
 
   constructor(private paymentService: PaymentService, 
     private creditCardService:CreditCardService,
@@ -51,7 +51,7 @@ export class PaymentFormComponent implements OnInit {
       this.newCard.credit_card_id = 1;
     }
     else{
-      this.newCard.credit_card_id = this.credits[this.credits.length-1].credit_card_id + 1;
+      this.newCard.credit_card_id = this.credits[this.credits.length-1].credit_card_id.valueOf() + 1;
     }
 
     this.newCard.user_id = this.currUserID;//insert current user id here

@@ -17,7 +17,7 @@ export class CreditCardComponent implements OnInit {
   
   credits:CreditCard[]=[];
   user:SocialUser = new SocialUser;
-  currUserID!:number;
+  currUserID!:Number;
 
   ngOnInit(): void {
     this.authService.authState.subscribe((user) => {
@@ -38,7 +38,7 @@ export class CreditCardComponent implements OnInit {
   }
   
 /*DELETE card service call*/
-  removeCard(creditCardID:number):void{
+  removeCard(creditCardID:Number):void{
     this.creditCardService.deleteCard(creditCardID).subscribe();
     window.location.reload();
   }
