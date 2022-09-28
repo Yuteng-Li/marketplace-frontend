@@ -3,6 +3,9 @@ on:
   push:
     branches:
       - QEMain
+  pull_request:
+    branches:
+      - QEMain
 
 jobs:
   ci:
