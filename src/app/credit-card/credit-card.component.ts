@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CreditCard } from '../shared/CreditCard';
 import { CreditCardService } from './credit-card.component.service';
 import { SocialAuthService } from '@abacritt/angularx-social-login';
@@ -12,7 +13,8 @@ import { SocialUser } from '@abacritt/angularx-social-login';
 export class CreditCardComponent implements OnInit {
   constructor(
     private creditCardService:CreditCardService,
-    private authService: SocialAuthService
+    private authService: SocialAuthService,
+    private router:Router
   ){}
   
   credits:CreditCard[]=[];
@@ -38,9 +40,12 @@ export class CreditCardComponent implements OnInit {
   }
   
 /*DELETE card service call*/
-  removeCard(creditCardID:Number):void{
-    this.creditCardService.deleteCard(creditCardID).subscribe();
-    window.location.reload();
+
+  removeCard(creditCardID:number,index:number,lastfour:String):void{
+    if(confirm("Are you sure you want to delete this card ending in "+ lastfour)){
+      this.creditCardService.deleteCard(creditCardID).subscribe();
+      this.credits.splice(index);
+    }
   }
 }
 
