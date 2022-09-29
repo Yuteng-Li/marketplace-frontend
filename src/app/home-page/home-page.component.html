@@ -23,14 +23,17 @@
 
     <div id="carouselExampleControls" class="carousel slide" data-interval="false">
         <div class="carousel-inner">
+          <!-- *ngFor needed to make two carousel-items class in order to have two pages to scroll through, 
+            5 items per page, in total just displaying 10 items. Might have to do another ngFor for the card class. -->
           <div class="carousel-item active">
             <div class="cards-wrapper">
-            <div class="card">
+            <div class="card" *ngFor="let featProd of featProds | slice:0:10; let i=index "> <!--slice:0:10 = get first 10 products within the array -->
               <img src="..." class="card-img-top" alt="...">
               <div class="card-body">
-                <h5 class="card-title">Product Name</h5>
-                <h6>Price</h6>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <!--First card does not display -->
+                <h5 class="card-title">{{featProd.prod_name}}</h5>
+                <h6>{{featProd.price_per_unit}}</h6>
+                <p class="card-text">{{featProd.prod_description}}</p>
                 <a href="#" class="btn btn-feat">Add to Cart</a>
               </div>
             </div>
@@ -73,7 +76,8 @@
           </div>
           </div>
 
-          <div class="carousel-item">
+          <!-- This 2nd page for the carousel will be deleted. It's just here to help me visualize the loop -->
+          <!-- <div class="carousel-item">
             <div class="cards-wrapper">
             <div class="card">
               <img src="..." class="card-img-top" alt="...">
@@ -121,7 +125,8 @@
                 </div>
               </div>
           </div>
-          </div>
+          </div> -->
+
          </div>
     </div>
         <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
