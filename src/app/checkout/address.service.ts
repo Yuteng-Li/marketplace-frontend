@@ -20,9 +20,5 @@ export class AddressService {
     return this.http.get<Address>(this.baseUrl + id)
   };
 
-  createAddress(address: Address): Observable<Address>{
-    return this.http.post<Address>(this.baseUrl + "createAddress", address)
-  }
-
   
 }

@@ -1,5 +1,6 @@
-import { CreditCardService } from '../credit-card/credit-card.component.service';
+import { CreditCardService } from './../credit-card/credit-card.component.service';
 import { CreditCard } from '../shared/CreditCard';
+import { CcserviceService } from './../credit-card/ccservice.service';
 import { BehaviorSubject, catchError, combineLatest, concat, first, flatMap, forkJoin, map, mergeMap, Observable, of, switchMap, zip } from 'rxjs';
 
 import { Component, OnInit, ɵgetUnknownElementStrictMode } from '@angular/core';
@@ -22,7 +23,7 @@ export class PreviousOrdersComponent implements OnInit {
   myData: BehaviorSubject<any> = new BehaviorSubject<any>(0);
 
   constructor(private previousOrdersService: PreviousOrdersService,private authService: SocialAuthService,
-    private addressService: AddressService, private ccService: CreditCardService) {}
+    private addressService: AddressService, private ccService: CcserviceService) {}
   user!: SocialUser;
   localUser =  localStorage.getItem('user');
 
