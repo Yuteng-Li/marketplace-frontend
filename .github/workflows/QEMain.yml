@@ -42,11 +42,11 @@ jobs:
 
       - name: Build
         run: |
-          npm run build --prod
+          npm run build
 
-      #- name: Lint
-       # run: |
-        #  npm run lint
+      - name: Lint
+        run: |
+          npm run lint
 
       - name: Test
         run: |
