@@ -68,7 +68,7 @@ import {AddressFormComponent} from "./address-form/address-form.component";
       {path: 'categories', component: CategoriesComponent},
       {path: 'item-gird', component: ItemGirdComponent},
       {path: 'confirm-order', component: ConfirmOrderComponent},
-      {path: 'checkout', component: CheckoutComponent,},
+      {path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuard]},
       {path: '', pathMatch: 'full', redirectTo: 'home-page' },
       {path: '**', pathMatch: 'full', component: PageNotFoundComponent},
       {path: '', component: SearchBarComponent}
