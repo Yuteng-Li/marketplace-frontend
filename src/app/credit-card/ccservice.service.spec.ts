@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { HomePageService } from './home-page.service';
+import { CcserviceService } from './ccservice.service';
 
-describe('HomePageService', () => {
-  let service: HomePageService;
+describe('CcserviceService', () => {
+  let service: CcserviceService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(HomePageService);
+    service = TestBed.inject(CcserviceService);
   });
 
   it('should be created', () => {
