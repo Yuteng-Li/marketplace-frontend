@@ -25,9 +25,12 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { ItemGirdComponent } from './item-gird/item-gird.component';
 import { LoginComponent } from './login/login.component';
+
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ConfirmOrderComponent } from './confirm-order/confirm-order.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 
+import {AddressFormComponent} from "./address-form/address-form.component";
 
 
 @NgModule({
@@ -42,14 +45,15 @@ import { CheckoutComponent } from './checkout/checkout.component';
     CategoriesComponent,
     ItemGirdComponent,
     LoginComponent,
+    AddressFormComponent,
     SearchBarComponent,
     NavBarComponent,
     ConfirmOrderComponent,
     CheckoutComponent
   ],
-  
+
   imports: [
-    BrowserModule, 
+    BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
@@ -59,21 +63,23 @@ import { CheckoutComponent } from './checkout/checkout.component';
       {path: 'cart', component: CartComponent, canActivate: [AuthGuard]},
       {path: 'credit-card', component: CreditCardComponent, canActivate: [AuthGuard]},
       {path: 'payment-form', component: PaymentFormComponent, canActivate: [AuthGuard]},
+      {path: 'address-form', component: AddressFormComponent,  canActivate: [AuthGuard] },
       {path: 'login', component: LoginComponent},
       {path: 'categories', component: CategoriesComponent},
       {path: 'item-gird', component: ItemGirdComponent},
       {path: 'confirm-order', component: ConfirmOrderComponent},
       {path: 'checkout', component: CheckoutComponent},
       {path: '', pathMatch: 'full', redirectTo: 'home-page' },
-      {path: '**', pathMatch: 'full', component: PageNotFoundComponent}
+      {path: '**', pathMatch: 'full', component: PageNotFoundComponent},
+      {path: '', component: SearchBarComponent}
     ]),
     HttpClientModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
     SocialLoginModule
-    
+
   ],
-  
+
   providers: [{
     provide: 'SocialAuthServiceConfig',
     useValue: {

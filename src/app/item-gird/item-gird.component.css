@@ -26,3 +26,27 @@ img {
     width: auto;
 }
 
+.form-control.rounded{
+    width: 50%;
+    padding-top: 15px;
+}
+
+.form-group{
+    display:flex;
+}
+
+.btn-nisum {
+    display:inline-flexbox;
+    background: #00cfff;
+    background: linear-gradient(to bottom, #6e12ff, #0019ff, #00cfff);
+    color: #fff;
+    border-radius: 0%;
+    border: none;
+    font-family: 'Corbel', Verdana, "Bitstream Vera Sans", sans-serif;
+
+    
+}
+
+.btn-nisum:hover {
+    color: cyan;
+}
