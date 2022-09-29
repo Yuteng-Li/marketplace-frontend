@@ -1,7 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 
+import { CategoryService } from '../categories/category.service';
+import { Category } from '../shared/Category';
+import { CATEGORIES } from '../categories/mock-categories';
+
+import { Product } from '../shared/Product';
+import { CartService } from '../cart/cart.component.service';
+import { ItemService } from '../item.service';
+
 import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { SocialUser } from '@abacritt/angularx-social-login';
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-page',
@@ -10,18 +20,51 @@ import { SocialUser } from '@abacritt/angularx-social-login';
 })
 export class HomePageComponent implements OnInit {
 
+  //localUser =  localStorage.getItem('user');
   user!: SocialUser;
+  catCard : Category[] = [];
+  featProds : Product[] = [];
+  itemGridCatProduct:Product[]=[];
 
-  constructor(private authService: SocialAuthService) { }
+  constructor(private readonly authService: SocialAuthService, private categoryService: CategoryService,
+    private itemService:ItemService, public cartService:CartService,private router:Router) { }
 
   ngOnInit() {
+    // if(this.localUser!=null)
+    // {
+    //   this.user= JSON.parse(this.localUser);
+    // }
     this.authService.authState.subscribe((user) => {
       this.user = user;
     });
+
+    this.getCategories();
+    this.DisplayAll();
   }
 
-  signOut(): void {
-    this.authService.signOut();
+  goTOItemDisplayCat(category:string){
+    console.log("display the category: "+category);
+    //have to send a itemGridProduct array to itemgrid, and
+    //set itemgrid array product to itemGridCatprod
+    this.itemService.getProduct()
+                    .subscribe(productList=>{this.itemGridCatProduct=productList.filter(productCat=>productCat.category.toLocaleLowerCase().includes(category.toLocaleLowerCase()));
+                                            console.log("filter: "+category+" "+this.itemGridCatProduct.forEach(element=>console.log(element.prod_name)));
+                                            this.itemService.itemGridCatProduct=this.itemGridCatProduct;
+                                            console.log("the array in service: " + this.itemService.itemGridCatProduct.forEach(element=>console.log(element.prod_name)));
+                                            if (this.itemService.itemGridCatProduct.length>0){  this.router.navigate(['/item-gird']);}
+                                            else{alert("No items match category") }
+                                              })
+}
+
+  getCategories(): void {
+    this.categoryService.getCategories().subscribe( (catCard: Category[]) => {this.catCard = catCard; console.log(this.catCard)});
+  }
+
+  DisplayAll(){
+    this.itemService.getProduct().subscribe(featProd => {
+      this.featProds=featProd;
+      console.log(this.featProds);
+    })
   }
 
 }

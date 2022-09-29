@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from './category.service';
-import { Category } from './Category';
+import { Category } from '../shared/Category';
 import { CATEGORIES } from './mock-categories';
+import { ItemService } from '../item.service';
+import { Product } from '../shared/Product';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-categories',
@@ -10,7 +13,9 @@ import { CATEGORIES } from './mock-categories';
 })
 export class CategoriesComponent implements OnInit {
   categories : Category[] = [];
-  constructor(private categoryService: CategoryService) { }
+  itemGridCatProduct: Product[] = [];
+
+  constructor(public categoryService: CategoryService, private itemService: ItemService, private router:Router) { }
 
   ngOnInit(): void {
     //this.getCategories(); //Use if we are getting categories from the backend
@@ -20,5 +25,19 @@ export class CategoriesComponent implements OnInit {
   getCategories(): void {
     this.categoryService.getCategories().subscribe( (categories: Category[]) => {this.categories = categories; console.log(this.categories)});
   }
+
+  goTOItemDisplayCat(category:string){
+    console.log("display the category: "+category);
+    //have to send a itemGridProduct array to itemgrid, and
+    //set itemgrid array product to itemGridCatprod
+    this.itemService.getProduct()
+                    .subscribe(productList=>{this.itemGridCatProduct=productList.filter(productCat=>productCat.category.toLocaleLowerCase().includes(category.toLocaleLowerCase()));
+                                            console.log("filter: "+category+" "+this.itemGridCatProduct.forEach(element=>console.log(element.prod_name)));
+                                            this.itemService.itemGridCatProduct=this.itemGridCatProduct;
+                                            console.log("the array in service: " + this.itemService.itemGridCatProduct.forEach(element=>console.log(element.prod_name)));
+                                            if (this.itemService.itemGridCatProduct.length>0){  this.router.navigate(['/item-gird']);}
+                                            else{alert("No items match category") }
+                                              })
+}
 
 }

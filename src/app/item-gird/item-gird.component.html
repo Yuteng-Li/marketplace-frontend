@@ -1,7 +1,20 @@
-
 <app-nav-bar></app-nav-bar>
-    
-<homepage-search-bar></homepage-search-bar>
+
+<!-- <homepage-search-bar></homepage-search-bar> -->
+
+<div class="container-search-bar">
+  <div class="row">
+    <div class="col-md-6 m-auto mt-4">
+      <div class="form-group">
+        <div>
+        </div>
+        <input type="text" name="search-term" class="search-nav_input form-control form-control-lg" placeholder="Search" 
+        [(ngModel)]='listFilter'/>
+        <button type="submit" class="btn btn-nisum rounded"><i class="bi bi-search"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 <div class="container">
@@ -30,37 +43,39 @@
                 
                 <br>
 
-                <button class="btn btn-primary" (click)="filterBy()">Submit</button>
-          </div>
+      <button class="btn btn-primary" (click)="filterBy()">Submit</button>
+    </div>
 
-        <div class="col" id="main">
-          <div class="content">
+    <div class="col" id="main">
+      <div class="content">
 
-            <div fxLayout="row wrap" fxLayoutGap="16px grid">
-          
-              <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let prod of product">
+        <div fxLayout="row wrap" fxLayoutGap="16px grid">
 
-                <div class="card h-100 ">
+          <!-- Filter the items by their prodName since searchProducts is a Filtered array  -->
+          <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let prod of searchProduct" >
+
+            <div class="card h-100 ">
 
 
-                  <div class="card-header">
-                    <h4 class="my-0 font-weight-normal">{{prod.prod_name}}</h4>
-                  </div>
-          
-                  <div class="card-body">
+              <div class="card-header">
+                <h4 class="my-0 font-weight-normal">{{prod.prod_name}}</h4>
+              </div>
 
-                    <img src ="{{prod.image_url}}">
-                    <br>
-                    <p class="card-text">{{prod.prod_description}}</p>
-                    <p class="card-text">{{prod.price_per_unit|currency: 'USD'}}</p>
+              <div class="card-body">
 
-                  </div>
+                <img src="{{prod.image_url}}">
+                <br>
+                <p class="card-text">{{prod.prod_description}}</p>
+                <p class="card-text">{{prod.price_per_unit|currency: 'USD'}}</p>
+
+              </div>
 
                   <div *ngIf="user != null">
                     <button class="btn btn-primary w-100 background-nisum" (click)="cartService.addToCart(prod)">Add to Cart</button>
                   </div>
                   <div *ngIf="user == null">
-                    <button class="btn btn-primary w-100 disabled background-nisum">Login to add to cart</button>
+                    <button class="btn btn-primary w-100 disabled background-nisum"
+                    routerLink='/login' >Login to add to cart</button>
                   </div>
                 </div>
               </div>
@@ -72,8 +87,14 @@
             routerLinkActive="activebutton"
             ariaCurrentWhenActive="page">Go To Cart</button>
           </div>
-        </div>
+          <div>
+            <button type="button" class="btn btn-primary" style="float: right; margin-right: 80px" 
+            (click)="unDoneCatergoryArray()">Show All items</button>
+          </div>
     </div>
+  </div>
 </div>
+
+
 
 

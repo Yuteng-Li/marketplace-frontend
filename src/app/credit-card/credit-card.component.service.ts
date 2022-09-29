@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import{ HttpClient} from '@angular/common/http'
-import { CreditCard } from "./credit-card.component.credit-card-model";
+import { CreditCard } from "../shared/CreditCard";
 import {Observable, tap } from "rxjs";
 
 @Injectable({
@@ -18,9 +18,17 @@ export class CreditCardService{
             tap(data=>JSON.stringify(data))
         );
     }
+
+    /*GET method to return one credit card by ID*/
+    getCC(id: number) : Observable<any>{ 
+        return this.http.get<any>(`${this.cardUrl}/getCard/${id}`); 
+    }
+
     /*DELETE method delete card by creditCardID*/ 
-    deleteCard(creditCardID:number):Observable<unknown>{
+    deleteCard(creditCardID:Number):Observable<unknown>{
         return this.http.delete<CreditCard>(this.cardUrl+"/deleteCard/"+creditCardID);
     }
+
+
 
 }

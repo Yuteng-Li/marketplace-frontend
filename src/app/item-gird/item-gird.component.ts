@@ -1,11 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Product } from '../cart/cart.component.model';
+import { Product } from '../shared/Product';
 import { CartService } from '../cart/cart.component.service';
 import { ItemService } from '../item.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpParams } from '@angular/common/http';
 import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { SocialUser } from '@abacritt/angularx-social-login';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-item-gird',
@@ -14,14 +15,36 @@ import { SocialUser } from '@abacritt/angularx-social-login';
 })
 export class ItemGirdComponent implements OnInit {
 
-
-
   product : Product[] = [];
-  savedProduct : Product[] = [];
   Filters: String[]=[];
   user!: SocialUser;
+  localUser =  localStorage.getItem('user');
   setMinPrice = 0.00;
   setMaxPrice = 250.00;
+  searchProduct: Product[] = [];
+  sub!: Subscription
+  errorMessage: string = '';
+  itemGridCartProdcut = this.ItemService.itemGridCatProduct;
+
+  private _listFilter: string ='';
+  get listFilter(): string{
+      return this._listFilter;
+  }
+  set listFilter(value: string){
+      this._listFilter = value;
+      console.log('In setter: ' + value);
+      this.filterBy();
+      this.searchProduct = this.performFilter(value);
+  }
+
+  performFilter(filterBy: string): Product[] {
+    filterBy = filterBy.toLocaleLowerCase();
+    return this.searchProduct.filter((products: Product) => 
+    products.prod_name.toLocaleLowerCase().includes(filterBy) ||
+    products.prod_description.toLocaleLowerCase().includes(filterBy) || 
+    products.brand.toLocaleLowerCase().includes(filterBy) || 
+    products.category.toLocaleLowerCase().includes(filterBy));
+  }
 
   savedProducCategories!: string[];
 
@@ -33,18 +56,33 @@ export class ItemGirdComponent implements OnInit {
   
   
 
-  ngOnInit(): void {
+  ngOnInit() {
     //These API calls are temporary as the DBs are still changing so these will
     //eventually be changed but right now if you use the inventory db it should work until they change it
     this.authService.authState.subscribe((user) => {
-      this.user = user;
-      console.log(user);
+      if(user==null && this.localUser !=null)
+      {
+        this.user = JSON.parse(this.localUser);
+      }else
+      {
+        this.user=user;
+      }
     });
-    this.DisplayAll();
 
-    console.log(this.savedProducCategories)
-    //this.getByQuery();
-    
+    console.log("dat length: "+this.itemGridCartProdcut.length);
+    if(this.itemGridCartProdcut.length>0){
+      console.log("item filter work and length >0");
+      this.product=this.itemGridCartProdcut;
+      this.searchProduct=this.product;
+      this.gatherCategories(this.product);
+    }
+    else{ this.DisplayAll();}
+  
+  }
+
+  unDoneCatergoryArray(){
+    this.itemGridCartProdcut=[];
+    this.DisplayAll();
   }
 
   displayByID(id:string){
@@ -54,12 +92,14 @@ export class ItemGirdComponent implements OnInit {
   }
 
   DisplayAll(){
-    this.ItemService.getProduct().subscribe(product => {
+    //maybe have to check if product already have stuff in there
+    // do like a if (product.length>0) check. so we do not 
+    //overwrite the fitler product already
+    this.ItemService.getItems().subscribe(product => {
       this.product=product;
-      this.savedProduct=product;
+      this.searchProduct = this.product;
       this.gatherCategories(this.product);
     })
-
   }
 
   gatherCategories(product:any[]){
@@ -116,17 +156,19 @@ export class ItemGirdComponent implements OnInit {
   {
     if(this.Filters.length==0 )
     {
-      this.product=this.savedProduct;
+      this.searchProduct=this.product;
     }
     else{
-      this.product= this.savedProduct.filter((obj)=> {
+      this.searchProduct= this.product.filter((obj)=> {
         return this.Filters.includes(obj.category);
       })
     }
 
-    this.product= this.product.filter((obj)=> {
+    this.searchProduct= this.searchProduct.filter((obj)=> {
       return (obj.price_per_unit < this.setMaxPrice && obj.price_per_unit > this.setMinPrice);
     })
-  }
 
+    this.searchProduct = this.performFilter(this._listFilter)
+  }
+  
 }
