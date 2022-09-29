@@ -10,6 +10,7 @@ import { ItemService } from '../item.service';
 
 import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { SocialUser } from '@abacritt/angularx-social-login';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home-page',
@@ -18,20 +19,25 @@ import { SocialUser } from '@abacritt/angularx-social-login';
 })
 export class HomePageComponent implements OnInit {
 
-  localUser =  localStorage.getItem('user');
+  //localUser =  localStorage.getItem('user');
   user!: SocialUser;
   catCard : Category[] = [];
   featProds : Product[] = [];
 
   constructor(private readonly authService: SocialAuthService, private categoryService: CategoryService,
-    private ItemService:ItemService, public cartService:CartService) { }
+    private itemService:ItemService, public cartService:CartService) { }
 
   ngOnInit() {
-    if(this.localUser!=null)
-    {
-      this.user= JSON.parse(this.localUser);
-    }
+    // if(this.localUser!=null)
+    // {
+    //   this.user= JSON.parse(this.localUser);
+    // }
+    this.authService.authState.subscribe((user) => {
+      this.user = user;
+    });
+
     this.getCategories();
+    this.DisplayAll();
   }
 
   getCategories(): void {
@@ -39,10 +45,10 @@ export class HomePageComponent implements OnInit {
   }
 
   DisplayAll(){
-    this.ItemService.getProduct().subscribe(featProd => {
+    this.itemService.getProduct().subscribe(featProd => {
       this.featProds=featProd;
+      console.log(this.featProds);
     })
-
   }
 
 }
