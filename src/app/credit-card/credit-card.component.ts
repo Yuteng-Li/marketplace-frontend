@@ -19,7 +19,7 @@ export class CreditCardComponent implements OnInit {
   
   credits:CreditCard[]=[];
   user:SocialUser = new SocialUser;
-  currUserID!:number;
+  currUserID!:Number;
 
   ngOnInit(): void {
     this.authService.authState.subscribe((user) => {
@@ -40,6 +40,7 @@ export class CreditCardComponent implements OnInit {
   }
   
 /*DELETE card service call*/
+
   removeCard(creditCardID:number,index:number,lastfour:String):void{
     if(confirm("Are you sure you want to delete this card ending in "+ lastfour)){
       this.creditCardService.deleteCard(creditCardID).subscribe();
