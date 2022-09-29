@@ -16,7 +16,7 @@ export class PaymentFormComponent implements OnInit {
   newCard: CreditCard = new CreditCard;
   credits:CreditCard[]=[];
   user: SocialUser = new SocialUser;
-  currUserID!:Number;
+  currUserID!:number;
 
   constructor(private paymentService: PaymentService, 
     private creditCardService:CreditCardService,

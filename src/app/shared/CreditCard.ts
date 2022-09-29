@@ -1,8 +1,8 @@
 export class CreditCard {
 
-    credit_card_id!: Number;
+    credit_card_id!: number;
 
-    user_id!: Number;
+    user_id!: number;
 
     cardholder_name!: String;
 
