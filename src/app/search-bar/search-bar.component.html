@@ -6,9 +6,7 @@
             </div>
                 <input type="text" name="search-term" class="form-control form-control-lg"
                     placeholder="Search" [(ngModel)]='listFilter'/>
-                    <!-- need to set up a click event and bind it to a method in my search-bar component 
-                            which routes to the item-grid page with filtered products from search box -->
-                    <button type="button" (click)="goToSearchedItem('{{_listFilter}}')"  searchProduct="filteredProducts"
+                    <button type="button" value="{{listFilter}} "(click)="goToSearchedItem()"  searchProduct="filteredProducts"
                     class="btn btn-nisum rounded"><i class="bi bi-search"></i></button>
             </div>
         </div>

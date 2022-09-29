@@ -1,7 +1,6 @@
-import { Component, OnDestroy, OnInit, Pipe } from '@angular/core';
+import { Component, OnDestroy, OnInit} from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Product } from '../shared/Product';
-import { Item } from '../item';
 import { ItemService } from '../item.service';
 import { Router } from '@angular/router';
 
@@ -18,6 +17,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   errorMessage: string = '';
   sub!: Subscription
   searchedItem: Product[] = [];
+  itemGridCatProduct: Product[] = [];
 
   constructor(private itemService: ItemService, private router: Router) { }
 
@@ -31,10 +31,6 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     this.filteredProducts = this.performFilter(value);
   }
 
-  // Method will filter our list of items to only those with a item name that includes the list filter string
-  // If it is empty it will return all items 
-
-  // Filter through the chars set in the search bar 
   performFilter(filterBy: string): Product[] {
     filterBy = filterBy.toLocaleLowerCase();
     return this.product.filter((products: Product) =>
@@ -44,7 +40,6 @@ export class SearchBarComponent implements OnInit, OnDestroy {
       products.category.toLocaleLowerCase().includes(filterBy));
   }
 
-  // Need to create a lifecycle hook to call to perform component initialization
   ngOnInit(): void {
     this.sub = this.itemService.getItems().subscribe({
       next: product => {
@@ -66,44 +61,24 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     console.log('In setter: ' + value);
   }
 
-
-
   ngOnDestroy(): void {
     this.sub.unsubscribe();
   }
 
-  // Need this method to route the button to the item grid page
-  onClick(): void {
-    console.log('The search icon was clicked')
-
-  }
-
-  goToSearchedItem(category: string) {
-    console.log("display the category: " + category);
-    //have to send a itemGridProduct array to itemgrid, and
-    //set itemgrid array product to itemGridCatprod
+  goToSearchedItem() {
     this.itemService.getProduct()
       .subscribe(productList => {
-        this.searchedItem = productList.filter(products => products.prod_description.toLocaleLowerCase().includes(this._filteredString));
-        console.log('----', + this.searchedItem)
-        console.log('>>>' + this.product.forEach(element => console.log(element.prod_name)));
-        this.itemService.itemGridCatProduct = this.searchedItem;
-        // console.log('This.searchedItem is: ' + this.itemService.searchedItem);
-        console.log("the array in service: " + this.itemService.itemGridCatProduct.forEach(element => console.log(element.prod_name)));
+        this.itemGridCatProduct = productList.filter(products =>
+          products.prod_description.toLocaleLowerCase().includes(this.listFilter) ||
+          products.prod_name.toLocaleLowerCase().includes(this.listFilter) ||
+          products.brand.toLocaleLowerCase().includes(this.listFilter) ||
+          products.category.toLocaleLowerCase().includes(this.listFilter)
+        );
+        this.itemService.itemGridCatProduct = this.itemGridCatProduct;
         if (this.itemService.itemGridCatProduct.length > 0) { this.router.navigate(['/item-gird']); }
-        else { alert("No items match category") }
-
+        else { alert("No items found") }
       })
+
   }
-
-
-  // getItemsSearch(name: any){
-  //   const keyword = name.target.value;
-  //   const search = this.ItemService.getSearchProductName().then(response => {
-  //     this.data = response;
-  //     response
-  //     console.log(this.data)
-  //   })
-  // }
 
 }
