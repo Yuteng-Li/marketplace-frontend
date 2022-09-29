@@ -18,16 +18,22 @@ export class CreditCardComponent implements OnInit {
   ){}
   
   credits:CreditCard[]=[];
-  user:SocialUser = new SocialUser;
+  user!:SocialUser;
+  localUser =  localStorage.getItem('user');
   currUserID!:Number;
 
   ngOnInit(): void {
     this.authService.authState.subscribe((user) => {
-      this.user = user;
-      this.currUserID=parseInt(user.id);
+        this.user=user;
+        this.currUserID=parseInt(user.id);
     });
 
-    console.log(this.currUserID)
+    if(this.user==null && this.localUser !=null)
+      {
+        this.user = JSON.parse(this.localUser);
+        this.currUserID=parseInt(this.user.id);
+        console.log(this.currUserID)
+      }
     
     /*GET cards service call*/
       this.creditCardService.getAllCards().subscribe(data => {

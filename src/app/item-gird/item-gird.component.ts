@@ -165,7 +165,7 @@ export class ItemGirdComponent implements OnInit {
     }
 
     this.searchProduct= this.searchProduct.filter((obj)=> {
-      return (obj.price_per_unit < this.setMaxPrice && obj.price_per_unit > this.setMinPrice);
+      return (obj.price_per_unit <= this.setMaxPrice && obj.price_per_unit >= this.setMinPrice);
     })
 
     this.searchProduct = this.performFilter(this._listFilter)

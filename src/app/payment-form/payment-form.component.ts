@@ -15,7 +15,7 @@ import { SocialUser } from '@abacritt/angularx-social-login';
 export class PaymentFormComponent implements OnInit {
   newCard: CreditCard = new CreditCard;
   credits:CreditCard[]=[];
-  user: SocialUser = new SocialUser;
+  user!: SocialUser;
   currUserID!:number;
 
   constructor(private paymentService: PaymentService, 
@@ -28,15 +28,16 @@ export class PaymentFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.authState.subscribe((user) => {
-      if(user==null && this.localUser !=null)
-      {
-        this.user = JSON.parse(this.localUser);
-      }else
-      {
-        this.user=user;
-      }
+      this.user=user;
       this.currUserID = parseInt(user.id);
     });
+
+    if(this.user==null && this.localUser !=null)
+      {
+        this.user = JSON.parse(this.localUser);
+        this.currUserID=parseInt(this.user.id);
+        console.log(this.currUserID)
+      }
     console.log(this.currUserID)
     
     this.creditCardService.getAllCards().subscribe(data => {
