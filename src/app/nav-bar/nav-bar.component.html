@@ -35,10 +35,11 @@
                 </li>
             </ul>
         </div>
-        <asl-google-signin-button *ngIf="user==null"class="d-flex justify-content-center" type='standard' text="signin_with" size='medium' logo_alignment="center"></asl-google-signin-button>
-
+        <div *ngIf="!retrievedUser">
+            <asl-google-signin-button class="d-flex justify-content-center" type='standard' text="signin_with" size='medium' logo_alignment="center"></asl-google-signin-button>
+        </div>
         
-        <div *ngIf="user" class="disabled">
+        <div *ngIf="retrievedUser">
             <button class="btn btn-danger" (click)="signOut()">Sign out</button>
         </div>
     </div>

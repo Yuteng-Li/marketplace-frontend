@@ -4,6 +4,7 @@ import { UserService } from '../user.service';
 import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { SocialUser } from '@abacritt/angularx-social-login';
 import { Router } from '@angular/router';
+import { using } from 'rxjs';
 
 @Component({
   selector: 'app-nav-bar',
@@ -12,40 +13,56 @@ import { Router } from '@angular/router';
 })
 export class NavBarComponent implements OnInit {
 
+  usingLocalLog = true;
   user!: SocialUser;
+  retrievedUser= localStorage.getItem('user')
+  
 
-
-  constructor(private authService: SocialAuthService, private UserService:UserService, private router: Router) { }
+  constructor(private authService: SocialAuthService, private UserService:UserService, private router: Router) {
+  }
 
   ngOnInit() {
-    this.authService.authState.subscribe((user) => {
-      this.user = user;
-      console.log(user);
-      if(this.user != null)
-      {
-        this.displayByID(this.user.email);
-      }
-    });
-
-    if(this.user != null)
-    {
-      this.displayByID(this.user.email);
-    }
-
-
+      this.authService.authState.subscribe((user) => {
+        this.user = user;
+        if(this.user != null)
+        {
+          localStorage.setItem('APP_TOKEN', JSON.stringify(this.user.authToken));
+          localStorage.setItem('user', JSON.stringify(this.user));
+          this.retrievedUser = localStorage.getItem('user');
+          this.displayByID(this.user.email);
+          this.usingLocalLog=false;
+        }
+        else if(this.retrievedUser!=null)
+        {
+          this.user=  JSON.parse(this.retrievedUser);
+        }
+      });
   }
 
   signOut(): void {
-    this.authService.signOut();
-    localStorage.removeItem('APP_TOKEN');
+    if(!this.usingLocalLog)
+    {
+      this.authService.signOut();
+    }
+    this.retrievedUser=null;
+    localStorage.clear();
+    console.log(localStorage.getItem('user'))
     this.router.navigate(['/home-page'])
   }
+
+
   displayByID(Email:string){
-    this.UserService.getUsersByEmail(Email).subscribe(
-     { next: user => 
-      this.user.id = user.user_id,
-      error: e => this.UserService.createUsersByEmail(this.user.email, this.user.firstName, this.user.lastName, "confiential",  "510-101-1010")
-      .subscribe(user => this.user.id = user.user_id),
-     })
-     }
+     this.UserService.getUsersByEmail(Email).subscribe(
+      { next: user => 
+        //socialuser has string as id. the user from database has integer as id
+       {this.user.id = user.user_id.toString();
+        console.log(this.user);
+       },
+       //phone number is only 10 char long.
+       error: e => this.UserService.createUsersByEmail(this.user.email, this.user.firstName, this.user.lastName, "confiential",  "5101011010")
+       .subscribe(user => {this.user.id = user.user_id.toString();
+                  console.log(this.user);
+      })
+      })
+}
 }
