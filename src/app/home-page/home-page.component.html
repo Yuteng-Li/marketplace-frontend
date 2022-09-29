@@ -24,12 +24,23 @@ ariaCurrentWhenActive="page"
 value="Categories"></li>
 
 
+
 <li><input class="button btn-nisum rounded"
 type="submit"
 routerLink="/item-gird"
 routerLinkActive="activebutton"
 ariaCurrentWhenActive="page"
 value="display"></li>
+
+    <div class="card-category row">
+        <div class="col-sm-auto" style="width: 14rem; margin-right: 15px" *ngFor="let card of catCard | slice:0:6; let i=index">
+          <div class="position-img" style="position:relative;">
+            <figure><img src="{{card.img}}" alt="Category image" class="img-thumbnail" (click)="goTOItemDisplayCat(card.category)" routerLink="/login"></figure>
+          </div>
+          <figcaption>{{card.category}}</figcaption>
+        </div>
+    </div>
+
 
 <li><input class="button btn-nisum rounded"
 type="submit"
@@ -45,6 +56,10 @@ value="Credit Cards"></li>
              ariaCurrentWhenActive="page"
              value="Edit Address"></li>
 
+    <br>
+    <br>
+
 
 </ul>
 </nav>
+

@@ -16,13 +16,15 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">Shop</a>
-                    <ul class="dropdown-menu">
-                        <!-- Need to change # for actual routes -->
-                        <li><a class="dropdown-item" href="#"></a>Link 1</li>
-                        <li><a class="dropdown-item" href="#"></a>Link 2</li>
-                        <li><a class="dropdown-item" href="#"></a>Link 3</li>
-                    </ul>
+                    <a class="nav-link dropdown-toggle bi bi-person" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"> Profile</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" type="submit" routerLink="/previous-orders" routerLinkActive="activebutton"ariaCurrentWhenActive="page"
+                                value="Previous Orders">Order History</a>
+                            <a class="dropdown-item" type="submit" routerLink="/address-form" routerLinkActive="activebutton"ariaCurrentWhenActive="page"
+                                value="Edit Address">Edit Address</a>
+                            <a class="dropdown-item" type="submit" routerLink="/credit-card" routerLinkActive="activebutton"ariaCurrentWhenActive="page"
+                                value="Credit Cards">Manage Credit Cards</a>
+                        </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Profile</a>

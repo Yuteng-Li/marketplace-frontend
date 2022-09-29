@@ -18,6 +18,7 @@ export class PreviousOrdersComponent implements OnInit {
   previousOrders: any = [];
   addresses: any = [];
   CCs: any = [];
+  reload: any = null;
   
   myData: BehaviorSubject<any> = new BehaviorSubject<any>(0);
 
@@ -37,12 +38,12 @@ export class PreviousOrdersComponent implements OnInit {
         this.user=user;
       }
     });    
-
-    this.getMyFriendList();
+    this.getCombined();
   }
 
 
-  getMyFriendList() {
+  async getCombined() {
+    console.log("getCombined")
     this.previousOrdersService.getPrevOrders().subscribe((previousOrders) => {
       this.myData.next(previousOrders)
       this.previousOrders = previousOrders
@@ -57,12 +58,12 @@ export class PreviousOrdersComponent implements OnInit {
         this.addressService.getAddresses(x.addressID)
          ));
     }))        
-    .subscribe((friends: any) => {
-        this.addresses = friends;
-        console.log(this.addresses, "yooo")
+    .subscribe((add: any) => {
+        this.addresses = add;
+        //console.log(this.addresses, "yooo")
     });
 
-      console.log(this.previousOrders, "prevOrders");
+      //console.log(this.previousOrders, "prevOrders");
 
 
       this.myData.pipe(switchMap(data => {
@@ -70,9 +71,9 @@ export class PreviousOrdersComponent implements OnInit {
         this.ccService.getCC(x.creditCardID)
          ));
     }))        
-    .subscribe((friends: any) => {
-        this.CCs = friends;
-        console.log(this.CCs, "yooo")
+    .subscribe((cc: any) => {
+        this.CCs = cc;
+        //console.log(this.CCs, "yooo")
     });
     });
   }
@@ -80,4 +81,14 @@ export class PreviousOrdersComponent implements OnInit {
 signOut(): void {
     this.authService.signOut();
   }
+
+
+
+cancel(id: number){
+  this.previousOrdersService.cancelOrder(id).subscribe();
+  this.getCombined()
+}
+
+
+
 }
