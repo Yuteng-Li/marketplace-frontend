@@ -23,6 +23,7 @@
               "src/assets"
             ],
             "styles": [
+
                "node_modules/bootstrap/dist/css/bootstrap.min.css",
                "src/styles.css"
             ],
@@ -30,6 +31,7 @@
               "node_modules/jquery/dist/jquery.min.js", 
               "node_modules/@popperjs/core/dist/umd/popper.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js" ]
+
           },
           "configurations": {
             "production": {
@@ -95,10 +97,16 @@
             ],
             "styles": [
               "src/styles.css"
-              
             ],
-            "scripts": [
-              
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
             ]
           }
         }
@@ -106,6 +114,9 @@
     }
   },
   "cli": {
-    "analytics": "aeb6fc90-2141-4864-86a4-020e3005c90b"
+    "analytics": "aeb6fc90-2141-4864-86a4-020e3005c90b",
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }
