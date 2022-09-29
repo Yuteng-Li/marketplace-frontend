@@ -23,9 +23,10 @@
         >
           <table>
             <tr>
-              <td colspan="10" style="text-align: left;"><h1>Previous Orders</h1></td>
-
+              <td colspan="7" style="text-align: left;"><h1>Previous Orders</h1></td>
+              <td style="padding-top: 3.75%"><button (click)="getCombined()" class="btn btn-nisum rounded refresh">Refresh</button></td>
             </tr>
+
 
             <tr class="thh">
               <th>OrderID</th>
@@ -71,7 +72,7 @@
               <td>{{ order.orderStatus }}</td>
 
               <td>
-                <form (click)="cancel(order.orderID)">
+                <form (click)="cancel(order.orderID); getCombined()" >
                   <input
                     
                     class="cancelbtn btn-nisum rounded"

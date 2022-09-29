@@ -18,7 +18,7 @@ export class PreviousOrdersComponent implements OnInit {
   previousOrders: any = [];
   addresses: any = [];
   CCs: any = [];
-  reload: any = [];
+  reload: any = null;
   
   myData: BehaviorSubject<any> = new BehaviorSubject<any>(0);
 
@@ -35,7 +35,7 @@ export class PreviousOrdersComponent implements OnInit {
   }
 
 
-  getCombined() {
+  async getCombined() {
     console.log("getCombined")
     this.previousOrdersService.getPrevOrders().subscribe((previousOrders) => {
       this.myData.next(previousOrders)
@@ -78,7 +78,7 @@ signOut(): void {
 
 
 cancel(id: number){
-  this.previousOrdersService.cancelOrder(id).subscribe({});
+  this.previousOrdersService.cancelOrder(id).subscribe();
   this.getCombined()
 }
 
