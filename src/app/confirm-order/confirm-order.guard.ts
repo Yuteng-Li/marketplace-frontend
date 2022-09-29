@@ -12,7 +12,8 @@ export class ConfirmOrderGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      if(this.router.getCurrentNavigation()?.initialUrl.toString() != "/checkout"){
+      console.log(this.router.url);
+      if(this.router.url != "/checkout"){
         this.router.navigate(['/home-page'])
         return false;
       }
