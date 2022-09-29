@@ -26,7 +26,7 @@ import { Router } from '@angular/router';
 })
 export class CheckoutComponent implements OnInit {
   socialUser!: SocialUser;
-  userID!: Number;
+  userID!: number;
   sameAsDelivery: Boolean = false;
   checkoutForm!: FormGroup;
   userAddresses: Address[] = [];
@@ -182,7 +182,6 @@ export class CheckoutComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log('SUBMIT IS BEING DUMB');
     if (this.sameAsDelivery === true) {
       this.setBillingAddressAsDelivery();
     }
