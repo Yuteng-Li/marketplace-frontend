@@ -65,7 +65,12 @@ tr:nth-child(even) {
   color:cyan;
 }
 
-
+.order-details {
+  padding-left: 1%;
+  padding-right: 1%;
+  padding-top: 2%;
+  padding-bottom: 2%;
+}
 
 .btn-nisum {
   background: #00cfff;

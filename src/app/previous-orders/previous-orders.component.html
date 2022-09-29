@@ -1,7 +1,6 @@
 
 <app-nav-bar></app-nav-bar>
 
-<a [routerLink]="['/order-details', 1]">order deets</a>
     
 <div class="container-my-1">
   <div class="row">
@@ -34,7 +33,8 @@
 
             <tr class="shadow" *ngFor="let order of previousOrders; let index=index">
               <!-- for template syntax anything inside the brackets {{}} is considered an expression, and will try to solve it by looking in the component logic -->
-              <td style="padding-top: 2%; padding-bottom: 2%;">{{ order.orderID }}</td>
+              <td class="order-details"><div class="refresh btn-nisum rounded" [routerLink]="['/order-details', order.orderID]">Details</div>
+              </td>
               <!---div *ngFor="let addy of addresses; let index=index">--->
               <!---{{getAddys(order.addressID)}}--->
               
@@ -68,7 +68,7 @@
               <td>{{ order.orderStatus }}</td>
 
               <td>
-                <form (click)="cancel(order.orderID); getCombined()" >
+                <form (click)="cancel(order.orderID); getCombined(); getCombined();" >
                   <input
                     
                     class="cancelbtn btn-nisum rounded"
