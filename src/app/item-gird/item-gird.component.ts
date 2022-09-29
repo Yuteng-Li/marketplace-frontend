@@ -24,6 +24,7 @@ export class ItemGirdComponent implements OnInit {
   searchProduct: Product[] = [];
   sub!: Subscription
   errorMessage: string = '';
+  itemGridCartProdcut = this.ItemService.itemGridCatProduct;
 
   private _listFilter: string ='';
   get listFilter(): string{
@@ -39,7 +40,10 @@ export class ItemGirdComponent implements OnInit {
   performFilter(filterBy: string): Product[] {
     filterBy = filterBy.toLocaleLowerCase();
     return this.searchProduct.filter((products: Product) => 
-    products.prod_name.toLocaleLowerCase().includes(filterBy));
+    products.prod_name.toLocaleLowerCase().includes(filterBy) ||
+    products.prod_description.toLocaleLowerCase().includes(filterBy) || 
+    products.brand.toLocaleLowerCase().includes(filterBy) || 
+    products.category.toLocaleLowerCase().includes(filterBy));
   }
 
   savedProducCategories!: string[];
@@ -52,7 +56,7 @@ export class ItemGirdComponent implements OnInit {
   
   
 
-  ngOnInit(): void {
+  ngOnInit() {
     //These API calls are temporary as the DBs are still changing so these will
     //eventually be changed but right now if you use the inventory db it should work until they change it
     this.authService.authState.subscribe((user) => {
@@ -64,6 +68,20 @@ export class ItemGirdComponent implements OnInit {
         this.user=user;
       }
     });
+
+    console.log("dat length: "+this.itemGridCartProdcut.length);
+    if(this.itemGridCartProdcut.length>0){
+      console.log("item filter work and length >0");
+      this.product=this.itemGridCartProdcut;
+      this.searchProduct=this.product;
+      this.gatherCategories(this.product);
+    }
+    else{ this.DisplayAll();}
+  
+  }
+
+  unDoneCatergoryArray(){
+    this.itemGridCartProdcut=[];
     this.DisplayAll();
   }
 
@@ -74,6 +92,9 @@ export class ItemGirdComponent implements OnInit {
   }
 
   DisplayAll(){
+    //maybe have to check if product already have stuff in there
+    // do like a if (product.length>0) check. so we do not 
+    //overwrite the fitler product already
     this.ItemService.getItems().subscribe(product => {
       this.product=product;
       this.searchProduct = this.product;
