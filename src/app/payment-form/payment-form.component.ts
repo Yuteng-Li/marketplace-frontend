@@ -16,7 +16,7 @@ export class PaymentFormComponent implements OnInit {
   newCard: CreditCard = new CreditCard;
   credits:CreditCard[]=[];
   user: SocialUser = new SocialUser;
-  currUserID!:number;
+  currUserID!:Number;
 
   constructor(private paymentService: PaymentService, 
     private creditCardService:CreditCardService,
@@ -49,7 +49,9 @@ export class PaymentFormComponent implements OnInit {
 
   /*Creating new card object with information from payment form.*/
   createCard(payment: { cardNum: String;fullName: String; exp: String; }) {
+
     this.newCard.credit_card_id = 0;
+
     this.newCard.user_id = this.currUserID;//insert current user id here
 
     this.newCard.cardholder_name = payment.fullName;

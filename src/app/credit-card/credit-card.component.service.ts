@@ -19,7 +19,7 @@ export class CreditCardService{
         );
     }
     /*DELETE method delete card by creditCardID*/ 
-    deleteCard(creditCardID:number):Observable<unknown>{
+    deleteCard(creditCardID:Number):Observable<unknown>{
         return this.http.delete<CreditCard>(this.cardUrl+"/deleteCard/"+creditCardID);
     }
 

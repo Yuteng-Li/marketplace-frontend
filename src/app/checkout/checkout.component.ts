@@ -15,6 +15,9 @@ import { UserService } from '../user.service';
 import { Observable } from 'rxjs';
 import { concatMap } from 'rxjs/operators';
 import { CreditCard } from '../shared/CreditCard';
+import { CreditCardService } from '../credit-card/credit-card.component.service';
+import { CheckoutDataService } from '../checkout-data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-checkout',
@@ -28,21 +31,24 @@ export class CheckoutComponent implements OnInit {
   checkoutForm!: FormGroup;
   userAddresses: Address[] = [];
   userCreditCards: CreditCard[] = [];
+  selectedAddress: Address | undefined;
 
   constructor(
     private fb: FormBuilder,
-    private http: HttpClient,
     private authService: SocialAuthService,
     private addressService: AddressService,
-    private userService: UserService
+    private userService: UserService,
+    private creditCardService: CreditCardService,
+    private dataService: CheckoutDataService,
+    private router: Router
   ) {
     this.checkoutForm = this.fb.group({
       // userAddress: [''],
       deliveryAddress: this.fb.group({
         deliveryFirstName: ['', Validators.required],
         deliveryLastName: ['', Validators.required],
-        deliveryAddress1: ['', Validators.required],
-        deliveryAddress2: [''],
+        deliveryStreet1: ['', Validators.required],
+        deliveryStreet2: [''],
         deliveryCity: ['', Validators.required],
         deliveryState: ['', Validators.required],
         deliveryZip: ['', Validators.required],
@@ -60,8 +66,8 @@ export class CheckoutComponent implements OnInit {
       billingAddress: this.fb.group({
         billingFirstName: ['', Validators.required],
         billingLastName: ['', Validators.required],
-        billingAddress1: ['', Validators.required],
-        billingAddress2: [''],
+        billingStreet1: ['', Validators.required],
+        billingStreet2: [''],
         billingCity: ['', Validators.required],
         billingState: ['', Validators.required],
         billingZip: ['', Validators.required],
@@ -76,8 +82,11 @@ export class CheckoutComponent implements OnInit {
   get deliveryLastName() {
     return this.checkoutForm.get('deliveryAddress.deliveryLastName')!;
   }
-  get deliveryAddress1() {
-    return this.checkoutForm.get('deliveryAddress.deliveryAddress1')!;
+  get deliveryStreet1() {
+    return this.checkoutForm.get('deliveryAddress.deliveryStreet1')!;
+  }
+  get deliveryStreet2() {
+    return this.checkoutForm.get('deliveryAddress.deliveryStreet2')!;
   }
   get deliveryCity() {
     return this.checkoutForm.get('deliveryAddress.deliveryCity')!;
@@ -108,8 +117,11 @@ export class CheckoutComponent implements OnInit {
   get billingLastName() {
     return this.checkoutForm.get('billingAddress.billingLastName')!;
   }
-  get billingAddress1() {
-    return this.checkoutForm.get('billingAddress.billingAddress1')!;
+  get billingStreet1() {
+    return this.checkoutForm.get('billingAddress.billingStreet1')!;
+  }
+  get billingStreet2() {
+    return this.checkoutForm.get('billingAddress.billingStreet2')!;
   }
   get billingCity() {
     return this.checkoutForm.get('billingAddress.billingCity')!;
@@ -122,17 +134,39 @@ export class CheckoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const localUser = localStorage.getItem('user');
+    if (localUser != null) {
+      this.socialUser = JSON.parse(localUser);
+    }
     this.authService.authState
       .pipe(
         concatMap((user) => {
           console.log('Getting google user...');
-          return this.userService.getUsersByEmail(user.email);
+          if (user != null) {
+            this.socialUser = user;
+          }
+          return this.userService.getUsersByEmail(this.socialUser.email);
         })
       )
       .pipe(
         concatMap((retUser) => {
           console.log('Getting user from API...');
           this.userID = retUser.user_id;
+          return this.creditCardService.getAllCards();
+        })
+      )
+      .pipe(
+        concatMap((cards: CreditCard[]) => {
+          console.log('Adding credit card...');
+          cards.forEach((card) => {
+            if (this.userID === card.user_id) {
+              console.log(
+                'Got Credit card from user with last 4 digits =' +
+                  card.last_four_card_number
+              );
+              this.userCreditCards.push(card);
+            }
+          });
           return this.addressService.getAllAddresses();
         })
       )
@@ -148,41 +182,60 @@ export class CheckoutComponent implements OnInit {
   }
 
   onSubmit(): void {
+    console.log('SUBMIT IS BEING DUMB');
     if (this.sameAsDelivery === true) {
       this.setBillingAddressAsDelivery();
     }
+    //Creating the delivery address
+    const dAddress: Address = new Address();
+    dAddress.user_id = this.userID;
+    dAddress.is_shipping = true;
+    dAddress.is_billing = false;
+    dAddress.recipient_name =
+    this.deliveryFirstName.value + this.deliveryLastName.value;
+    dAddress.street = this.deliveryStreet1.value;
+    dAddress.street2 = this.deliveryStreet2.value;
+    dAddress.city = this.deliveryCity.value;
+    dAddress.state = this.deliveryState.value;
+    dAddress.zip = this.deliveryZip.value;
+
+    //Creating the billing address
+    const bAddress: Address = new Address();
+    bAddress.user_id = this.userID;
+    bAddress.is_shipping = false;
+    bAddress.is_billing = true;
+    bAddress.recipient_name =
+    this.deliveryFirstName.value + this.deliveryLastName.value;
+    bAddress.street = this.deliveryStreet1.value;
+    bAddress.street2 = this.deliveryStreet2.value;
+    bAddress.city = this.deliveryCity.value;
+    bAddress.state = this.deliveryState.value;
+    bAddress.zip = this.deliveryZip.value;
+
+    //Creating the credit card
+    const card: CreditCard = new CreditCard();
+    card.user_id = this.userID;
+    card.cardholder_name = this.cardholderName.value;
+    const expiration_date = this.cardExpireDate.value.split('/');
+    card.expiration_month = expiration_date[0];
+    card.expiration_year = expiration_date[1];
+    card.last_four_card_number = this.cardNumber.value.slice(-4);
+
+    //This is sending data to the service so that confirm-order can use it
+    this.dataService.changeDeliveryAddress(dAddress);
+    this.dataService.changeBillingAddress(bAddress);
+    this.dataService.changeCreditCard(card);
+    this.router.navigate(['/confirm-order']);
   }
 
   setBillingAddressAsDelivery(): void {
-    this.checkoutForm
-      .get('billingAddress.billingFirstName')
-      ?.setValue(
-        this.checkoutForm.get('deliveryAddress.deliveryFirstName')?.value
-      );
-    this.checkoutForm
-      .get('billingAddress.billingLastName')
-      ?.setValue(
-        this.checkoutForm.get('deliveryAddress.deliveryLastName')?.value
-      );
-    this.checkoutForm
-      .get('billingAddress.billingAddress1')
-      ?.setValue(
-        this.checkoutForm.get('deliveryAddress.deliveryAddress1')?.value
-      );
-    this.checkoutForm
-      .get('billingAddress.billingAddress2')
-      ?.setValue(
-        this.checkoutForm.get('deliveryAddress.deliveryAddress2')?.value
-      );
-    this.checkoutForm
-      .get('billingAddress.billingCity')
-      ?.setValue(this.checkoutForm.get('deliveryAddress.deliveryCity')?.value);
-    this.checkoutForm
-      .get('billingAddress.billingState')
-      ?.setValue(this.checkoutForm.get('deliveryAddress.deliveryState')?.value);
-    this.checkoutForm
-      .get('billingAddress.billingZip')
-      ?.setValue(this.checkoutForm.get('deliveryAddress.deliveryZip')?.value);
+    this.billingFirstName.setValue(this.deliveryFirstName.value);
+    this.billingLastName.setValue(this.deliveryLastName.value);
+    this.billingStreet1.setValue(this.deliveryStreet1.value);
+    this.billingStreet2.setValue(this.deliveryStreet2.value);
+    this.billingCity.setValue(this.deliveryCity.value);
+    this.billingState.setValue(this.deliveryState.value);
+    this.billingZip.setValue(this.deliveryZip?.value);
   }
 
   clickedSameAsDelivery(): void {
@@ -190,35 +243,33 @@ export class CheckoutComponent implements OnInit {
     if (this.sameAsDelivery == true) {
       this.setBillingAddressAsDelivery();
     } else {
-      this.checkoutForm.get('billingAddress.billingFirstName')?.setValue('');
-      this.checkoutForm.get('billingAddress.billingLastName')?.setValue('');
-      this.checkoutForm.get('billingAddress.billingAddress1')?.setValue('');
-      this.checkoutForm.get('billingAddress.billingAddress2')?.setValue('');
-      this.checkoutForm.get('billingAddress.billingCity')?.setValue('');
-      this.checkoutForm.get('billingAddress.billingState')?.setValue('');
-      this.checkoutForm.get('billingAddress.billingZip')?.setValue('');
+      this.billingFirstName.setValue('');
+      this.billingLastName.setValue('');
+      this.billingStreet1.setValue('');
+      this.billingStreet2.setValue('');
+      this.billingCity.setValue('');
+      this.billingState.setValue('');
+      this.billingZip.setValue('');
     }
   }
 
   autoFillAddress(address: Address): void {
+    this.selectedAddress = address;
     const fullName = address.recipient_name.split(' ');
     this.deliveryFirstName.setValue(fullName[0]);
-    this.checkoutForm
-      .get('deliveryAddress.deliveryLastName')
-      ?.setValue(fullName[1]);
-    this.checkoutForm
-      .get('deliveryAddress.deliveryAddress1')
-      ?.setValue(address.street);
-    this.checkoutForm
-      .get('deliveryAddress.deliveryAddress2')
-      ?.setValue(address.street2);
-    this.checkoutForm
-      .get('deliveryAddress.deliveryCity')
-      ?.setValue(address.city);
-    this.checkoutForm
-      .get('deliveryAddress.deliveryState')
-      ?.setValue(address.state);
-    this.checkoutForm.get('deliveryAddress.deliveryZip')?.setValue(address.zip);
+    this.deliveryLastName.setValue(fullName[1]);
+    this.deliveryLastName.setValue(fullName[1]);
+    this.deliveryStreet1.setValue(address.street);
+    this.deliveryStreet2.setValue(address.street2);
+    this.deliveryCity.setValue(address.city);
+    this.deliveryState.setValue(address.state);
+    this.deliveryZip.setValue(address.zip);
     this.setBillingAddressAsDelivery();
+  }
+  autoFillCard(card: CreditCard) {
+    this.cardholderName.setValue(card.cardholder_name);
+    this.cardExpireDate.setValue(
+      card.expiration_month + '/' + card.expiration_year
+    );
   }
 }
