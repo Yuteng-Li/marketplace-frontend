@@ -10,7 +10,7 @@ import { Product } from './shared/Product';
 export class ItemService {
   //change to an actual server when that is running
   //Needed to change my localhost server
-  private baseUrl = 'http://localhost:8000/api/products';
+  private baseUrl = 'http://localhost:8081/api/products';
 
   constructor(private http: HttpClient) { }
 

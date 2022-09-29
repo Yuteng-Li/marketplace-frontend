@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { PaymentService } from './payment-form-component.service';
 import { CreditCard } from '../shared/CreditCard';
 import { CreditCardService } from '../credit-card/credit-card.component.service';
@@ -19,7 +20,8 @@ export class PaymentFormComponent implements OnInit {
 
   constructor(private paymentService: PaymentService, 
     private creditCardService:CreditCardService,
-    private authService: SocialAuthService
+    private authService: SocialAuthService,
+    private router:Router
     ) { }
   localUser =  localStorage.getItem('user');
 
@@ -47,12 +49,8 @@ export class PaymentFormComponent implements OnInit {
 
   /*Creating new card object with information from payment form.*/
   createCard(payment: { cardNum: String;fullName: String; exp: String; }) {
-    if(this.credits[this.credits.length-1].credit_card_id === undefined){
-      this.newCard.credit_card_id = 1;
-    }
-    else{
-      this.newCard.credit_card_id = this.credits[this.credits.length-1].credit_card_id + 1;
-    }
+
+    this.newCard.credit_card_id = 0;
 
     this.newCard.user_id = this.currUserID;//insert current user id here
 
@@ -74,7 +72,7 @@ export class PaymentFormComponent implements OnInit {
 
   /*redirect back to credit card page*/
   backToCreditCards(){
-    window.location.href="http://localhost:4200/credit-card";
+    this.router.navigate(['/credit-card']);
   }
 
 }

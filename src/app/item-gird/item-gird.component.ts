@@ -39,7 +39,10 @@ export class ItemGirdComponent implements OnInit {
   performFilter(filterBy: string): Product[] {
     filterBy = filterBy.toLocaleLowerCase();
     return this.searchProduct.filter((products: Product) => 
-    products.prod_name.toLocaleLowerCase().includes(filterBy));
+    products.prod_name.toLocaleLowerCase().includes(filterBy) ||
+    products.prod_description.toLocaleLowerCase().includes(filterBy) || 
+    products.brand.toLocaleLowerCase().includes(filterBy) || 
+    products.category.toLocaleLowerCase().includes(filterBy));
   }
 
   savedProducCategories!: string[];
