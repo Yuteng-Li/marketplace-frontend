@@ -79,16 +79,16 @@ import {AddressFormComponent} from "./address-form/address-form.component";
     SocialLoginModule
 
   ],
+
   providers: [{
     provide: 'SocialAuthServiceConfig',
     useValue: {
-      autoLogin: false,
+      autoLogin: true,
       providers: [
         {
           id: GoogleLoginProvider.PROVIDER_ID,
           provider: new GoogleLoginProvider(
             '693100612539-rtft5b065kqn934urifpj10j075ebm3n.apps.googleusercontent.com'
-            
           )
         }],
         onError: (err) => {
@@ -99,5 +99,4 @@ import {AddressFormComponent} from "./address-form/address-form.component";
 ],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule { }

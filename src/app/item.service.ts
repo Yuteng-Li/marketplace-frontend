@@ -10,15 +10,13 @@ import { Product } from './shared/Product';
 export class ItemService {
   //change to an actual server when that is running
   //Needed to change my localhost server
-  private baseUrl = 'http://localhost:8081/api/products';
-
-  public itemGridCatProduct:Product[]=[];
+  private baseUrl = 'http://localhost:8000/api/products';
 
   constructor(private http: HttpClient) { }
 
   getItems(): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.baseUrl}/fetchAllItems`).pipe(
-      //tap(data => console.log('Product[] Observable', JSON.stringify(data))),
+      tap(data => console.log('Product[] Observable', JSON.stringify(data))),
       catchError(this.handleError)
     );
   }
@@ -38,7 +36,7 @@ export class ItemService {
     return this.http.get<any>(`${this.baseUrl}/get/${id}`);
   }
   getProduct() {
-    return this.http.get<Product[]>(`${this.baseUrl}/fetchAllItems`);
+    return this.http.get<any>(`${this.baseUrl}/fetchAllItems`);
   }
   getProducts(params : HttpParams){
     return this.http.get<any>(`${this.baseUrl}/get/`, {params: params});
