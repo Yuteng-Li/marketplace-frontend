@@ -23,118 +23,43 @@
 
     <div id="carouselExampleControls" class="carousel slide" data-interval="false">
         <div class="carousel-inner">
-          <!-- *ngFor needed to make two carousel-items class in order to have two pages to scroll through, 
-            5 items per page, in total just displaying 10 items. Might have to do another ngFor for the card class. -->
           <div class="carousel-item active">
             <div class="cards-wrapper">
-            <div class="card" *ngFor="let featProd of featProds | slice:0:10; let i=index "> <!--slice:0:10 = get first 10 products within the array -->
-              <img src="{{featProd.image_url}}" class="card-img-top" alt="...">
-              <div class="card-body">
-                <!--First card does not display -->
-                <h5 class="card-title">{{featProd.prod_name}}</h5>
+            <div class="card" style="width:13rem" *ngFor="let featProd of featProds | slice:0:5; let i=index "> 
+              <img src="{{featProd.image_url}}" class="card-img-top mx-auto" alt="...">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title mt-auto">{{featProd.prod_name}}</h5>
                 <h6>{{featProd.price_per_unit}}</h6>
-                <p class="card-text">{{featProd.prod_description}}</p>
-                <div *ngIf="user != null">
-                  <button class="btn btn-primary w-100 background-nisum" (click)="cartService.addToCart(featProd)">Add to Cart</button>
+                <p class="card-text mt-auto">{{featProd.prod_description}}</p>
+                <div *ngIf="user != null ">
+                  <button class="btn btn-primary w-100 background-nisum mt-auto" (click)="cartService.addToCart(featProd)">Add to Cart</button>
                 </div>
                 <div *ngIf="user == null">
-                  <button class="btn btn-primary w-100 disabled background-nisum">Login to add to cart</button>
+                  <button class="btn btn-primary w-100 disabled background-nisum mt-auto" routerLink="/login">Login to add to cart</button>
                 </div>
               </div>
             </div>
-            <!--
-            <div class="card">
-              <img src="..." class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Product Name</h5>
-                <h6>Price</h6>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-feat">Add to Cart</a>
-              </div>
-            </div>
-            <div class="card">
-              <img src="..." class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Product Name</h5>
-                <h6>Price</h6>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-feat">Add to Cart</a>
-              </div>
-            </div>
-            <div class="card">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Product Name</h5>
-                  <h6>Price</h6>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-feat">Add to Cart</a>
-                </div>
-              </div>
-              <div class="card">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Product Name</h5>
-                  <h6>Price</h6>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-feat">Add to Cart</a>
-                </div>
-              </div>
           </div>
           </div>
-        -->
 
-          <!-- This 2nd page for the carousel will be deleted. It's just here to help me visualize the loop -->
-          <!-- <div class="carousel-item">
+          <div class="carousel-item">
             <div class="cards-wrapper">
-            <div class="card">
-              <img src="..." class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Product Name</h5>
-                <h6>Price</h6>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-feat">Add to Cart</a>
-              </div>
-            </div>
-            <div class="card">
-              <img src="..." class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Product Name</h5>
-                <h6>Price</h6>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-feat">Add to Cart</a>
-              </div>
-            </div>
-            <div class="card">
-              <img src="..." class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Product Name</h5>
-                <h6>Price</h6>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-feat">Add to Cart</a>
-              </div>
-            </div>
-            <div class="card">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Product Name</h5>
-                  <h6>Price</h6>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-feat">Add to Cart</a>
+            <div class="card" style="width: 13rem;" *ngFor="let featProd of featProds | slice:5:10; let i=index ">
+              <img src="{{featProd.image_url}}" class="card-img-top mx-auto" alt="...">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title mt-auto">{{featProd.prod_name}}</h5>
+                <h6>{{featProd.price_per_unit}}</h6>
+                <p class="card-text mt-auto">{{featProd.prod_description}}</p>
+                <div *ngIf="user != null">
+                  <button class="btn btn-primary w-100 background-nisum mt-auto" (click)="cartService.addToCart(featProd)">Add to Cart</button>
+                </div>
+                <div *ngIf="user == null">
+                  <button class="btn btn-primary w-100 disabled background-nisum mt-auto">Login to add to cart</button>
                 </div>
               </div>
-              <div class="card">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Product Name</h5>
-                  <h6>Price</h6>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-feat">Add to Cart</a>
-                </div>
-              </div>
-          </div>
-          </div> -->
-
-         </div>
+            </div>
+            </div>
+        </div>
     </div>
         <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -153,7 +78,7 @@
     
 
     <div class="card-category row">
-        <div class="col-sm-auto" style="width: 14.5rem;" *ngFor="let card of catCard | slice:0:6; let i=index">
+        <div class="col-sm-auto" style="width: 14rem; margin-right: 15px" *ngFor="let card of catCard | slice:0:6; let i=index">
           <div class="position-img" style="position:relative;">
             <figure><img src="{{card.img}}" alt="Category image" class="img-thumbnail" routerLink="/categories"></figure>
           </div>
@@ -170,13 +95,3 @@
 
     <br>
     <br>
-  <li><input class="button btn-nisum rounded"
-             type="submit"
-             routerLink="/address-form"
-             routerLinkActive="activebutton"
-             ariaCurrentWhenActive="page"
-             value="Edit Address"></li>
-
-
-</ul>
-</nav>
