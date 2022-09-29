@@ -1,6 +1,6 @@
 export class Address {
-    address_id!: Number;
-    user_id!: Number;
+    address_id!: number;
+    user_id!: number;
 	recipient_name!: String;
 	street!: String;
 	street2!: String;
