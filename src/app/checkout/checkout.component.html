@@ -11,8 +11,8 @@
                     <a ngbDropdownToggle class="btn btn-outline-primary" id="dropdownBasic1">
                         My Addresses
                     </a>
-                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1" >
-                        <a ngbDropdownItem *ngFor="let address of userAddresses" (click)="autoFillAddress(address)">
+                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1" *ngFor="let address of userAddresses">
+                        <a ngbDropdownItem (click)="autoFillAddress(address)">
                             {{ address.street }}
                         </a>
                     </div>
@@ -114,9 +114,6 @@
                     <small *ngIf="deliveryZip.errors?.['required']">
                         Zip is required
                     </small>
-                    <small *ngIf="deliveryZip.errors?.['pattern']">
-                        Zip has to be 5 or 9 digits. Ex. (94822) or (48222-1746)
-                    </small>
                 </div>
             </div>
         </div>
@@ -131,8 +128,8 @@
                     <a ngbDropdownToggle class="btn btn-outline-primary" id="dropdownBasic2">
                         My Credit Cards
                     </a>
-                    <div ngbDropdownMenu aria-labelledby="dropdownBasic2" >
-                        <a ngbDropdownItem *ngFor="let card of userCreditCards" (click)="autoFillCard(card)">
+                    <div ngbDropdownMenu aria-labelledby="dropdownBasic2" *ngFor="let card of userCreditCards">
+                        <a ngbDropdownItem (click)="autoFillCard(card)">
                             ************-{{ card.last_four_card_number }}
                         </a>
                     </div>
@@ -179,16 +176,12 @@
                     <small *ngIf="cardExpireDate.errors?.['required']">
                         Expiration is required
                     </small>
-                    <small *ngIf="cardExpireDate.errors?.['pattern']">
-                        Must be in format MM/YY
-                    </small>
                 </div>
             </div>
             <div class="col">
                 <input id="cvv" class="form-control" type="text" placeholder="CVV" formControlName="cardCvv" />
                 <div *ngIf="cardCvv.invalid && (cardCvv.dirty || cardCvv.touched)" class="alert alert-danger">
                     <small *ngIf="cardCvv.errors?.['required']"> CVV is required </small>
-                    <small *ngIf="cardCvv.errors?.['pattern']">Must be 3 numbers</small>
                 </div>
             </div>
         </div>
@@ -289,9 +282,6 @@
             " class="alert alert-danger">
                         <small *ngIf="billingZip.errors?.['required']">
                             Zip is required
-                        </small>
-                        <small *ngIf="billingZip.errors?.['pattern']">
-                            Zip has to be 5 or 9 digits. Ex. (94822) or (48222-1746)
                         </small>
                     </div>
                 </div>

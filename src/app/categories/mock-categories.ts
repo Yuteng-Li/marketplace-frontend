@@ -1,9 +1,5 @@
 import { Category } from "../shared/Category";
 export const CATEGORIES: Category[] = [
-  { 
-    category : 'Breakfast Cereals',
-    img : "./assets/images/breakfast.jpg"
-  }, 
   {
     category : 'Beverages',
     img: "./assets/images/beverages.jpg"
@@ -30,6 +26,10 @@ export const CATEGORIES: Category[] = [
   {
     category : 'Cookies, Snacks & Candy',
     img : "./assets/images/cookies.jpg"
+  }, 
+  { 
+    category : 'Breakfast & Cereal',
+    img : "./assets/images/breakfast.jpg"
   }, 
   { 
     category : 'Canned Goods & Soups',
