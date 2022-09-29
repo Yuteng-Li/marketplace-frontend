@@ -18,9 +18,17 @@ export class CreditCardService{
             tap(data=>JSON.stringify(data))
         );
     }
+
+    /*GET method to return one credit card by ID*/
+    getCC(id: number) : Observable<any>{ 
+        return this.http.get<any>(`${this.cardUrl}/getCard/${id}`); 
+    }
+
     /*DELETE method delete card by creditCardID*/ 
     deleteCard(creditCardID:Number):Observable<unknown>{
         return this.http.delete<CreditCard>(this.cardUrl+"/deleteCard/"+creditCardID);
     }
+
+
 
 }

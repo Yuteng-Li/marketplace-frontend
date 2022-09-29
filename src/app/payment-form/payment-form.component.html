@@ -20,15 +20,15 @@
         <form class="a" #paymentForm="ngForm" (ngSubmit)="createCard(paymentForm.value)">
             <body>
                 <label for="cardNum">Card Number:</label><br>
-                <input type="text" class="a" id="cardNum" name ="cardNum" placeholder="Card Number" pattern="^[0-9]{16}$"  required ngModel #cardNum="ngModel">
+                <input type="text" class="a" id="cardNum" name ="cardNum" placeholder="Card Number" pattern="^[0-9]{16}$" required ngModel #cardNum="ngModel">
                 <small *ngIf="cardNum.invalid && cardNum.touched">
-                    Card number can only include numbers and must be of length 16.
+                    Invalid number. Include only numbers and must be of length 16.
                 </small><br>
 
                 <label for="sCode">Security Code:</label><br>
                 <input type="text" id="sCode" name ="sCode" placeholder="CVV" pattern="^[0-9]{3,4}$" class="a" required ngModel #sCode="ngModel">
                 <small *ngIf="sCode.invalid && sCode.touched">
-                    Invalid CVV.
+                    Invalid CVV. Must be of length 3-4.
                 </small><br>
         
                 <label for="name">Name:</label><br>
