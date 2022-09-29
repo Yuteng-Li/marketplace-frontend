@@ -18,6 +18,7 @@ export class PreviousOrdersComponent implements OnInit {
   previousOrders: any = [];
   addresses: any = [];
   CCs: any = [];
+  reload: any = [];
   
   myData: BehaviorSubject<any> = new BehaviorSubject<any>(0);
 
@@ -35,6 +36,7 @@ export class PreviousOrdersComponent implements OnInit {
 
 
   getCombined() {
+    console.log("getCombined")
     this.previousOrdersService.getPrevOrders().subscribe((previousOrders) => {
       this.myData.next(previousOrders)
       this.previousOrders = previousOrders
@@ -51,10 +53,10 @@ export class PreviousOrdersComponent implements OnInit {
     }))        
     .subscribe((add: any) => {
         this.addresses = add;
-        console.log(this.addresses, "yooo")
+        //console.log(this.addresses, "yooo")
     });
 
-      console.log(this.previousOrders, "prevOrders");
+      //console.log(this.previousOrders, "prevOrders");
 
 
       this.myData.pipe(switchMap(data => {
@@ -64,7 +66,7 @@ export class PreviousOrdersComponent implements OnInit {
     }))        
     .subscribe((cc: any) => {
         this.CCs = cc;
-        console.log(this.CCs, "yooo")
+        //console.log(this.CCs, "yooo")
     });
     });
   }
@@ -72,4 +74,14 @@ export class PreviousOrdersComponent implements OnInit {
 signOut(): void {
     this.authService.signOut();
   }
+
+
+
+cancel(id: number){
+  this.previousOrdersService.cancelOrder(id).subscribe({});
+  this.getCombined()
+}
+
+
+
 }

@@ -71,8 +71,9 @@
               <td>{{ order.orderStatus }}</td>
 
               <td>
-                <form action='http://localhost:8080/orders/getOrders/user/1' method="GET" onsubmit="alert(this.action); return false;">
+                <form (click)="cancel(order.orderID)">
                   <input
+                    
                     class="cancelbtn btn-nisum rounded"
                     type="submit"
                     *ngIf="
@@ -80,6 +81,7 @@
                       else cantCancel
                     "
                     value="Cancel Order"
+                    
                   >
 
                 </form>
