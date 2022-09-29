@@ -74,7 +74,9 @@
                     <button class="btn btn-primary w-100 background-nisum" (click)="cartService.addToCart(prod)">Add to Cart</button>
                   </div>
                   <div *ngIf="user == null">
-                    <button class="btn btn-primary w-100 disabled background-nisum">Login to add to cart</button>
+                    <button class="btn btn-primary w-100 background-nisum" routerLink="/login"
+                    routerLinkActive="activebutton"
+                    ariaCurrentWhenActive="page">Login to add to cart</button>
                   </div>
                 </div>
               </div>
