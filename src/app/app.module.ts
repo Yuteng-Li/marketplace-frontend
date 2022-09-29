@@ -30,6 +30,7 @@ import { LoginComponent } from './login/login.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { ConfirmOrderComponent } from './confirm-order/confirm-order.component';
+import { OrderDetailsComponent } from './order-details/order-details.component';
 
 
 @NgModule({
@@ -47,6 +48,7 @@ import { ConfirmOrderComponent } from './confirm-order/confirm-order.component';
     SearchBarComponent,
     NavBarComponent,
     ConfirmOrderComponent,
+    OrderDetailsComponent,
   ],
   
   imports: [
@@ -54,6 +56,7 @@ import { ConfirmOrderComponent } from './confirm-order/confirm-order.component';
     BrowserModule,
     RouterModule.forRoot([
       {path: 'home-page', component: HomePageComponent },
+      {path: 'order-details/:id', component:OrderDetailsComponent},
       {path: 'previous-orders', component: PreviousOrdersComponent, canActivate: [AuthGuard]},
       {path: 'cart', component: CartComponent, canActivate: [AuthGuard]},
       {path: 'credit-card', component: CreditCardComponent, canActivate: [AuthGuard]},

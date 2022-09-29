@@ -1,18 +1,8 @@
 
 <app-nav-bar></app-nav-bar>
+
+<a [routerLink]="['/order-details', 1]">order deets</a>
     
-<homepage-search-bar></homepage-search-bar>
-
-<nav>
-  <a
-    class="button"
-    routerLink="/home-page"
-    routerLinkActive="activebutton"
-    ariaCurrentWhenActive="page"
-    >Return to Home Page</a
-  >
-</nav>
-
 <div class="container-my-1">
   <div class="row">
     <div class="col-md-12">
@@ -23,8 +13,8 @@
         >
           <table>
             <tr>
-              <td colspan="7" style="text-align: left;"><h1>Previous Orders</h1></td>
-              <td style="padding-top: 3.75%"><button (click)="getCombined()" class="btn btn-nisum rounded refresh">Refresh</button></td>
+              <td colspan="7" style="text-align: left;"><h1>Order History</h1></td>
+              <td style="padding-top: 2%"><button (click)="getCombined()" class="btn btn-nisum rounded refresh">Refresh</button></td>
             </tr>
 
 
@@ -33,18 +23,18 @@
               <!--<th>UserID</th>-->
               <th>Address</th>
               <th>Price</th>
-              <th>Last Four #'s of Credit Card</th>
-              <th>DateOrdered</th>
-              <th>DateShipped</th>
+              <th>Credit Card Used</th>
+              <th>Date Ordered</th>
+              <th>Date Shipped</th>
               <!--<th>DateDelivered</th>-->
-              <th>OrderStatus</th>
+              <th>Order Status</th>
               <th>Cancel Order?</th>
             </tr>
 
 
             <tr class="shadow" *ngFor="let order of previousOrders; let index=index">
               <!-- for template syntax anything inside the brackets {{}} is considered an expression, and will try to solve it by looking in the component logic -->
-              <td>{{ order.orderID }}</td>
+              <td style="padding-top: 2%; padding-bottom: 2%;">{{ order.orderID }}</td>
               <!---div *ngFor="let addy of addresses; let index=index">--->
               <!---{{getAddys(order.addressID)}}--->
               
@@ -56,10 +46,16 @@
 
               <!---<td>{{getAddys(order.addressID).street}}</td>--->
 
-              <td>{{ this.addresses[index]?.street }}</td>
+              <td>
+                {{ this.addresses[index]?.street }}
+                {{ this.addresses[index]?.street2 }},
+                {{ this.addresses[index]?.city }},
+                {{ this.addresses[index]?.state }}
+                {{ this.addresses[index]?.zip }}
+              </td>
               <td>{{order.price}}</td>
               
-              <td>{{ this.CCs[index]?.last_four_card_number}}</td>
+              <td>************{{ this.CCs[index]?.last_four_card_number}}</td>
               
               <td >{{ order.dateOrdered }}</td>
 
