@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Category } from '../shared/Category';
 import { CATEGORIES } from '../categories/mock-categories';
+import { ItemService } from '../item.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class HomePageService {
 
   baseUrl = 'http://localhost:8081/api/products';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private itemService:ItemService) { }
 
   getCategories(): Observable<Category[]>{
     const categories = of(CATEGORIES);
@@ -20,7 +21,7 @@ export class HomePageService {
   }
 
   getProduct(){
-    return this.http.get<any>(`${this.baseUrl}/fetchAllItems`);
+    return this.itemService.getProduct();
   }
 
 }

@@ -28,15 +28,21 @@
           <div class="carousel-item active">
             <div class="cards-wrapper">
             <div class="card" *ngFor="let featProd of featProds | slice:0:10; let i=index "> <!--slice:0:10 = get first 10 products within the array -->
-              <img src="..." class="card-img-top" alt="...">
+              <img src="{{featProd.image_url}}" class="card-img-top" alt="...">
               <div class="card-body">
                 <!--First card does not display -->
                 <h5 class="card-title">{{featProd.prod_name}}</h5>
                 <h6>{{featProd.price_per_unit}}</h6>
                 <p class="card-text">{{featProd.prod_description}}</p>
-                <a href="#" class="btn btn-feat">Add to Cart</a>
+                <div *ngIf="user != null">
+                  <button class="btn btn-primary w-100 background-nisum" (click)="cartService.addToCart(featProd)">Add to Cart</button>
+                </div>
+                <div *ngIf="user == null">
+                  <button class="btn btn-primary w-100 disabled background-nisum">Login to add to cart</button>
+                </div>
               </div>
             </div>
+            <!--
             <div class="card">
               <img src="..." class="card-img-top" alt="...">
               <div class="card-body">
@@ -75,6 +81,7 @@
               </div>
           </div>
           </div>
+        -->
 
           <!-- This 2nd page for the carousel will be deleted. It's just here to help me visualize the loop -->
           <!-- <div class="carousel-item">
