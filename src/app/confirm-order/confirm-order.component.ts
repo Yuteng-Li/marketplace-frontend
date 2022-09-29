@@ -59,7 +59,7 @@ export class ConfirmOrderComponent implements OnInit {
     if(this.user == undefined){
       this.user = {first_name: "a", last_name: "b", email: "email", user_id: 13, user_password: "pass", phone: "0000000000"};
     }
-    if(this.cartItems.length === 0){
+    if(this.cartItems == undefined || this.cartItems.length === 0){
       this.cartItems = [{itemUpc:"a", itemDesc: "a", itemImgUrl: "None", itemName: "a", itemPrice: 9.99, itemQty: 1}];
     }
 
@@ -85,7 +85,8 @@ export class ConfirmOrderComponent implements OnInit {
     this.orderService.placeOrder(this.order).subscribe(
       (order: Order) => {
         //on success response
-        alert("Order # 123 has been placed!");
+        alert("Order has been submitted");
+        //this.cartService.empty() ->      TODO: EMPTY CART ON SUCCESSFUL ORDER
         this.router.navigate(["/home-page"]);
       } 
     );
