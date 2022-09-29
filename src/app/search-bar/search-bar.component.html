@@ -1,11 +1,23 @@
-<div class="row justify-content-center">
-    <div class="input-group rounded w-50">
-        <input type="search" class="form-control rounded mx-2" placeholder="Search"  />
-    <div class="input-group-append">
-        <button class="btn btn-nisum rounded"><i class="bi bi-search"></i></button>
-    </div>
-        
-        
-
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 m-auto mt-4">
+            <div class="form-group">
+            <div>
+            </div>
+                <input type="text" name="search-term" class="form-control form-control-lg"
+                    placeholder="Search" />
+                    <!-- need to set up a click event and bind it to a method in my search-bar component 
+                            which routes to the item-grid page with filtered products from search box -->
+                    <button type="button" (click)="onClick()" routerLink="/item-grid" routerLinkActive="activebutton" searchProduct="filteredProducts"
+                    class="btn btn-nisum rounded"><i class="bi bi-search"></i></button>
+                <!-- <div *ngFor="let result of data">
+                    <div class="card card-body mb-1">
+                        <h4>{{ result.prodName }}</h4>
+                        <small class="text-primary">{{ result.description}}</small>
+                    </div>
+                    <input type="search" name="search-term" (input)="getItemsSearch($event)" class="form-control form-control-lg"
+                </div> -->
+            </div>
+        </div>
     </div>
 </div>
