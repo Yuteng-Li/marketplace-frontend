@@ -50,6 +50,7 @@ export class HomePageComponent implements OnInit {
                     .subscribe(productList=>{this.itemGridCatProduct=productList.filter(productCat=>productCat.category.toLocaleLowerCase().includes(category.toLocaleLowerCase()));
                                             console.log("filter: "+category+" "+this.itemGridCatProduct.forEach(element=>console.log(element.prod_name)));
                                             this.itemService.itemGridCatProduct=this.itemGridCatProduct;
+                                            console.log('This.itemService: ' + this.itemService.itemGridCatProduct)
                                             console.log("the array in service: " + this.itemService.itemGridCatProduct.forEach(element=>console.log(element.prod_name)));
                                             if (this.itemService.itemGridCatProduct.length>0){  this.router.navigate(['/item-gird']);}
                                             else{alert("No items match category") }

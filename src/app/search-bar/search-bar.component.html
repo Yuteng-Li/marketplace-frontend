@@ -5,18 +5,11 @@
             <div>
             </div>
                 <input type="text" name="search-term" class="form-control form-control-lg"
-                    placeholder="Search" />
+                    placeholder="Search" [(ngModel)]='listFilter'/>
                     <!-- need to set up a click event and bind it to a method in my search-bar component 
                             which routes to the item-grid page with filtered products from search box -->
-                    <button type="button" (click)="onClick()" routerLink="/item-grid" routerLinkActive="activebutton" searchProduct="filteredProducts"
+                    <button type="button" (click)="goToSearchedItem('{{_listFilter}}')"  searchProduct="filteredProducts"
                     class="btn btn-nisum rounded"><i class="bi bi-search"></i></button>
-                <!-- <div *ngFor="let result of data">
-                    <div class="card card-body mb-1">
-                        <h4>{{ result.prodName }}</h4>
-                        <small class="text-primary">{{ result.description}}</small>
-                    </div>
-                    <input type="search" name="search-term" (input)="getItemsSearch($event)" class="form-control form-control-lg"
-                </div> -->
             </div>
         </div>
     </div>
