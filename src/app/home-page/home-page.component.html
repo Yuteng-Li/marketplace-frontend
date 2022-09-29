@@ -80,7 +80,7 @@
     <div class="card-category row">
         <div class="col-sm-auto" style="width: 14rem; margin-right: 15px" *ngFor="let card of catCard | slice:0:6; let i=index">
           <div class="position-img" style="position:relative;">
-            <figure><img src="{{card.img}}" alt="Category image" class="img-thumbnail" routerLink="/categories"></figure>
+            <figure><img src="{{card.img}}" alt="Category image" class="img-thumbnail" (click)="goTOItemDisplayCat(card.category)"></figure>
           </div>
           <figcaption routerLink="/categories">{{card.category}}</figcaption>
         </div>
