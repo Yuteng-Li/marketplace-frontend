@@ -19,6 +19,15 @@
     margin-left: 50%;
 }
 
+.table-img {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 18%;
+    width: 20%;
+    text-align: center;
+}
+
 .rowbg {
     background-repeat: no-repeat;
     background-image: url("/assets/img2.png");
