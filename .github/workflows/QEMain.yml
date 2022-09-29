@@ -1,0 +1,53 @@
+name: Angular QEMain
+on:
+  push:
+    branches:
+      - QEMain
+  pull_request:
+    branches:
+      - QEMain
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3.5.0
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      #- name: Get npm cache directory
+       # id: npm-cache-dir
+        #run: |
+         # echo "::set-output name=dir::$(npm config get cache)"
+      #- uses: actions/cache@v3
+       # id: npm-cache # use this to check for `cache-hit` ==> if: steps.npm-cache.outputs.cache-hit != 'true'
+        #with:
+         # path: ${{ steps.npm-cache-dir.outputs.dir }}
+          #key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          #restore-keys: |
+           # ${{ runner.os }}-node-
+
+      - name: Install Dependencies
+        #if: steps.npm-cache.outputs.cache-hit != 'true'
+        run: |
+          npm ci
+
+      - name: Build
+        run: |
+          npm run build --prod
+
+      #- name: Lint
+       # run: |
+        #  npm run lint
+
+      - name: Test
+        run: |
+          npm test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
