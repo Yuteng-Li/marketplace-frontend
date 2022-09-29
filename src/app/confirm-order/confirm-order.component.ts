@@ -7,11 +7,12 @@ import { Order, OrderItem } from '../shared/Order';
 import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { SocialUser } from '@abacritt/angularx-social-login';
 import { UserService } from '../user.service';
-import { User } from '../user.model';
+import { User } from '../shared/User';
 import { CreditCardService } from '../credit-card/credit-card.component.service'
 import { CreditCard } from '../shared/CreditCard';
 import { AddressService } from '../checkout/address.service';
 import { Address } from '../shared/Address';
+import { CheckoutDataService } from '../checkout-data.service';
 
 @Component({
   selector: 'app-confirm-order',
@@ -23,13 +24,14 @@ export class ConfirmOrderComponent implements OnInit {
   total: number = 0;
   order!: Order;
   user!: User;
-  cards!: CreditCard[];
-  addresses!: Address[];
+  card!: CreditCard;
+  address!: Address;
+  billing!: Address;
   orderItems!: OrderItem[];
   constructor(private cartService: CartService, private orderService: OrderService,
       private router: Router, private authService: SocialAuthService,
       private userService : UserService, private cardService : CreditCardService,
-      private addressService : AddressService) { }
+      private addressService : AddressService, private checkoutService: CheckoutDataService) { }
 
   ngOnInit(): void {
     //Get user identifier from auth, then get relavant user data ( user, cart, cards, address)
@@ -44,9 +46,10 @@ export class ConfirmOrderComponent implements OnInit {
         this.cartItems = this.cartService.shoppingCartArray;
         this.setTotal();
         /*Get Card info from CreditCard API*/
-        this.cardService.getAllCards().subscribe((cards: CreditCard[]) => this.cards = cards);
+        this.checkoutService.currentCreditCard.subscribe((card: CreditCard) => this.card = card);
         /*Get Addresses from Address API*/
-        this.addressService.getAllAddresses().subscribe((addresses: Address[]) => this.addresses = addresses);
+        this.checkoutService.currentDeliveryAddress.subscribe((address: Address)=> this.address = address);
+        this.checkoutService.currentBillingAddress.subscribe((address:Address)=> this.billing=address);
       });
     });
   }
@@ -54,8 +57,10 @@ export class ConfirmOrderComponent implements OnInit {
   placeOrder(): void {
     /*Section for testing, if user is not logged in - scenario not possible*/
     if(this.user == undefined){
-      this.cartItems = [{itemUpc:"a", itemDesc: "a", itemImgUrl: "None", itemName: "a", itemPrice: 0, itemQty: 0}];
       this.user = {first_name: "a", last_name: "b", email: "email", user_id: 13, user_password: "pass", phone: "0000000000"};
+    }
+    if(this.cartItems.length === 0){
+      this.cartItems = [{itemUpc:"a", itemDesc: "a", itemImgUrl: "None", itemName: "a", itemPrice: 9.99, itemQty: 1}];
     }
 
     //create orderItems list from cartItems
@@ -71,11 +76,12 @@ export class ConfirmOrderComponent implements OnInit {
     this.order = { 
       price: this.total, 
       userId: this.user.user_id, 
-      addressID: 0, //replace
-      creditCardID: 0, //replace
+      addressID: this.address.address_id,
+      creditCardID: this.card.credit_card_id,
       orderItems: this.orderItems 
     };
     //post to OMS
+    console.log(this.order);
     this.orderService.placeOrder(this.order).subscribe(
       (order: Order) => {
         //on success response

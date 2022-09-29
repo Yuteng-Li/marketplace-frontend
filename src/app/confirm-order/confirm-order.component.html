@@ -8,7 +8,8 @@
             <button class="btn btn-primary" type="button" (click)="placeOrder()">Confirm Order</button>
         </span>
     </div>
-    <div class="info-container">
+    <h3 *ngIf="user == undefined">Loading...</h3>
+    <div class="info-container" *ngIf="user!=undefined">
         <div class="info">
             <h3>Your Information:</h3>
             <div>
@@ -20,23 +21,24 @@
         <div class="info">
             <h3>Shipping Address:</h3>
             <div>
-                <div>Name: </div>    
-                <div>Street: <span>, </span></div>
-                <div>City: , State: , ZIP: </div>
+                <div>Name: {{address.recipient_name}}</div>    
+                <div>Street: {{address.street}}<span>, {{address.street2}}</span></div>
+                <div>City: {{address.city}}, State: {{address.state}}, ZIP: {{address.zip}}</div>
             </div>
         </div>
         <div class="info">
             <h3>Payment:</h3>
             <div>
-                <div>Card #: </div>
+                <div>Name: {{card.cardholder_name}}</div>
+                <div>Card #: XXXX - XXXX - XXXX - {{card.last_four_card_number}}</div>
             </div>
         </div>
         <div class="info">
             <h3>Billing Address:</h3>
             <div>
-                <div>Name: </div>    
-                <div>Street: <span>, </span></div>
-                <div>City: , State: , ZIP: </div>
+                <div>Name: {{billing.recipient_name}}</div>    
+                <div>Street: {{billing.street}}<span>, {{billing.street2}}</span></div>
+                <div>City: {{billing.city}}, State: {{billing.state}}, ZIP: {{billing.zip}}</div>
             </div>
         </div>
     </div>
