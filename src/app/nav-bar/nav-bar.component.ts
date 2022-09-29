@@ -19,23 +19,28 @@ export class NavBarComponent implements OnInit {
   
 
   constructor(private authService: SocialAuthService, private UserService:UserService, private router: Router) {
+
   }
 
   ngOnInit() {
+
       this.authService.authState.subscribe((user) => {
         this.user = user;
         if(this.user != null)
         {
+          this.displayByID(this.user.email);
           localStorage.setItem('APP_TOKEN', JSON.stringify(this.user.authToken));
           localStorage.setItem('user', JSON.stringify(this.user));
           this.retrievedUser = localStorage.getItem('user');
-          this.displayByID(this.user.email);
+
           this.usingLocalLog=false;
         }
         else if(this.retrievedUser!=null)
         {
-          this.user=  JSON.parse(this.retrievedUser);
+          this.user =  JSON.parse(this.retrievedUser);
+          this.usingLocalLog=true;
         }
+
       });
   }
 
@@ -46,7 +51,6 @@ export class NavBarComponent implements OnInit {
     }
     this.retrievedUser=null;
     localStorage.clear();
-    console.log(localStorage.getItem('user'))
     this.router.navigate(['/home-page'])
   }
 
@@ -56,13 +60,14 @@ export class NavBarComponent implements OnInit {
       { next: user => 
         //socialuser has string as id. the user from database has integer as id
        {this.user.id = user.user_id.toString();
-        console.log(this.user);
-       },
+        localStorage.setItem('user', JSON.stringify(this.user))
+      },
        //phone number is only 10 char long.
        error: e => this.UserService.createUsersByEmail(this.user.email, this.user.firstName, this.user.lastName, "confiential",  "5101011010")
        .subscribe(user => {this.user.id = user.user_id.toString();
-                  console.log(this.user);
+        localStorage.setItem('user', JSON.stringify(this.user))})
       })
-      })
-}
+
+
+  }
 }
