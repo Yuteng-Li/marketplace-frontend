@@ -7,7 +7,7 @@
     <h2 class="page">Categories</h2>
     <div class="categories-container">
         <div class="category" *ngFor="let category of categories"
-         [routerLink]="['/item-gird']" [queryParams]="{category: category.category}">
+        (click)="goTOItemDisplayCat(category.category)">
                 <img src="{{category.img}}" alt="{{category.category}} img">
                 <h3>{{category.category}}</h3>
                 <a>View Products</a>
