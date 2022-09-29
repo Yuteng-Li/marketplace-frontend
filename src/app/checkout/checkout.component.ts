@@ -385,4 +385,8 @@ export class CheckoutComponent implements OnInit {
       card.expiration_month + '/' + card.expiration_year
     );
   }
+
+  cancel():void {
+    this.router.navigate(['/cart']);
+  }
 }
