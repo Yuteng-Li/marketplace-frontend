@@ -18,16 +18,22 @@ export class CreditCardComponent implements OnInit {
   ){}
   
   credits:CreditCard[]=[];
-  user:SocialUser = new SocialUser;
+  user!:SocialUser;
+  localUser =  localStorage.getItem('user');
   currUserID!:Number;
 
   ngOnInit(): void {
     this.authService.authState.subscribe((user) => {
-      this.user = user;
-      this.currUserID=parseInt(user.id);
+        this.user=user;
+        this.currUserID=parseInt(user.id);
     });
 
-    console.log(this.currUserID)
+    if(this.user==null && this.localUser !=null)
+      {
+        this.user = JSON.parse(this.localUser);
+        this.currUserID=parseInt(this.user.id);
+        console.log(this.currUserID)
+      }
     
     /*GET cards service call*/
       this.creditCardService.getAllCards().subscribe(data => {
@@ -44,7 +50,21 @@ export class CreditCardComponent implements OnInit {
   removeCard(creditCardID:number,index:number,lastfour:String):void{
     if(confirm("Are you sure you want to delete this card ending in "+ lastfour)){
       this.creditCardService.deleteCard(creditCardID).subscribe();
-      this.credits.splice(index);
+      this.credits[index] = {
+        
+        credit_card_id:0,
+
+        user_id: -1,
+
+        cardholder_name: "",
+
+        last_four_card_number: "",
+
+        expiration_year: "",
+
+        expiration_month: ""
+      } 
+    
     }
   }
 }
