@@ -1,7 +1,7 @@
 import { Category } from "../shared/Category";
 export const CATEGORIES: Category[] = [
   { 
-    category : 'Breakfast Cereals',
+    category : 'Breakfast & Cereals',
     img : "./assets/images/breakfast.jpg"
   }, 
   {
