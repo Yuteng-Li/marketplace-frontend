@@ -62,8 +62,10 @@ tr:nth-child(even) {
 }
 
 .refresh:hover{
-  color:cyan;
+  color: cyan;
 }
+
+
 
 .order-details {
   padding-left: 1%;
@@ -75,6 +77,18 @@ tr:nth-child(even) {
 .btn-nisum {
   background: #00cfff;
   background: linear-gradient(to bottom, #6e12ff, #0019ff, #00cfff);
+  color: #fff;
+  border-radius: 0%;
+  border: none;
+  font-family: 'Corbel', Verdana, "Bitstream Vera Sans", sans-serif;
+  
+}
+
+
+
+.btn-redux {
+  background: blue;
+  background: linear-gradient(to bottom, darkblue, darkblue, blue, blue);
   color: #fff;
   border-radius: 0%;
   border: none;
