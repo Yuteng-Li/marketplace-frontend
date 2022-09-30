@@ -254,7 +254,7 @@ export class CheckoutComponent implements OnInit {
     bAddress.is_shipping = false;
     bAddress.is_billing = true;
     bAddress.recipient_name =
-      this.deliveryFirstName.value + this.deliveryLastName.value;
+      this.deliveryFirstName.value + " " + this.deliveryLastName.value;
     bAddress.street = this.deliveryStreet1.value;
     bAddress.street2 = this.deliveryStreet2.value;
     bAddress.city = this.deliveryCity.value;
@@ -368,7 +368,6 @@ export class CheckoutComponent implements OnInit {
     this.selectedAddress = address;
     const fullName = address.recipient_name.split(' ');
     this.deliveryFirstName.setValue(fullName[0]);
-    this.deliveryLastName.setValue(fullName[1]);
     this.deliveryLastName.setValue(fullName[1]);
     this.deliveryStreet1.setValue(address.street);
     this.deliveryStreet2.setValue(address.street2);
