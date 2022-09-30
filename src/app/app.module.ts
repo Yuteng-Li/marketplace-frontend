@@ -18,6 +18,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CreditCardComponent } from './credit-card/credit-card.component';
 import { PaymentFormComponent } from './payment-form/payment-form.component';
+import { PaymentFormSuccessComponent } from './payment-form/payment-form-success/payment-form-success.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 
@@ -35,6 +36,7 @@ import {AddressFormComponent} from "./address-form/address-form.component";
 import { ConfirmOrderGuard } from './confirm-order/confirm-order.guard';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,6 +45,7 @@ import { ConfirmOrderGuard } from './confirm-order/confirm-order.guard';
     HomePageComponent,
     CreditCardComponent,
     PaymentFormComponent,
+    PaymentFormSuccessComponent,
     CartComponent,
     CategoriesComponent,
     ItemGirdComponent,
@@ -67,6 +70,7 @@ import { ConfirmOrderGuard } from './confirm-order/confirm-order.guard';
       {path: 'cart', component: CartComponent, canActivate: [AuthGuard]},
       {path: 'credit-card', component: CreditCardComponent, canActivate: [AuthGuard]},
       {path: 'payment-form', component: PaymentFormComponent, canActivate: [AuthGuard]},
+      {path: 'payment-form/success',component:PaymentFormSuccessComponent, canActivate:[AuthGuard]},
       {path: 'address-form', component: AddressFormComponent,  canActivate: [AuthGuard] },
       {path: 'login', component: LoginComponent},
       {path: 'categories', component: CategoriesComponent},
