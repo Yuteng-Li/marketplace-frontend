@@ -33,7 +33,7 @@
 
             <tr class="shadow" *ngFor="let order of previousOrders; let index=index">
               <!-- for template syntax anything inside the brackets {{}} is considered an expression, and will try to solve it by looking in the component logic -->
-              <td class="order-details"><div class="btn-redux rounded refresh" [routerLink]="['/order-details', order.orderID]">More Info</div>
+              <td class="order-details"><button class="btn btn-redux rounded refresh" [routerLink]="['/order-details', order.orderID]">More Info</button>
               </td>
               <!---div *ngFor="let addy of addresses; let index=index">--->
               <!---{{getAddys(order.addressID)}}--->

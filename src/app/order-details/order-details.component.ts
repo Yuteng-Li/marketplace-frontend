@@ -17,6 +17,7 @@ export class OrderDetailsComponent implements OnInit {
   orderData: any = [];
   prodInfo: any = [];
   myData: BehaviorSubject<any> = new BehaviorSubject<any>(0);
+
   id: any;
   
   constructor(private router: Router,
@@ -67,7 +68,7 @@ signOut(): void {
         
          ));
     }))        
-    .subscribe((add: any) => {
+    .subscribe((add) => {
         this.prodInfo = add;
         console.log(this.prodInfo, "products");
       });
