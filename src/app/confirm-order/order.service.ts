@@ -9,13 +9,12 @@ import { Order } from '../shared/Order';
 })
 export class OrderService {
   //url from inventory team api
-  private productUrl = "http://localhost:8081/api/orders";
+  private productUrl = "http://localhost:8081/api/order";
 
   constructor(private http:HttpClient){}
 
   placeOrder(order: Order):Observable<any>{
-    return of({'text': 'sample'});
-    return this.http.post<Order>(`${this.productUrl}/createOrder`, order).pipe(
+    return this.http.post(`${this.productUrl}/createOrder`, order, {responseType: 'text'}).pipe(
       catchError(this.handleError)
     );
 
