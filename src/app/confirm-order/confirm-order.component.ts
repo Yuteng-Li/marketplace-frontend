@@ -11,8 +11,8 @@ import { User } from '../shared/User';
 import { CreditCardService } from '../credit-card/credit-card.component.service'
 import { CreditCard } from '../shared/CreditCard';
 import { AddressService } from '../checkout/address.service';
-import { Address } from '../shared/Address';
 import { CheckoutDataService } from '../checkout-data.service';
+import { Address } from '../shared/Address';
 
 @Component({
   selector: 'app-confirm-order',
@@ -65,12 +65,15 @@ export class ConfirmOrderComponent implements OnInit {
 
     //create orderItems list from cartItems
     this.orderItems = [];
+    //do a if check here to make sure item is not 0
     this.cartItems.forEach((item: ShoppingCart) => {
+      if (item.itemQty!=0){
       let orderItem = {
         quantity: item.itemQty,
         upc: item.itemUpc
       };
       this.orderItems.push(orderItem);
+    }
     });
     //create order to post
     this.order = { 
