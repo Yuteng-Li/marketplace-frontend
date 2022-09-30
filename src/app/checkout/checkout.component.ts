@@ -8,8 +8,6 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { SocialUser } from '@abacritt/angularx-social-login';
-
-import { Address } from '../shared/Address';
 import { AddressService } from './address.service';
 import { UserService } from '../user.service';
 import { Observable, of } from 'rxjs';
@@ -19,6 +17,7 @@ import { CreditCardService } from '../credit-card/credit-card.component.service'
 import { CheckoutDataService } from '../checkout-data.service';
 import { Router } from '@angular/router';
 import { PaymentService } from '../payment-form/payment-form-component.service';
+import { Address } from '../shared/Address';
 
 @Component({
   selector: 'app-checkout',
@@ -255,7 +254,7 @@ export class CheckoutComponent implements OnInit {
     bAddress.is_shipping = false;
     bAddress.is_billing = true;
     bAddress.recipient_name =
-      this.deliveryFirstName.value + this.deliveryLastName.value;
+      this.deliveryFirstName.value + " " + this.deliveryLastName.value;
     bAddress.street = this.deliveryStreet1.value;
     bAddress.street2 = this.deliveryStreet2.value;
     bAddress.city = this.deliveryCity.value;
@@ -370,7 +369,6 @@ export class CheckoutComponent implements OnInit {
     const fullName = address.recipient_name.split(' ');
     this.deliveryFirstName.setValue(fullName[0]);
     this.deliveryLastName.setValue(fullName[1]);
-    this.deliveryLastName.setValue(fullName[1]);
     this.deliveryStreet1.setValue(address.street);
     this.deliveryStreet2.setValue(address.street2);
     this.deliveryCity.setValue(address.city);
@@ -384,5 +382,9 @@ export class CheckoutComponent implements OnInit {
     this.cardExpireDate.setValue(
       card.expiration_month + '/' + card.expiration_year
     );
+  }
+
+  cancel():void {
+    this.router.navigate(['/cart']);
   }
 }

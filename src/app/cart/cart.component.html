@@ -40,7 +40,7 @@
     </tr>
 
     <tr *ngFor="let item of shoppingCartArray; let index = index">
-            <td *ngIf="(item.itemName!='')"><img class="table-img" src="{{item.itemImgUrl}}" ></td>
+            <td *ngIf="(item.itemName!='')"><img class="table-img" src="{{'https://'+item.itemImgUrl}}" ></td>
             <td *ngIf="(item.itemName!='')">{{ item.itemName }}</td>
             <td *ngIf="(item.itemName!='')">{{ item.itemPrice| currency: 'USD'}}</td>
             <td *ngIf="(item.itemName!='')">
@@ -57,7 +57,7 @@
 </table>
 </div>
 
-<button type="button" class="btn btn-primary" style="float: right; margin-right: 160px; margin-bottom: 20px" [routerLink]="['/item-gird']">Continue Shopping</button>
+<button type="button" class="btn btn-nisum" style="float: right; margin-right: 160px; margin-bottom: 20px" [routerLink]="['/item-gird']">Continue Shopping</button>
 
 
 <div class="table-margin2">
@@ -90,8 +90,7 @@
 </table>
 </div>
 
-<!-- Not linked to the checkout page yet. Need routerLink for it-->
-<button type="button" class="btn btn-primary" style="float: right; margin-right: 160px" [routerLink]="['/checkout']">Proceed to Checkout</button>
+<button type="button" class="btn btn-primary" style="float: right; margin-right: 160px" (click)="handleCheckOut()" [routerLink]="['/checkout']">Proceed to Checkout</button>
     
 </body>
 </html>

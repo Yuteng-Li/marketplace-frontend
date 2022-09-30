@@ -1,6 +1,6 @@
 <app-nav-bar></app-nav-bar>
 
-<form id="checkoutForm" class="col-lg-6 offset-lg-3 position-relative" [formGroup]="checkoutForm"
+<form id="checkoutForm" class="col-lg-6 offset-lg-3 position-relative p-3 border border-info border-3 rounded bg-light" [formGroup]="checkoutForm"
     (ngSubmit)="onSubmit()">
     <div formGroupName="deliveryAddress">
         <div class="row w-75">
@@ -298,32 +298,9 @@
             </div>
         </div>
     </div>
-
-    <div class="w-75 position-absolute end-0">
-        <!-- THIS WAS A SUMMARY TABLE BUT I THINK THATS GOING TO BE IN CONFIRM ORDER -->
-        <!-- <table class="table table-sm mt-3">
-            <thead class="">
-                <tr>
-                    <th scope="col" colspan="2">Order Summary</th>
-                </tr>
-            </thead>
-            <tbody class="table-primary">
-                <tr>
-                    <th scope="row">Total Items</th>
-                    <td>3</td>
-                </tr>
-                <tr>
-                    <th scope="row">Taxes</th>
-                    <td>$100</td>
-                </tr>
-                <tr class="table-active">
-                    <th scope="row">Total</th>
-                    <td>$200</td>
-                </tr>
-            </tbody>
-        </table> -->
+    <div class="row end-0">
         <div class="d-flex flex-row justify-content-end">
-            <button type="button" class="btn btn-danger me-3">Cancel</button>
+            <button type="button" class="btn btn-danger me-3" (click)="cancel()">Cancel</button>
             <button type="submit" class="btn btn-primary" [disabled]="!checkoutForm.valid">
                 Go to Confirm Order
             </button>

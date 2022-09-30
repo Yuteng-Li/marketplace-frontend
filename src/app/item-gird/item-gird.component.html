@@ -52,20 +52,20 @@
         <div fxLayout="row wrap" fxLayoutGap="16px grid">
 
           <!-- Filter the items by their prodName since searchProducts is a Filtered array  -->
-          <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let prod of searchProduct" >
+          <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let prod of searchProduct| slice:0:20" >
 
             <div class="card h-100 ">
 
 
               <div class="card-header">
-                <h4 class="my-0 font-weight-normal">{{prod.prod_name}}</h4>
+                <h4 class="my-0 font-weight-normal">{{prod.prod_name|slice:0:30}}</h4>
               </div>
 
               <div class="card-body">
 
-                <img src="{{prod.image_url}}">
+                <img src="{{'https://'+prod.image_url}}">
                 <br>
-                <p class="card-text">{{prod.prod_description}}</p>
+                <p class="card-text">{{prod.prod_description|slice:0:15}}</p>
                 <p class="card-text">{{prod.price_per_unit|currency: 'USD'}}</p>
 
               </div>
@@ -74,7 +74,7 @@
                     <button class="btn btn-primary w-100 background-nisum" (click)="cartService.addToCart(prod)">Add to Cart</button>
                   </div>
                   <div *ngIf="user == null">
-                    <button class="btn btn-primary w-100 disabled background-nisum"
+                    <button class="btn btn-primary w-100 background-nisum"
                     routerLink='/login' >Login to add to cart</button>
                   </div>
                 </div>

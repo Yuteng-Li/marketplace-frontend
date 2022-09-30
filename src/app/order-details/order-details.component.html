@@ -1,0 +1,50 @@
+
+<app-nav-bar></app-nav-bar>
+
+<a style="margin-left: 2%; margin-top: 2%;" class="btn btn-nisum rounded refresh" type="submit" routerLink="/previous-orders" routerLinkActive="activebutton"ariaCurrentWhenActive="page"
+value="Previous Orders">Back to Order History</a>
+
+    
+<div class="container-my-1">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card-body">
+        <div
+          class="containerRounded"
+        >
+          <table>
+            <tr>
+              <td colspan="5" style="text-align: left;"><h1>Order Details</h1></td>
+              <td colspan="2"><h3>Order ID: {{orderData[0]?.orderID}}</h3></td>
+            </tr>
+            <tr class="thhh">
+              <th colspan="2">Product</th>
+              <th>Product Description</th>
+              <th>Brand</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>Quantity</th>
+
+            </tr>
+            <tr *ngFor="let prod of orderData; let index=index">
+              <td>{{this.prodInfo[index][0]?.prodName}}</td>
+              <td><img width="30%" height="30%" src="{{this.prodInfo[index][0]?.imgUrl}}"></td>
+              <td>{{this.prodInfo[index][0]?.prodDesc}}</td>
+              <td>{{this.prodInfo[index][0]?.brand}}</td>
+              <td>{{this.prodInfo[index][0]?.category}}</td>
+              <td>{{prodInfo[index][0]?.ppu}}</td>
+              <td>{{prod.quantity}}</td>
+
+
+            </tr>
+
+
+      
+
+
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
