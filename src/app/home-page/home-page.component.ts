@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 
 import { CategoryService } from '../categories/category.service';
 import { Category } from '../shared/Category';
@@ -26,6 +26,7 @@ export class HomePageComponent implements OnInit {
 
   constructor(private readonly authService: SocialAuthService, private categoryService: CategoryService,
     private itemService: ItemService, public cartService: CartService, private router: Router) { }
+
 
   ngOnInit() {
     this.authService.authState.subscribe((user) => {
@@ -67,5 +68,7 @@ export class HomePageComponent implements OnInit {
       console.log(this.featProds);
     })
   }
+
+
 
 }
