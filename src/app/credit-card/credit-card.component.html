@@ -30,10 +30,10 @@
             </thead>
             <tbody>
                 <tr *ngFor = "let card of credits; let index = index">
-                    <td>{{card.cardholder_name}}</td>
-                    <td>{{card.expiration_month}}/{{card.expiration_year}}</td>
-                    <td>Card ending in {{card.last_four_card_number}}</td>
-                    <td>
+                    <td *ngIf="card.user_id != -1">{{card.cardholder_name}}</td>
+                    <td *ngIf="card.user_id != -1">{{card.expiration_month}}/{{card.expiration_year}}</td>
+                    <td *ngIf="card.user_id != -1">Card ending in {{card.last_four_card_number}}</td>
+                    <td *ngIf="card.user_id != -1">
                         <button 
                         type="button" 
                         class="button1" 

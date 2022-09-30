@@ -40,7 +40,7 @@
     </tr>
 
     <tr *ngFor="let item of shoppingCartArray; let index = index">
-            <td *ngIf="(item.itemName!='')"><img class="table-img" src="{{item.itemImgUrl}}" ></td>
+            <td *ngIf="(item.itemName!='')"><img class="table-img" src="{{'https://'+item.itemImgUrl}}" ></td>
             <td *ngIf="(item.itemName!='')">{{ item.itemName }}</td>
             <td *ngIf="(item.itemName!='')">{{ item.itemPrice| currency: 'USD'}}</td>
             <td *ngIf="(item.itemName!='')">

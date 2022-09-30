@@ -17,9 +17,12 @@ import { Router } from '@angular/router';
 })
 export class HomePageComponent implements OnInit {
   user!: SocialUser;
-  catCard: Category[] = [];
-  featProds: Product[] = [];
-  itemGridCatProduct: Product[] = [];
+  catCard : Category[] = [];
+  featProds : Product[] = [];
+  itemGridCatProduct:Product[]=[];
+  localUser =  localStorage.getItem('user');
+
+
 
   constructor(private readonly authService: SocialAuthService, private categoryService: CategoryService,
     private itemService: ItemService, public cartService: CartService, private router: Router) { }
@@ -27,7 +30,14 @@ export class HomePageComponent implements OnInit {
   ngOnInit() {
     this.authService.authState.subscribe((user) => {
       this.user = user;
+      console.log(this.user);
     });
+
+    if(this.user==null && this.localUser !=null && localStorage.getItem('user') !=null)
+      {
+        this.user = JSON.parse(this.localUser);
+
+      }
 
     this.getCategories();
     this.DisplayAll();
