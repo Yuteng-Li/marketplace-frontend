@@ -30,7 +30,8 @@ export class PreviousOrdersService {
     return this.http.get<any>(`${this.productUrl}/getOrders`); /*/user/${userID}`); */
   }
 
-  cancelOrder(orderID:number): Observable<Orders>{
-    return this.http.post<any>(`${this.productUrl}/updateOrder/cancelled/${orderID}`, {observe: 'response',reportProgress: true});
+  cancelOrder(orderID:number): Observable<any>{
+    console.log("called func", orderID)
+    return this.http.put<any>(`${this.productUrl}/updateOrder/cancelled/${orderID}`, {observe: 'response',reportProgress: true,responseType: 'text'});
   }
 }
