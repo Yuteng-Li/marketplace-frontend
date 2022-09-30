@@ -40,3 +40,14 @@ form.a{
 .form.border-info{
    border-color: linear-gradient(60deg, #8b41ff, #00cfff, #0019ff);
 }
+
+ .btn-primary {
+
+   background: #00cfff;
+   background: linear-gradient(to bottom, #6e12ff, #0019ff, #00cfff);
+   color: #fff;
+   border-radius: 4px;
+   border: none;
+   font-family: 'Corbel', Verdana, "Bitstream Vera Sans", sans-serif;
+
+ }
