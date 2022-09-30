@@ -56,7 +56,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let item of cartItems">
-                    <td><img class="table-img" src="{{item.itemImgUrl}}" ></td>
+                    <td><img class="table-img" src="{{'https://'+item.itemImgUrl}}" ></td>
                     <td>{{ item.itemName }}</td>
                     <td>{{ item.itemPrice | currency: 'USD'}}</td>
                     <td>{{ item.itemQty}}</td>
