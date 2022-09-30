@@ -1,191 +1,54 @@
 <app-nav-bar></app-nav-bar>
 
-<form id="checkoutForm" class="col-lg-6 offset-lg-3 position-relative p-3 border border-primary border-3 rounded bg-light"
+<form id="checkoutForm"
+    class="col-lg-6 offset-lg-3 position-relative p-1 border rounded bg-light a"
     [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
-    <div formGroupName="deliveryAddress">
-        <div class="row w-75">
-            <h3 class="col">Delivery Address</h3>
-            <!-- This is the dropdown menu for the users addresses -->
-            <div class="col" *ngIf="userAddresses.length != 0">
-                <div ngbDropdown class="d-inline-block">
-                    <a ngbDropdownToggle class="btn btn-outline-primary" id="dropdownBasic1">
-                        My Addresses
-                    </a>
-                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                        <a ngbDropdownItem *ngFor="let address of userAddresses" (click)="autoFillAddress(address)">
-                            {{ address.street }}
+
+    <body class="p-3">
+        <div formGroupName="deliveryAddress">
+            <div class="row w-75">
+                <h3 class="col">Delivery Address</h3>
+                <!-- This is the dropdown menu for the users addresses -->
+                <div class="col" *ngIf="userAddresses.length != 0">
+                    <div ngbDropdown class="d-inline-block">
+                        <a ngbDropdownToggle class="btn btn-outline-primary" id="dropdownBasic1">
+                            My Addresses
                         </a>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                            <a ngbDropdownItem *ngFor="let address of userAddresses" (click)="autoFillAddress(address)">
+                                {{ address.street }}
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col">
-                <!-- FIRST NAME -->
-                <input id="dfname" class="form-control" type="text" placeholder="First Name"
-                    formControlName="deliveryFirstName" (change)="setBillingAddressAsDelivery()" />
+            <div class="row justify-content-center">
+                <div class="col">
+                    <!-- FIRST NAME -->
+                    <input id="dfname" class="form-control" type="text" placeholder="First Name"
+                        formControlName="deliveryFirstName" (change)="setBillingAddressAsDelivery()" />
 
-                <!-- ERROR MESSAGES FOR FRONTEND VALIDATION -->
-                <div *ngIf="
+                    <!-- ERROR MESSAGES FOR FRONTEND VALIDATION -->
+                    <div *ngIf="
             deliveryFirstName.invalid &&
             (deliveryFirstName.dirty || deliveryFirstName.touched)
           " class="alert alert-danger">
-                    <small *ngIf="deliveryFirstName.errors?.['required']">
-                        First Name is required
-                    </small>
-                </div>
-            </div>
-            <div class="col">
-                <!-- LAST NAME -->
-                <input id="dlname" class="form-control" type="text" placeholder="Last Name"
-                    formControlName="deliveryLastName" (change)="setBillingAddressAsDelivery()" />
-
-                <!-- ERROR MESSAGES FOR FRONTEND VALIDATION -->
-                <div *ngIf="
-            deliveryLastName.invalid &&
-            (deliveryLastName.dirty || deliveryLastName.touched)
-          " class="alert alert-danger">
-                    <small *ngIf="deliveryLastName.errors?.['required']">
-                        Last Name is required
-                    </small>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <!-- Street Address 1 -->
-                <input id="dstreet1" class="form-control" type="text" placeholder="Street Address"
-                    formControlName="deliveryStreet1" (change)="setBillingAddressAsDelivery()" />
-
-                <!-- ERROR MESSAGES FOR FRONTEND VALIDATION -->
-                <div *ngIf="
-            deliveryStreet1.invalid &&
-            (deliveryStreet1.dirty || deliveryStreet1.touched)
-          " class="alert alert-danger">
-                    <small *ngIf="deliveryStreet1.errors?.['required']">
-                        Street is required
-                    </small>
-                </div>
-            </div>
-            <div class="col">
-                <!-- Street Address 2 -->
-                <input id="dstreet2" class="form-control" type="text" placeholder="Apt/Suite/Other (optional)"
-                    formControlName="deliveryStreet2" (change)="setBillingAddressAsDelivery()" />
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <!-- CITY -->
-                <input id="dcity" class="form-control" type="text" placeholder="City" formControlName="deliveryCity" />
-
-                <!-- ERROR MESSAGES FOR FRONTEND VALIDATION -->
-                <div *ngIf="
-            deliveryCity.invalid && (deliveryCity.dirty || deliveryCity.touched)
-          " class="alert alert-danger">
-                    <small *ngIf="deliveryCity.errors?.['required']">
-                        City is required
-                    </small>
-                </div>
-            </div>
-            <div class="col">
-                <!-- State -->
-                <input id="dstate" class="form-control" type="text" placeholder="State" formControlName="deliveryState"
-                    (change)="setBillingAddressAsDelivery()" />
-
-                <!-- ERROR MESSAGES FOR FRONTEND VALIDATION -->
-                <div *ngIf="
-            deliveryState.invalid &&
-            (deliveryState.dirty || deliveryState.touched)
-          " class="alert alert-danger">
-                    <small *ngIf="deliveryState.errors?.['required']">
-                        State is required
-                    </small>
-                </div>
-            </div>
-            <div class="col">
-                <!-- ZIP -->
-                <input id="dzip" class="form-control" type="text" placeholder="Zip" formControlName="deliveryZip"
-                    (change)="setBillingAddressAsDelivery()" />
-
-                <!-- ERROR MESSAGES FOR FRONTEND VALIDATION -->
-                <div *ngIf="
-            deliveryZip.invalid && (deliveryZip.dirty || deliveryZip.touched)
-          " class="alert alert-danger">
-                    <small *ngIf="deliveryZip.errors?.['required']">
-                        Zip is required
-                    </small>
-                    <small *ngIf="deliveryZip.errors?.['pattern']">
-                        Zip has to be 5 or 9 digits. Ex. (94822) or (48222-1746)
-                    </small>
-                </div>
-            </div>
-        </div>
-    </div>
-    <br />
-    <div formGroupName="payment">
-        <h3>Payment</h3>
-        <div class="row w-75">
-            <div class="col" *ngIf="userCreditCards.length != 0">
-                <div ngbDropdown class="d-inline-block">
-                    <a ngbDropdownToggle class="btn btn-outline-primary" id="dropdownBasic2">
-                        My Credit Cards
-                    </a>
-                    <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
-                        <a ngbDropdownItem *ngFor="let card of userCreditCards" (click)="selectCard(card)">
-                            ************-{{ card.last_four_card_number }}
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a ngbDropdownItem routingLink="/payment-form">Add a new credit card</a>
-                    </div>
-                </div>
-                <small class="border-info border m-3" *ngIf="selectedCard">
-                    Selected card - ************-{{ selectedCard.last_four_card_number }}
-                </small>
-            </div>
-        </div>
-    </div>
-    <br />
-
-    <div formGroupName="billingAddress">
-        <h3>Billing Address</h3>
-
-        <!-- SAME AS DELIVERY CHECK BOX -->
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="sameDelivery" [checked]="sameAsDelivery == true"
-                (change)="clickedSameAsDelivery()" />
-            <label class="form-check-label" for="sameDelivery">
-                Same as delivery?
-            </label>
-        </div>
-
-        <div id="billing" *ngIf="sameAsDelivery == false">
-            <div class="row">
-                <div class="col">
-                    <!-- FIRST NAME -->
-                    <input id="bfname" class="form-control" type="text" placeholder="First Name"
-                        formControlName="billingFirstName" />
-                    <!-- ERROR MESSAGES -->
-                    <div *ngIf="
-              billingFirstName.invalid &&
-              (billingFirstName.dirty || billingFirstName.touched) &&
-              sameAsDelivery == false
-            " class="alert alert-danger">
-                        <small *ngIf="billingFirstName.errors?.['required']">
+                        <small *ngIf="deliveryFirstName.errors?.['required']">
                             First Name is required
                         </small>
                     </div>
                 </div>
                 <div class="col">
                     <!-- LAST NAME -->
-                    <input id="blname" class="form-control" type="text" placeholder="Last Name"
-                        formControlName="billingLastName" />
+                    <input id="dlname" class="form-control" type="text" placeholder="Last Name"
+                        formControlName="deliveryLastName" (change)="setBillingAddressAsDelivery()" />
 
-                    <!-- ERROR MESSAGES -->
+                    <!-- ERROR MESSAGES FOR FRONTEND VALIDATION -->
                     <div *ngIf="
-              billingLastName.invalid &&
-              (billingLastName.dirty || billingLastName.touched)
-            " class="alert alert-danger">
-                        <small *ngIf="billingLastName.errors?.['required']">
+            deliveryLastName.invalid &&
+            (deliveryLastName.dirty || deliveryLastName.touched)
+          " class="alert alert-danger">
+                        <small *ngIf="deliveryLastName.errors?.['required']">
                             Last Name is required
                         </small>
                     </div>
@@ -193,68 +56,216 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <input id="baddress1" class="form-control" type="text" placeholder="Street Address"
-                        formControlName="billingStreet1" />
+                    <!-- Street Address 1 -->
+                    <input id="dstreet1" class="form-control" type="text" placeholder="Street Address"
+                        formControlName="deliveryStreet1" (change)="setBillingAddressAsDelivery()" />
+
+                    <!-- ERROR MESSAGES FOR FRONTEND VALIDATION -->
                     <div *ngIf="
-              billingStreet1.invalid &&
-              (billingStreet1.dirty || billingStreet1.touched)
-            " class="alert alert-danger">
-                        <small *ngIf="billingStreet1.errors?.['required']">
+            deliveryStreet1.invalid &&
+            (deliveryStreet1.dirty || deliveryStreet1.touched)
+          " class="alert alert-danger">
+                        <small *ngIf="deliveryStreet1.errors?.['required']">
                             Street is required
                         </small>
                     </div>
                 </div>
                 <div class="col">
-                    <input id="baddress2" class="form-control" type="text" placeholder="Apt/Suite/Other (optional)"
-                        formControlName="billingStreet2" />
+                    <!-- Street Address 2 -->
+                    <input id="dstreet2" class="form-control" type="text" placeholder="Apt/Suite/Other (optional)"
+                        formControlName="deliveryStreet2" (change)="setBillingAddressAsDelivery()" />
                 </div>
             </div>
             <div class="row">
                 <div class="col">
-                    <input id="bcity" class="form-control" type="text" placeholder="City"
-                        formControlName="billingCity" />
+                    <!-- CITY -->
+                    <input id="dcity" class="form-control" type="text" placeholder="City"
+                        formControlName="deliveryCity" />
+
+                    <!-- ERROR MESSAGES FOR FRONTEND VALIDATION -->
                     <div *ngIf="
-              billingCity.invalid && (billingCity.dirty || billingCity.touched)
-            " class="alert alert-danger">
-                        <small *ngIf="billingCity.errors?.['required']">
+            deliveryCity.invalid && (deliveryCity.dirty || deliveryCity.touched)
+          " class="alert alert-danger">
+                        <small *ngIf="deliveryCity.errors?.['required']">
                             City is required
                         </small>
                     </div>
                 </div>
                 <div class="col">
-                    <input id="bstate" class="form-control" type="text" placeholder="State"
-                        formControlName="billingState" />
+                    <!-- State -->
+                    <input id="dstate" class="form-control" type="text" placeholder="State"
+                        formControlName="deliveryState" (change)="setBillingAddressAsDelivery()" />
+
+                    <!-- ERROR MESSAGES FOR FRONTEND VALIDATION -->
                     <div *ngIf="
-              billingState.invalid &&
-              (billingState.dirty || billingState.touched)
-            " class="alert alert-danger">
-                        <small *ngIf="billingState.errors?.['required']">
+            deliveryState.invalid &&
+            (deliveryState.dirty || deliveryState.touched)
+          " class="alert alert-danger">
+                        <small *ngIf="deliveryState.errors?.['required']">
                             State is required
                         </small>
                     </div>
                 </div>
                 <div class="col">
-                    <input id="bzip" class="form-control" type="text" placeholder="Zip" formControlName="billingZip" />
+                    <!-- ZIP -->
+                    <input id="dzip" class="form-control" type="text" placeholder="Zip" formControlName="deliveryZip"
+                        (change)="setBillingAddressAsDelivery()" />
+
+                    <!-- ERROR MESSAGES FOR FRONTEND VALIDATION -->
                     <div *ngIf="
-              billingZip.invalid && (billingZip.dirty || billingZip.touched)
-            " class="alert alert-danger">
-                        <small *ngIf="billingZip.errors?.['required']">
+            deliveryZip.invalid && (deliveryZip.dirty || deliveryZip.touched)
+          " class="alert alert-danger">
+                        <small *ngIf="deliveryZip.errors?.['required']">
                             Zip is required
                         </small>
-                        <small *ngIf="billingZip.errors?.['pattern']">
+                        <small *ngIf="deliveryZip.errors?.['pattern']">
                             Zip has to be 5 or 9 digits. Ex. (94822) or (48222-1746)
                         </small>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row end-0">
-        <div class="d-flex flex-row justify-content-end">
-            <button type="button" class="btn btn-danger me-3" (click)="cancel()">Cancel</button>
-            <button type="submit" class="btn btn-primary" [disabled]="!checkoutForm.valid">
-                Go to Confirm Order
-            </button>
+        <br />
+        <div formGroupName="payment">
+            <h3>Payment</h3>
+            <div class="row w-75">
+                <div class="row" *ngIf="userCreditCards.length != 0">
+                    <div ngbDropdown class="d-inline-block col">
+                        <a ngbDropdownToggle class="btn btn-outline-primary" id="dropdownBasic2">
+                            My Credit Cards
+                        </a>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
+                            <a ngbDropdownItem *ngFor="let card of userCreditCards" (click)="selectCard(card)">
+                                ************-{{ card.last_four_card_number }}
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <!-- <a ngbDropdownItem routingLink="/payment-form-checkout" routerLinkActive="activebutton">Add a new
+                                credit card</a> -->
+                        </div>
+                    </div>
+                    <div class="col">
+                        <a class="button1 btn" routerLink="/payment-form-checkout" routerLinkActive="activebutton"
+                            ariaCurrentWhenActive="page">Add a Credit Card</a>
+                    </div>
+                    <small class="border-info border m-3" *ngIf="selectedCard">
+                        Selected card - ************-{{ selectedCard.last_four_card_number }}
+                    </small>
+                </div>
+            </div>
         </div>
-    </div>
+        <br />
+
+        <div formGroupName="billingAddress">
+            <h3>Billing Address</h3>
+
+            <!-- SAME AS DELIVERY CHECK BOX -->
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="sameDelivery" [checked]="sameAsDelivery == true"
+                    (change)="clickedSameAsDelivery()" />
+                <label class="form-check-label" for="sameDelivery">
+                    Same as delivery?
+                </label>
+            </div>
+
+            <div id="billing" *ngIf="sameAsDelivery == false">
+                <div class="row">
+                    <div class="col">
+                        <!-- FIRST NAME -->
+                        <input id="bfname" class="form-control" type="text" placeholder="First Name"
+                            formControlName="billingFirstName" />
+                        <!-- ERROR MESSAGES -->
+                        <div *ngIf="
+              billingFirstName.invalid &&
+              (billingFirstName.dirty || billingFirstName.touched) &&
+              sameAsDelivery == false
+            " class="alert alert-danger">
+                            <small *ngIf="billingFirstName.errors?.['required']">
+                                First Name is required
+                            </small>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <!-- LAST NAME -->
+                        <input id="blname" class="form-control" type="text" placeholder="Last Name"
+                            formControlName="billingLastName" />
+
+                        <!-- ERROR MESSAGES -->
+                        <div *ngIf="
+              billingLastName.invalid &&
+              (billingLastName.dirty || billingLastName.touched)
+            " class="alert alert-danger">
+                            <small *ngIf="billingLastName.errors?.['required']">
+                                Last Name is required
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <input id="baddress1" class="form-control" type="text" placeholder="Street Address"
+                            formControlName="billingStreet1" />
+                        <div *ngIf="
+              billingStreet1.invalid &&
+              (billingStreet1.dirty || billingStreet1.touched)
+            " class="alert alert-danger">
+                            <small *ngIf="billingStreet1.errors?.['required']">
+                                Street is required
+                            </small>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <input id="baddress2" class="form-control" type="text" placeholder="Apt/Suite/Other (optional)"
+                            formControlName="billingStreet2" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <input id="bcity" class="form-control" type="text" placeholder="City"
+                            formControlName="billingCity" />
+                        <div *ngIf="
+              billingCity.invalid && (billingCity.dirty || billingCity.touched)
+            " class="alert alert-danger">
+                            <small *ngIf="billingCity.errors?.['required']">
+                                City is required
+                            </small>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <input id="bstate" class="form-control" type="text" placeholder="State"
+                            formControlName="billingState" />
+                        <div *ngIf="
+              billingState.invalid &&
+              (billingState.dirty || billingState.touched)
+            " class="alert alert-danger">
+                            <small *ngIf="billingState.errors?.['required']">
+                                State is required
+                            </small>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <input id="bzip" class="form-control" type="text" placeholder="Zip"
+                            formControlName="billingZip" />
+                        <div *ngIf="
+              billingZip.invalid && (billingZip.dirty || billingZip.touched)
+            " class="alert alert-danger">
+                            <small *ngIf="billingZip.errors?.['required']">
+                                Zip is required
+                            </small>
+                            <small *ngIf="billingZip.errors?.['pattern']">
+                                Zip has to be 5 or 9 digits. Ex. (94822) or (48222-1746)
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row end-0">
+            <div class="d-flex flex-row justify-content-end">
+                <button type="button" class="btn btn-danger me-3 button2" (click)="cancel()">Cancel</button>
+                <button type="submit" class="btn btn-primary button1" [disabled]="!checkoutForm.valid">
+                    Go to Confirm Order
+                </button>
+            </div>
+        </div>
+    </body>
 </form>
