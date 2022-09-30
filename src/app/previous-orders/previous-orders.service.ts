@@ -13,7 +13,7 @@ import { PREVIOUSORDERS } from "./mock-previous-orders";
 export class PreviousOrdersService {
 
   //url from inventory team api
-  private productUrl = "http://localhost:8080/api/orders";
+  private productUrl = "http://localhost:8080/api/order"; // OMS backend
   constructor(private http:HttpClient){}
 
   /**
