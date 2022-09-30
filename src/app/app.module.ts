@@ -32,6 +32,7 @@ import { OrderDetailsComponent } from './order-details/order-details.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 
 import {AddressFormComponent} from "./address-form/address-form.component";
+import { ConfirmOrderGuard } from './confirm-order/confirm-order.guard';
 
 
 @NgModule({
@@ -70,7 +71,7 @@ import {AddressFormComponent} from "./address-form/address-form.component";
       {path: 'login', component: LoginComponent},
       {path: 'categories', component: CategoriesComponent},
       {path: 'item-gird', component: ItemGirdComponent},
-      {path: 'confirm-order', component: ConfirmOrderComponent},
+      {path: 'confirm-order', component: ConfirmOrderComponent, canActivate: [AuthGuard, ConfirmOrderGuard]},
       {path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuard]},
       {path: '', pathMatch: 'full', redirectTo: 'home-page' },
       {path: '**', pathMatch: 'full', component: PageNotFoundComponent},

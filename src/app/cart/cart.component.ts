@@ -132,6 +132,9 @@ export class CartComponent implements OnInit,OnDestroy {
      this.diffInTaxAfter[index]=0;
   }
 
+  handleCheckOut(){
+    this.cartservice.shoppingCartArray=this.shoppingCartArray;
+  }
 
   ngOnInit() {
 
