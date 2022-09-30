@@ -24,6 +24,7 @@ import {UserService} from "../user.service";
 export class AddressFormComponent implements OnInit{
 
   user!: SocialUser;
+  localUser =  localStorage.getItem('user');
   port_number:number = 8080;
   // get_address_api:string = `http://localhost:${this.port_number}/api/address/getAddress/${this.user.id}`
   /*
@@ -82,15 +83,24 @@ export class AddressFormComponent implements OnInit{
 
     this.authService.authState.subscribe((user) => {
       this.user = user;
-      console.log(`THIS IS THE LOGIN LOG FROM ADDRESS FORM COMPONENT\n\n `,user);
-      this.http.get(`http://localhost:${this.port_number}/api/address/getAllAddresses`)
-        .pipe
-        (
-          map
-          (users =>
-            {
-              let index:number = 0;
-              console.log("\n\n in map");
+      // console.log(`THIS IS THE LOGIN LOG FROM ADDRESS FORM COMPONENT\n\n `,user);
+    });
+
+    if(this.user==null && this.localUser !=null)
+      {
+        this.user = JSON.parse(this.localUser);
+      }
+
+    // after user logs in, GET their info from the DB, and assign the result to various vars specified for storage
+    // and HTTP methods
+    this.http.get(`http://localhost:${this.port_number}/api/address/getAllAddresses`)
+      .pipe
+      (
+        map
+        (users =>
+          {
+            let index:number = 0;
+
 
               // @ts-ignore
               while (users[index] != undefined)
@@ -124,7 +134,6 @@ export class AddressFormComponent implements OnInit{
 
           )
         ).subscribe(console.log);
-    });
 
     // after user logs in, GET their info from the DB, and assign the result to various vars specified for storage
     // and HTTP methods
@@ -154,6 +163,7 @@ export class AddressFormComponent implements OnInit{
     this.ngOnInit(); // call to update the "Current User Address" html form
 
   }
+  
 
 
   onSubmitAdd(): void

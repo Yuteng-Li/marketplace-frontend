@@ -50,7 +50,21 @@ export class CreditCardComponent implements OnInit {
   removeCard(creditCardID:number,index:number,lastfour:String):void{
     if(confirm("Are you sure you want to delete this card ending in "+ lastfour)){
       this.creditCardService.deleteCard(creditCardID).subscribe();
-      this.credits.splice(index);
+      this.credits[index] = {
+        
+        credit_card_id:0,
+
+        user_id: -1,
+
+        cardholder_name: "",
+
+        last_four_card_number: "",
+
+        expiration_year: "",
+
+        expiration_month: ""
+      } 
+    
     }
   }
 }
