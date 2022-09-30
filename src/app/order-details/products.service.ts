@@ -8,10 +8,10 @@ import { Observable } from 'rxjs';
 export class ProductsService {
 
   //url from inventory team api
-  private productUrl = "http://localhost:8080/api/products";
+  private productUrl = "http://localhost:8080/api/products"; // Inventory Backend
   constructor(private http:HttpClient){}
 
   getProductsId(id: String) : Observable<any>{ 
-    return this.http.get<any>(`${this.productUrl}/getProducts/${id}`); 
+    return this.http.get<any>(`${this.productUrl}/get/${id}`); 
   }
 }
