@@ -12,6 +12,7 @@ import {forkJoin, map, mergeMap, Observable, throwError} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {SocialAuthService, SocialUser} from "@abacritt/angularx-social-login";
 import {UserService} from "../user.service";
+import {Router} from "@angular/router";
 
 
 
@@ -72,6 +73,7 @@ export class AddressFormComponent implements OnInit{
   );
 
   constructor(private fb: FormBuilder, private userService: UserService,
+              private router: Router,
               private http: HttpClient, private authService: SocialAuthService)
   {
   }
@@ -89,6 +91,7 @@ export class AddressFormComponent implements OnInit{
           map
           (users =>
             {
+              let found_flag = 0;
               let index:number = 0;
               console.log("\n\n in map");
 
@@ -99,23 +102,31 @@ export class AddressFormComponent implements OnInit{
                 // @ts-ignore
                 if (users[index].recipient_name === this.user.name)
                 {
+                  found_flag = 1;
                   break;
                 }
                 index+=1;
               }
+              if (found_flag ===1)
+              {
+                console.log("Logged user above");
+                // @ts-ignore
+                const found_user = users[index]; // index will now point to the correct user.
+                console.log(found_user.street);
+                this.address_id = found_user.address_id;
+                this.user_id = found_user.user_id;
+                this.zip = found_user.zip;
+                this.street = found_user.street;
+                this.street2 = found_user.street2;
+                this.state = found_user.state;
+                this.city = found_user.city;
+                return found_user;
+              }
+              else
+              {
+                // create the user.
+              }
 
-              console.log("Logged user above");
-              // @ts-ignore
-              const found_user = users[index]; // index will now point to the correct user.
-              console.log(found_user.street);
-              this.address_id = found_user.address_id;
-              this.user_id = found_user.user_id;
-              this.zip = found_user.zip;
-              this.street = found_user.street;
-              this.street2 = found_user.street2;
-              this.state = found_user.state;
-              this.city = found_user.city;
-              return found_user;
             }
           ),
           mergeMap
