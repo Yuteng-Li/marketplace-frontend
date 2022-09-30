@@ -21,6 +21,7 @@ export class CartService{
           this.tempIndex=i;
           this.existInCart=true;
           this.shoppingCartArray[i].itemQty+=1;
+          break;
         }
         else{
           this.existInCart=false;
@@ -39,6 +40,9 @@ export class CartService{
         };
         this.shoppingCartArray.push(this.cartItem);
       }      
+    }
+    emptyCart(): void{
+      this.shoppingCartArray = [];
     }
 
     

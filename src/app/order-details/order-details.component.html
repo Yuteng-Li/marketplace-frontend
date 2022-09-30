@@ -22,13 +22,13 @@ value="Previous Orders">Back to Order History</a>
               <th>Product Description</th>
               <th>Brand</th>
               <th>Category</th>
-              <th>Price</th>
+              <th>Price$</th>
               <th>Quantity</th>
 
             </tr>
             <tr *ngFor="let prod of orderData; let index=index">
               <td>{{this.prodInfo[index][0]?.prodName}}</td>
-              <td><img width="30%" height="30%" src="{{this.prodInfo[index][0]?.imgUrl}}"></td>
+              <td><img width="25%" height="25%" src="{{this.prodInfo[index][0]?.imgUrl}}"></td>
               <td>{{this.prodInfo[index][0]?.prodDesc}}</td>
               <td>{{this.prodInfo[index][0]?.brand}}</td>
               <td>{{this.prodInfo[index][0]?.category}}</td>
