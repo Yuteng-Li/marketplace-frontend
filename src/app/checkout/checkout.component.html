@@ -1,7 +1,7 @@
 <app-nav-bar></app-nav-bar>
 
-<form id="checkoutForm" class="col-lg-6 offset-lg-3 position-relative p-3 border border-info border-3 rounded bg-light" [formGroup]="checkoutForm"
-    (ngSubmit)="onSubmit()">
+<form id="checkoutForm" class="col-lg-6 offset-lg-3 position-relative p-3 border border-primary border-3 rounded bg-light"
+    [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
     <div formGroupName="deliveryAddress">
         <div class="row w-75">
             <h3 class="col">Delivery Address</h3>
@@ -11,7 +11,7 @@
                     <a ngbDropdownToggle class="btn btn-outline-primary" id="dropdownBasic1">
                         My Addresses
                     </a>
-                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1" >
+                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
                         <a ngbDropdownItem *ngFor="let address of userAddresses" (click)="autoFillAddress(address)">
                             {{ address.street }}
                         </a>
@@ -123,73 +123,24 @@
     </div>
     <br />
     <div formGroupName="payment">
+        <h3>Payment</h3>
         <div class="row w-75">
-            <h3 class="col">Payment</h3>
-            <!-- This is the dropdown menu for the users credit cards -->
             <div class="col" *ngIf="userCreditCards.length != 0">
                 <div ngbDropdown class="d-inline-block">
                     <a ngbDropdownToggle class="btn btn-outline-primary" id="dropdownBasic2">
                         My Credit Cards
                     </a>
-                    <div ngbDropdownMenu aria-labelledby="dropdownBasic2" >
-                        <a ngbDropdownItem *ngFor="let card of userCreditCards" (click)="autoFillCard(card)">
+                    <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
+                        <a ngbDropdownItem *ngFor="let card of userCreditCards" (click)="selectCard(card)">
                             ************-{{ card.last_four_card_number }}
                         </a>
+                        <div class="dropdown-divider"></div>
+                        <a ngbDropdownItem routingLink="/payment-form">Add a new credit card</a>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <!-- CARD HOLDER NAME -->
-        <input id="chname" class="form-control" type="text" placeholder="Cardholder Name"
-            formControlName="cardholderName" />
-
-        <!-- ERROR MESSAGES FOR FRONTEND VALIDATION -->
-        <div *ngIf="
-        cardholderName.invalid &&
-        (cardholderName.dirty || cardholderName.touched)
-      " class="alert alert-danger">
-            <small *ngIf="cardholderName.errors?.['required']">
-                Name is required
-            </small>
-        </div>
-
-        <!-- Card -->
-        <input id="cnumber" class="form-control" type="text" placeholder="Card Number" formControlName="cardNumber"
-            required />
-
-        <!-- ERROR MESSAGES FOR FRONTEND VALIDATION -->
-        <div *ngIf="cardNumber.invalid && (cardNumber.dirty || cardNumber.touched)" class="alert alert-danger">
-            <small *ngIf="cardNumber.errors?.['required']">
-                Card Number is required
-            </small>
-            <small *ngIf="cardNumber.errors?.['pattern']">
-                Card number can only include numbers and must be of length 16.
-            </small>
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <input id="cexp" class="form-control" type="text" placeholder="Expiration MM/YY"
-                    formControlName="cardExpireDate" />
-                <div *ngIf="
-            cardExpireDate.invalid &&
-            (cardExpireDate.dirty || cardExpireDate.touched)
-          " class="alert alert-danger">
-                    <small *ngIf="cardExpireDate.errors?.['required']">
-                        Expiration is required
-                    </small>
-                    <small *ngIf="cardExpireDate.errors?.['pattern']">
-                        Must be in format MM/YY
-                    </small>
-                </div>
-            </div>
-            <div class="col">
-                <input id="cvv" class="form-control" type="text" placeholder="CVV" formControlName="cardCvv" />
-                <div *ngIf="cardCvv.invalid && (cardCvv.dirty || cardCvv.touched)" class="alert alert-danger">
-                    <small *ngIf="cardCvv.errors?.['required']"> CVV is required </small>
-                    <small *ngIf="cardCvv.errors?.['pattern']">Must be 3 numbers</small>
-                </div>
+                <small class="border-info border m-3" *ngIf="selectedCard">
+                    Selected card - ************-{{ selectedCard.last_four_card_number }}
+                </small>
             </div>
         </div>
     </div>
