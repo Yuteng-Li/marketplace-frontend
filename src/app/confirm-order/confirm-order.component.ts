@@ -11,8 +11,8 @@ import { User } from '../shared/User';
 import { CreditCardService } from '../credit-card/credit-card.component.service'
 import { CreditCard } from '../shared/CreditCard';
 import { AddressService } from '../checkout/address.service';
-import { Address } from '../shared/Address';
 import { CheckoutDataService } from '../checkout-data.service';
+import { Address } from '../shared/Address';
 
 @Component({
   selector: 'app-confirm-order',
