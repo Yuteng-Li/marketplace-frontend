@@ -60,7 +60,7 @@ export class PaymentFormComponent implements OnInit {
     this.newCard.expiration_year = payment.exp.slice(-2);
 
     this.postCard(this.newCard);
-    this.backToCreditCards();
+    this.paymentSuccess();
 
   }
 
@@ -71,8 +71,8 @@ export class PaymentFormComponent implements OnInit {
   }
 
   /*redirect back to credit card page*/
-  backToCreditCards(){
-    this.router.navigate(['/credit-card']);
+  paymentSuccess(){
+    this.router.navigate(['/payment-form/success']);
   }
 
 }
