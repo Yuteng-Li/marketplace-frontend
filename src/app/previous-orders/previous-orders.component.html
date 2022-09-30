@@ -18,7 +18,7 @@
 
 
             <tr class="thh">
-              <th>OrderID</th>
+              <th>Order Details</th>
               <!--<th>UserID</th>-->
               <th>Address</th>
               <th>Price</th>
@@ -33,7 +33,7 @@
 
             <tr class="shadow" *ngFor="let order of previousOrders; let index=index">
               <!-- for template syntax anything inside the brackets {{}} is considered an expression, and will try to solve it by looking in the component logic -->
-              <td class="order-details"><div class="refresh btn-nisum rounded" [routerLink]="['/order-details', order.orderID]">Details</div>
+              <td class="order-details"><div class="btn-redux rounded refresh" [routerLink]="['/order-details', order.orderID]">More Info</div>
               </td>
               <!---div *ngFor="let addy of addresses; let index=index">--->
               <!---{{getAddys(order.addressID)}}--->
