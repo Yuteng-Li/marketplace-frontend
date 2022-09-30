@@ -15,10 +15,10 @@ import { Subscription } from 'rxjs';
 })
 export class ItemGirdComponent implements OnInit {
 
-  product : Product[] = [];
-  Filters: String[]=[];
+  product: Product[] = [];
+  Filters: String[] = [];
   user!: SocialUser;
-  localUser =  localStorage.getItem('user');
+  localUser = localStorage.getItem('user');
   setMinPrice = 0.00;
   setMaxPrice = 250.00;
   searchProduct: Product[] = [];
@@ -26,140 +26,129 @@ export class ItemGirdComponent implements OnInit {
   errorMessage: string = '';
   itemGridCartProdcut = this.ItemService.itemGridCatProduct;
 
-  private _listFilter: string ='';
-  get listFilter(): string{
-      return this._listFilter;
+  private _listFilter: string = '';
+  get listFilter(): string {
+    return this._listFilter;
   }
-  set listFilter(value: string){
-      this._listFilter = value;
-      console.log('In setter: ' + value);
-      this.filterBy();
-      this.searchProduct = this.performFilter(value);
+  set listFilter(value: string) {
+    this._listFilter = value;
+    console.log('In setter: ' + value);
+    this.filterBy();
+    this.searchProduct = this.performFilter(value);
   }
 
   performFilter(filterBy: string): Product[] {
     filterBy = filterBy.toLocaleLowerCase();
-    return this.searchProduct.filter((products: Product) => 
-    products.prod_name.toLocaleLowerCase().includes(filterBy) ||
-    products.prod_description.toLocaleLowerCase().includes(filterBy) || 
-    products.brand.toLocaleLowerCase().includes(filterBy) || 
-    products.category.toLocaleLowerCase().includes(filterBy));
+    return this.searchProduct.filter((products: Product) =>
+      products.prod_name.toLocaleLowerCase().includes(filterBy) ||
+      products.prod_description.toLocaleLowerCase().includes(filterBy) ||
+      products.brand.toLocaleLowerCase().includes(filterBy) ||
+      products.category.toLocaleLowerCase().includes(filterBy));
   }
 
   savedProducCategories!: string[];
 
 
-  constructor(private ItemService:ItemService, private authService: SocialAuthService, private route: ActivatedRoute,
-    private router: Router, public cartService:CartService) { 
+  constructor(private ItemService: ItemService, private authService: SocialAuthService, private route: ActivatedRoute,
+    private router: Router, public cartService: CartService) {
   }
 
-  
-  
+
+
 
   ngOnInit() {
     //These API calls are temporary as the DBs are still changing so these will
     //eventually be changed but right now if you use the inventory db it should work until they change it
     this.authService.authState.subscribe((user) => {
-      if(user==null && this.localUser !=null)
-      {
+      if (user == null && this.localUser != null) {
         this.user = JSON.parse(this.localUser);
-      }else
-      {
-        this.user=user;
+      } else {
+        this.user = user;
       }
     });
 
-    console.log("dat length: "+this.itemGridCartProdcut.length);
-    if(this.itemGridCartProdcut.length>0){
+    console.log("dat length: " + this.itemGridCartProdcut.length);
+    if (this.itemGridCartProdcut.length > 0) {
       console.log("item filter work and length >0");
-      this.product=this.itemGridCartProdcut;
-      this.searchProduct=this.product;
+      this.product = this.itemGridCartProdcut;
+      this.searchProduct = this.product;
       this.gatherCategories(this.product);
     }
-    else{ this.DisplayAll();}
-  
+    else { this.DisplayAll(); }
+
   }
 
-  unDoneCatergoryArray(){
-    this.itemGridCartProdcut=[];
+  unDoneCatergoryArray() {
+    this.itemGridCartProdcut = [];
     this.DisplayAll();
   }
 
-  displayByID(id:string){
-      this.ItemService.getProductById(id).subscribe(product => {
-        this.product.push(product.product);
-      })
+  displayByID(id: string) {
+    this.ItemService.getProductById(id).subscribe(product => {
+      this.product.push(product.product);
+    })
   }
 
-  DisplayAll(){
-    //maybe have to check if product already have stuff in there
-    // do like a if (product.length>0) check. so we do not 
-    //overwrite the fitler product already
+  DisplayAll() {
     this.ItemService.getItems().subscribe(product => {
-      this.product=product;
+      this.product = product;
       this.searchProduct = this.product;
       this.gatherCategories(this.product);
     })
   }
 
-  gatherCategories(product:any[]){
+  gatherCategories(product: any[]) {
     this.savedProducCategories = [...new Set(product.map(item => item.category))]
   }
-  getByQuery(){
+  getByQuery() {
     let queryParams = new HttpParams();
 
     this.route.queryParamMap
       .subscribe(paramMap => {
         paramMap.keys.forEach(key => {
           let value = paramMap.get(key);
-          if(value != null)
-          queryParams = queryParams.append(key,value)
+          if (value != null)
+            queryParams = queryParams.append(key, value)
         });
       }
-    );
+      );
 
     this.ItemService.getProducts(queryParams).subscribe(product => {
-      this.product=product;
+      this.product = product;
     })
   }
 
-  addToFilter(event:any,Category:string){
-    if(event.target.checked)
-    {
+  addToFilter(event: any, Category: string) {
+    if (event.target.checked) {
       this.Filters.push(Category);
-    }else
-    {
+    } else {
       this.Filters = this.Filters.filter(values => values !== Category)
     }
   }
 
-  setMin(minPrice:number){
-    if(minPrice < 0 || isNaN(minPrice))
-    {
+  setMin(minPrice: number) {
+    if (minPrice < 0 || isNaN(minPrice)) {
       this.setMinPrice = 0.00;
-    }else{
+    } else {
       this.setMinPrice = minPrice;
     }
   }
 
-  setMax(maxPrice:number){
-    if(maxPrice <= 0 || isNaN(maxPrice))
-    {
-      this.setMaxPrice= 250.00
-    }else{
+  setMax(maxPrice: number) {
+    if (maxPrice <= 0 || isNaN(maxPrice)) {
+      this.setMaxPrice = 250.00
+    } else {
       this.setMaxPrice = maxPrice;
     }
   }
 
 
-  filterBy()
-  {
-    if(this.Filters.length==0 )
-    {
-      this.searchProduct=this.product;
+  filterBy() {
+    if (this.Filters.length == 0) {
+      this.searchProduct = this.product;
     }
-    else{
-      this.searchProduct= this.product.filter((obj)=> {
+    else {
+      this.searchProduct = this.product.filter((obj) => {
         return this.Filters.includes(obj.category);
       })
     }
@@ -170,5 +159,5 @@ export class ItemGirdComponent implements OnInit {
 
     this.searchProduct = this.performFilter(this._listFilter)
   }
-  
+
 }

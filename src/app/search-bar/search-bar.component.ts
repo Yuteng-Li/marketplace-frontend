@@ -1,8 +1,8 @@
-import { Component, OnDestroy, OnInit, Pipe } from '@angular/core';
+import { Component, OnDestroy, OnInit} from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Product } from '../shared/Product';
-import { Item } from '../item';
 import { ItemService } from '../item.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -12,14 +12,14 @@ import { ItemService } from '../item.service';
 })
 export class SearchBarComponent implements OnInit, OnDestroy {
   data: any;
-  // items: Item[] = [];
   product: Product[] = [];
   filteredProducts: Product[] = [];
   errorMessage: string = '';
   sub!: Subscription
+  searchedItem: Product[] = [];
+  itemGridCatProduct: Product[] = [];
 
-  // Injecting the Item Service
-  constructor(private ItemService: ItemService) { }
+  constructor(private itemService: ItemService, private router: Router) { }
 
   private _filteredString: string = '';
   get filteredString(): string {
@@ -31,19 +31,17 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     this.filteredProducts = this.performFilter(value);
   }
 
-  // Method will filter our list of items to only those with a item name that includes the list filter string
-  // If it is empty it will return all items 
-
-  // Filter through the chars set in the search bar 
   performFilter(filterBy: string): Product[] {
     filterBy = filterBy.toLocaleLowerCase();
-    return this.product.filter((products: Product) => 
-    products.prod_name.toLocaleLowerCase().includes(filterBy));
+    return this.product.filter((products: Product) =>
+      products.prod_name.toLocaleLowerCase().includes(filterBy) ||
+      products.prod_description.toLocaleLowerCase().includes(filterBy) ||
+      products.brand.toLocaleLowerCase().includes(filterBy) ||
+      products.category.toLocaleLowerCase().includes(filterBy));
   }
 
-  // Need to create a lifecycle hook to call to perform component initialization
   ngOnInit(): void {
-    this.sub = this.ItemService.getItems().subscribe({
+    this.sub = this.itemService.getItems().subscribe({
       next: product => {
         this.product = product;
         this.filteredProducts = this.product;
@@ -51,27 +49,36 @@ export class SearchBarComponent implements OnInit, OnDestroy {
       },
       error: err => this.errorMessage = err
     });
-    
+
+  }
+
+  private _listFilter: string = '';
+  get listFilter(): string {
+    return this._listFilter;
+  }
+  set listFilter(value: string) {
+    this._listFilter = value;
+    console.log('In setter: ' + value);
   }
 
   ngOnDestroy(): void {
-      this.sub.unsubscribe();
+    this.sub.unsubscribe();
   }
 
-  // Need this method to route the button to the item grid page
-  onClick(): void {
-    console.log('The search icon was clicked')
+  goToSearchedItem() {
+    this.itemService.getProduct()
+      .subscribe(productList => {
+        this.itemGridCatProduct = productList.filter(products =>
+          products.prod_description.toLocaleLowerCase().includes(this.listFilter) ||
+          products.prod_name.toLocaleLowerCase().includes(this.listFilter) ||
+          products.brand.toLocaleLowerCase().includes(this.listFilter) ||
+          products.category.toLocaleLowerCase().includes(this.listFilter)
+        );
+        this.itemService.itemGridCatProduct = this.itemGridCatProduct;
+        if (this.itemService.itemGridCatProduct.length > 0) { this.router.navigate(['/item-gird']); }
+        else { alert("No items found") }
+      })
 
   }
-
-
-  // getItemsSearch(name: any){
-  //   const keyword = name.target.value;
-  //   const search = this.ItemService.getSearchProductName().then(response => {
-  //     this.data = response;
-  //     response
-  //     console.log(this.data)
-  //   })
-  // }
 
 }

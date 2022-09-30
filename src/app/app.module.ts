@@ -28,9 +28,11 @@ import { LoginComponent } from './login/login.component';
 
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ConfirmOrderComponent } from './confirm-order/confirm-order.component';
+import { OrderDetailsComponent } from './order-details/order-details.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 
 import {AddressFormComponent} from "./address-form/address-form.component";
+import { ConfirmOrderGuard } from './confirm-order/confirm-order.guard';
 
 
 @NgModule({
@@ -49,6 +51,7 @@ import {AddressFormComponent} from "./address-form/address-form.component";
     SearchBarComponent,
     NavBarComponent,
     ConfirmOrderComponent,
+    OrderDetailsComponent,
     CheckoutComponent
   ],
 
@@ -59,6 +62,7 @@ import {AddressFormComponent} from "./address-form/address-form.component";
     NgbModule,
     RouterModule.forRoot([
       {path: 'home-page', component: HomePageComponent },
+      {path: 'order-details/:id', component:OrderDetailsComponent},
       {path: 'previous-orders', component: PreviousOrdersComponent, canActivate: [AuthGuard]},
       {path: 'cart', component: CartComponent, canActivate: [AuthGuard]},
       {path: 'credit-card', component: CreditCardComponent, canActivate: [AuthGuard]},
@@ -67,7 +71,7 @@ import {AddressFormComponent} from "./address-form/address-form.component";
       {path: 'login', component: LoginComponent},
       {path: 'categories', component: CategoriesComponent},
       {path: 'item-gird', component: ItemGirdComponent},
-      {path: 'confirm-order', component: ConfirmOrderComponent},
+      {path: 'confirm-order', component: ConfirmOrderComponent, canActivate: [AuthGuard, ConfirmOrderGuard]},
       {path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuard]},
       {path: '', pathMatch: 'full', redirectTo: 'home-page' },
       {path: '**', pathMatch: 'full', component: PageNotFoundComponent},

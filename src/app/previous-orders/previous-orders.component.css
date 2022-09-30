@@ -11,7 +11,7 @@
 h1 {
   font-family: futura-pt, sans-serif;
   color: #000c68;
-  padding-top: 50px;
+  padding-top: 30px;
   padding-bottom: 20px;
 }
 
@@ -33,6 +33,7 @@ table {
     width: 100%;
     border-radius: 15px;
     text-align: center;
+
 }
 
 th {
@@ -42,7 +43,7 @@ th {
   background-image: url("/assets/img4.png");
   background-size: 1000%;
   background-position: bottom right;
-  padding: 0px 20px 0px 20px;
+  padding: .5% 20px .5% 20px;
 }
 
 table .shadow:hover {
@@ -60,11 +61,34 @@ tr:nth-child(even) {
   color: red;
 }
 
+.refresh:hover{
+  color: cyan;
+}
 
+
+
+.order-details {
+  padding-left: 1%;
+  padding-right: 1%;
+  padding-top: 2%;
+  padding-bottom: 2%;
+}
 
 .btn-nisum {
   background: #00cfff;
   background: linear-gradient(to bottom, #6e12ff, #0019ff, #00cfff);
+  color: #fff;
+  border-radius: 0%;
+  border: none;
+  font-family: 'Corbel', Verdana, "Bitstream Vera Sans", sans-serif;
+  
+}
+
+
+
+.btn-redux {
+  background: blue;
+  background: linear-gradient(to bottom, darkblue, darkblue, blue, blue);
   color: #fff;
   border-radius: 0%;
   border: none;
