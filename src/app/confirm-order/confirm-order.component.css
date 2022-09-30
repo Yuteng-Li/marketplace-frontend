@@ -25,3 +25,12 @@
     margin-left: 50%;
 }
 
+
+.table-img{
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 50%;
+    width: 50%;
+}
+
