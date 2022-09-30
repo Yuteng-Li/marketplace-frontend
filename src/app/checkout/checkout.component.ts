@@ -8,8 +8,6 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { SocialUser } from '@abacritt/angularx-social-login';
-
-import { Address } from '../shared/Address';
 import { AddressService } from './address.service';
 import { UserService } from '../user.service';
 import { Observable, of } from 'rxjs';
@@ -19,6 +17,7 @@ import { CreditCardService } from '../credit-card/credit-card.component.service'
 import { CheckoutDataService } from '../checkout-data.service';
 import { Router } from '@angular/router';
 import { PaymentService } from '../payment-form/payment-form-component.service';
+import { Address } from '../shared/Address';
 
 @Component({
   selector: 'app-checkout',

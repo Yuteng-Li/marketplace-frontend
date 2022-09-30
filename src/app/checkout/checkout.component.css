@@ -2,3 +2,6 @@ input{
    margin-bottom: 5px;
 }
 
+.form.border-info{
+   border-color: linear-gradient(60deg, #8b41ff, #00cfff, #0019ff);
+}
