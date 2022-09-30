@@ -11,7 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthGuard } from './auth.guard';
 
 import { AppComponent } from './app.component';
-import { CartComponent } from 'src/app/cart/cart.component';
+import { CartComponent } from './cart/cart.component';
 import { PreviousOrdersComponent } from './previous-orders/previous-orders.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HomePageComponent } from './home-page/home-page.component';
