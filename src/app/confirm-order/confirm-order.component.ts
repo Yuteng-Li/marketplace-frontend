@@ -47,7 +47,7 @@ export class ConfirmOrderComponent implements OnInit {
         
         /*Get Items from Cart API*/
         //this.cartService.getCartbyId(UserID);
-        this.cartItems = this.cartService.shoppingCartArray.filter((item)=>{item.itemQty != 0});
+        this.cartItems = this.cartService.shoppingCartArray.filter((item)=>{return item.itemQty>0});
         this.setTotal();
         /*Get Card info from CreditCard API*/
         this.checkoutService.currentCreditCard.subscribe((card: CreditCard) => this.card = card);
@@ -71,13 +71,11 @@ export class ConfirmOrderComponent implements OnInit {
     this.orderItems = [];
     //do a if check here to make sure item is not 0
     this.cartItems.forEach((item: ShoppingCart) => {
-      if (item.itemQty!=0){
       let orderItem = {
         quantity: item.itemQty,
         upc: item.itemUpc
       };
       this.orderItems.push(orderItem);
-    }
     });
     //create order to post
     this.order = { 
@@ -103,9 +101,9 @@ export class ConfirmOrderComponent implements OnInit {
     this.cartItems.forEach((item : ShoppingCart) => {
       this.numItems += item.itemQty;
       this.cartSubtotal += (item.itemPrice * item.itemQty)
-      this.totalTax +=  this.cartSubtotal * this.taxRate;
-      this.totalPrice = this.cartSubtotal + this.totalTax;
     });
+    this.totalTax +=  this.cartSubtotal * this.taxRate;
+    this.totalPrice = this.cartSubtotal + this.totalTax;
   }
 
 
