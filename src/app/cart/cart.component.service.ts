@@ -40,6 +40,9 @@ export class CartService{
         this.shoppingCartArray.push(this.cartItem);
       }      
     }
+    emptyCart(): void{
+      this.shoppingCartArray = [];
+    }
 
     
 

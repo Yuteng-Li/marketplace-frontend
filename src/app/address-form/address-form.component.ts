@@ -11,6 +11,7 @@ import {
 import {forkJoin, map, mergeMap, Observable, throwError} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {SocialAuthService, SocialUser} from "@abacritt/angularx-social-login";
+import {UserService} from "../user.service";
 
 
 
@@ -23,6 +24,7 @@ import {SocialAuthService, SocialUser} from "@abacritt/angularx-social-login";
 export class AddressFormComponent implements OnInit{
 
   user!: SocialUser;
+  localUser =  localStorage.getItem('user');
   port_number:number = 8080;
   // get_address_api:string = `http://localhost:${this.port_number}/api/address/getAddress/${this.user.id}`
   /*
@@ -65,14 +67,17 @@ export class AddressFormComponent implements OnInit{
       city: ['', [Validators.required, Validators.pattern(this.city_pattern)] ],
       state: ['', [  Validators.required, Validators.pattern(this.state_pattern)  ]],
       zip: ['', [Validators.required, Validators.pattern(this.zip_pattern)]  ],
-      is_shipping: ['true'],
-      is_billing: ['true'],
+      is_shipping: ['false'],
+      is_billing: ['false'],
     }
   );
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private authService: SocialAuthService)
+  constructor(private fb: FormBuilder, private userService: UserService,
+              private http: HttpClient, private authService: SocialAuthService)
   {
   }
+
+
 
   ngOnInit(): void {
 
@@ -80,6 +85,11 @@ export class AddressFormComponent implements OnInit{
       this.user = user;
       // console.log(`THIS IS THE LOGIN LOG FROM ADDRESS FORM COMPONENT\n\n `,user);
     });
+
+    if(this.user==null && this.localUser !=null)
+      {
+        this.user = JSON.parse(this.localUser);
+      }
 
     // after user logs in, GET their info from the DB, and assign the result to various vars specified for storage
     // and HTTP methods
@@ -92,37 +102,42 @@ export class AddressFormComponent implements OnInit{
             let index:number = 0;
 
 
-            // @ts-ignore
-            while (users[index] != undefined)
-            {
               // @ts-ignore
-              if (users[index].recipient_name === this.user.name)
+              while (users[index] != undefined)
               {
+                console.log("\nin the while loop \n");
+                // @ts-ignore
+                if (users[index].recipient_name === this.user.name)
+                {
                   break;
+                }
+                index+=1;
               }
-              index+=1;
+
+              console.log("Logged user above");
+              // @ts-ignore
+              const found_user = users[index]; // index will now point to the correct user.
+              console.log(found_user.street);
+              this.address_id = found_user.address_id;
+              this.user_id = found_user.user_id;
+              this.zip = found_user.zip;
+              this.street = found_user.street;
+              this.street2 = found_user.street2;
+              this.state = found_user.state;
+              this.city = found_user.city;
+              return found_user;
             }
+          ),
+          mergeMap
+          (user =>
+            this.http.get(`http://localhost:${this.port_number}/api/address/getAddress/${this.address_id}`)
 
-            console.log("Logged user above");
-            // @ts-ignore
-            const found_user = users[index]; // index will now point to the correct user.
-            console.log(found_user.street);
-            this.address_id = found_user.address_id;
-            this.user_id = found_user.user_id;
-            this.zip = found_user.zip;
-            this.street = found_user.street;
-            this.street2 = found_user.street2;
-            this.state = found_user.state;
-            this.city = found_user.city;
-            return found_user;
-          }
-        ),
-        mergeMap
-        (user =>
-          this.http.get(`http://localhost:${this.port_number}/api/address/getAddress/${this.address_id}`)
+          )
+        ).subscribe(console.log);
 
-        )
-      ).subscribe(console.log);
+    // after user logs in, GET their info from the DB, and assign the result to various vars specified for storage
+    // and HTTP methods
+
     this.recipient_name = this.user.name;
   }
 
@@ -148,6 +163,7 @@ export class AddressFormComponent implements OnInit{
     this.ngOnInit(); // call to update the "Current User Address" html form
 
   }
+  
 
 
   onSubmitAdd(): void

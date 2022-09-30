@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { filter, Observable } from 'rxjs';
 import { Address } from '../shared/Address';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -19,6 +20,10 @@ export class AddressService {
   getById(id: Number): Observable<Address>{
     return this.http.get<Address>(this.baseUrl + id)
   };
+
+  createAddress(address: Address): Observable<Address>{
+    return this.http.post<Address>(this.baseUrl + "createAddress", address)
+  }
 
   
 }

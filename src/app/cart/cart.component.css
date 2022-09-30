@@ -4,6 +4,16 @@
     text-align: center;
 }
 
+.btn-nisum {
+
+    background: #00cfff;
+    background: linear-gradient(to bottom, #6e12ff, #0019ff, #00cfff);
+    color: #fff;
+    border-radius: 0%;
+    border: none;
+    font-family: 'Corbel', Verdana, "Bitstream Vera Sans", sans-serif;
+  }
+
 .table{
     table-layout: fixed;
     box-shadow: 1px 1px 1px #a9a7a7;
@@ -17,6 +27,18 @@
 .table-margin2{
     margin-right: 160px; 
     margin-left: 50%;
+}
+
+.table-img {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    max-width:230px;
+    max-height:95px;
+    width: auto;
+    height: auto;
+    display:block; 
+    margin:0 auto;
 }
 
 .rowbg {

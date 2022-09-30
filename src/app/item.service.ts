@@ -8,8 +8,6 @@ import { Product } from './shared/Product';
   providedIn: 'root'
 })
 export class ItemService {
-  //change to an actual server when that is running
-  //Needed to change my localhost server
   private baseUrl = 'http://localhost:8081/api/products';
 
   public itemGridCatProduct:Product[]=[];
@@ -18,7 +16,6 @@ export class ItemService {
 
   getItems(): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.baseUrl}/fetchAllItems`).pipe(
-      //tap(data => console.log('Product[] Observable', JSON.stringify(data))),
       catchError(this.handleError)
     );
   }
