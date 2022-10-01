@@ -1,7 +1,4 @@
-import { Injectable } from "@angular/core";
-import{ HttpClient} from '@angular/common/http'
-import {Observable, tap,map } from "rxjs";
-import{Response} from "./cart.component.reponse"
+import { Injectable } from "@angular/core";      
 import { ShoppingCart } from "./cart.component.shopcartmodel";
 import { Product } from "../shared/Product";
 
@@ -21,6 +18,7 @@ export class CartService{
           this.tempIndex=i;
           this.existInCart=true;
           this.shoppingCartArray[i].itemQty+=1;
+          alert("add to cart successfully")
           break;
         }
         else{
@@ -39,20 +37,11 @@ export class CartService{
           itemQty:1
         };
         this.shoppingCartArray.push(this.cartItem);
+        alert("add to cart successfully")
       }      
     }
     emptyCart(): void{
       this.shoppingCartArray = [];
     }
-
-    
-
-    //url from inventory team api
-    // private baseUrl = "http://localhost:8081/api/products/get/";
-    // constructor(private http:HttpClient){}
-
-  // getProdByUpc(upc:string):Observable<Response>{
-  //   return this.http.get<Response>(this.baseUrl+upc);
-  // }
 
 }
