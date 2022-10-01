@@ -1,9 +1,9 @@
 import { SocialUser, SocialAuthService } from '@abacritt/angularx-social-login';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CreditCardService } from 'src/app/credit-card/credit-card.component.service';
-import { PaymentService } from 'src/app/payment-form/payment-form-component.service';
-import { CreditCard } from 'src/app/shared/CreditCard';
+import { CreditCardService } from 'app/credit-card/credit-card.component.service';
+import { PaymentService } from 'app/payment-form/payment-form-component.service';
+import { CreditCard } from 'app/shared/CreditCard';
 
 @Component({
   selector: 'app-payment-form-checkout',
