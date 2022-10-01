@@ -13,6 +13,8 @@ import {HttpClient} from "@angular/common/http";
 import {SocialAuthService, SocialUser} from "@abacritt/angularx-social-login";
 import {UserService} from "../user.service";
 import {Router} from "@angular/router";
+import {User} from "../shared/User";
+import {Address} from "../shared/Address";
 
 
 
@@ -113,6 +115,7 @@ export class AddressFormComponent implements OnInit{
                 // @ts-ignore
                 const found_user = users[index]; // index will now point to the correct user.
                 console.log(found_user.street);
+                this.recipient_name = found_user.recipient_name;
                 this.address_id = found_user.address_id;
                 this.user_id = found_user.user_id;
                 this.zip = found_user.zip;
@@ -124,14 +127,40 @@ export class AddressFormComponent implements OnInit{
               }
               else
               {
-                // create the user.
+                // console.log("\t\t NEED TO MAKE USER \n");
+                // let to_create_user:User = {first_name:this.user.firstName, last_name:this.user.lastName, user_id:0, email:this.user.email, user_password:'1233333', phone:'5551221'};
+                // console.log(to_create_user);
+                // this.http.post(`http://localhost:${this.port_number}/api/user/createUser`,to_create_user).subscribe();
+                // // create the user.
+                console.log("\t\t need to make template addressss");
+                let user1!:User;
+                this.userService.getUsersByEmail(this.user.email).subscribe
+                (
+                  uid =>
+                  {
+                    user1=uid;
+                    console.log('\t\t\t user 1 is ', user1);
+                    let template_address:Address = {recipient_name:this.user.name, city:"EDIT INFO", zip:"00000",
+                      state:"XX", street:"EDIT INFO", is_billing:false, is_shipping:false, street2:"EDIT INFO",
+                      address_id:0,user_id:user1.user_id};
+                    console.log('\t\t about to post the createAddress call');
+                    this.http.post(`http://localhost:${this.port_number}/api/address/createAddress`,template_address).subscribe(console.log);
+                  }
+
+                );
+                // console.log('\t\t\t user 1 is ', user1);
+                // let template_address:Address = {recipient_name:this.user.name, city:"EDIT INFO", zip:"00000",
+                //   state:"XX", street:"EDIT INFO", is_billing:false, is_shipping:false, street2:"EDIT INFO",
+                //   address_id:0,user_id:user1.user_id};
+                // console.log('\t\t about to post the createAddress call');
+                // this.http.post(`http://localhost:${this.port_number}/api/address/createAddress`,template_address).subscribe(console.log);
               }
 
             }
           ),
           mergeMap
           (user =>
-            this.http.get(`http://localhost:${this.port_number}/api/address/getAddress/${this.address_id}`)
+            this.http.get(`http://localhost:${this.port_number}/api/address/getAllAddress`)
 
           )
         ).subscribe(console.log);
