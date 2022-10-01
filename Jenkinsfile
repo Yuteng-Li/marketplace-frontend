@@ -7,7 +7,7 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'yuteng-dockerhub-cred', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     sh """
                     docker login --username $USERNAME --password $PASSWORD
-                    docker build -t $USERNAME/marketplace-frontend:${env.BUILD_NUMBER} .
+                    docker build -t $USERNAME/marketplace-frontend:${env.BUILD_NUMBER} -t latest .
                     docker push $USERNAME/marketplace-frontend:${env.BUILD_NUMBER}
                     docker image prune -f
                     """
