@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: marketplace-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: marketplace-frontend
+  template:
+    metadata:
+      labels:
+        app: marketplace-frontend
+    spec:
+      containers:
+      - name: marketplace-frontend
+        image: salileoss/marketplace-frontend
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        
+
+
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: marketplace-frontend
+#   labels:
+#     app: marketplace-frontend
+# spec:
+#   type: LoadBalancer
+#   ports:
+#   - port: 8080
+#     targetPort: 8080
+#   selector:
+#     app:marketplace-frontend
+

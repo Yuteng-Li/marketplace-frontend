@@ -15,10 +15,22 @@ pipeline {
                 echo '========== Continuous Integration ends here =========='
             }
         }
+        stage('Deploy to Kubernetes') {
+            steps {
+                echo '========== Continuous Deployment begins here =========='
+                    sh """
+                    kubectl create namespace demo-ascend-marketplace-frontend --dry-run=client -o yaml
+                    kubectl apply --namespace demo-ascend-marketplace-frontend -f 'deployment.yaml' --validate=false
+                    sleep 30
+                    kubectl get all --namespace demo-ascend-marketplace-frontend
+                    """
+                echo '========== Continuous Deployment ends here =========='
+            }
+        }
     }
         post {
             always {
-                echo 'Cleaning ws'
+                echo 'Cleaning workspace'
                 cleanWs()
             }
         }
