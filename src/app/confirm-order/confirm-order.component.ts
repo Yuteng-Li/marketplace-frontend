@@ -3,7 +3,7 @@ import { CartService } from '../cart/cart.component.service';
 import { ShoppingCart } from '../cart/cart.component.shopcartmodel';
 import { OrderService } from './order.service';
 import { Router } from '@angular/router';
-import { Order, OrderItem } from '../shared/Order';
+import { BackEndCart, Order, OrderItem } from '../shared/Order';
 import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { SocialUser } from '@abacritt/angularx-social-login';
 import { UserService } from '../user.service';
@@ -21,13 +21,20 @@ import { Address } from '../shared/Address';
 })
 export class ConfirmOrderComponent implements OnInit {
   cartItems!: ShoppingCart[];
-  total: number = 0;
+  totalTax: number = 0;
+  cartSubtotal:number = 0;
+  totalPrice: number = 0;
+  numItems: number = 0;
   order!: Order;
   user!: User;
   card!: CreditCard;
   address!: Address;
   billing!: Address;
   orderItems!: OrderItem[];
+  taxRate:number=0.1;
+  itemToCartBackEnd!:BackEndCart[];
+
+
   constructor(private cartService: CartService, private orderService: OrderService,
       private router: Router, private authService: SocialAuthService,
       private userService : UserService, private cardService : CreditCardService,
@@ -43,7 +50,7 @@ export class ConfirmOrderComponent implements OnInit {
         
         /*Get Items from Cart API*/
         //this.cartService.getCartbyId(UserID);
-        this.cartItems = this.cartService.shoppingCartArray;
+        this.cartItems = this.cartService.shoppingCartArray.filter((item)=>{return item.itemQty>0});
         this.setTotal();
         /*Get Card info from CreditCard API*/
         this.checkoutService.currentCreditCard.subscribe((card: CreditCard) => this.card = card);
@@ -60,27 +67,42 @@ export class ConfirmOrderComponent implements OnInit {
       this.user = {first_name: "a", last_name: "b", email: "email", user_id: 13, user_password: "pass", phone: "0000000000"};
     }
     if(this.cartItems == undefined || this.cartItems.length === 0){
-      this.cartItems = [{itemUpc:"a", itemDesc: "a", itemImgUrl: "None", itemName: "a", itemPrice: 9.99, itemQty: 1}];
+      alert("cart is empty");
+      return;
     }
 
     //create orderItems list from cartItems
     this.orderItems = [];
-    //do a if check here to make sure item is not 0
     this.cartItems.forEach((item: ShoppingCart) => {
-      if (item.itemQty!=0){
       let orderItem = {
         quantity: item.itemQty,
         upc: item.itemUpc
       };
       this.orderItems.push(orderItem);
-    }
     });
+
+    //create itemToCartBackEnd from cartItems
+    this.itemToCartBackEnd=[];
+    this.cartItems.forEach((item: ShoppingCart) => {
+      let tempCart = {
+        quantity: item.itemQty,
+        upc: item.itemUpc,
+        user_id:this.user.user_id
+      };
+      this.itemToCartBackEnd.push(tempCart);
+    });
+
+    //send post request to MarketPlace cartitem backend
+    this.itemToCartBackEnd.forEach(cart=>{
+      this.orderService.createCartInBackEnd(cart).subscribe()
+    })
+
     //create order to post
     this.order = { 
-      price: this.total, 
-      userId: this.user.user_id, 
-      addressID: this.address.address_id,
-      creditCardID: this.card.credit_card_id,
+      price: this.totalPrice, 
+      user_id: this.user.user_id, 
+      address_id: this.address.address_id,
+      credit_card_id: this.card.credit_card_id,
       orderItems: this.orderItems 
     };
     //post to OMS
@@ -89,7 +111,7 @@ export class ConfirmOrderComponent implements OnInit {
       (order: Order) => {
         //on success response
         alert("Order has been submitted");
-        //this.cartService.empty() ->      TODO: EMPTY CART ON SUCCESSFUL ORDER
+        this.cartService.emptyCart();       //TODO: EMPTY CART ON SUCCESSFUL ORDER
         this.router.navigate(["/home-page"]);
       } 
     );
@@ -97,8 +119,11 @@ export class ConfirmOrderComponent implements OnInit {
 
   setTotal(): void{
     this.cartItems.forEach((item : ShoppingCart) => {
-      this.total += item.itemPrice * item.itemQty;
+      this.numItems += item.itemQty;
+      this.cartSubtotal += (item.itemPrice * item.itemQty)
     });
+    this.totalTax +=  this.cartSubtotal * this.taxRate;
+    this.totalPrice = this.cartSubtotal + this.totalTax;
   }
 
 

@@ -2,19 +2,28 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { offset } from '@popperjs/core';
 import { catchError, Observable, of, throwError } from 'rxjs';
-import { Order } from '../shared/Order';
+import { BackEndCart, Order } from '../shared/Order';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
-  //url from inventory team api
-  private productUrl = "http://localhost:8081/api/order";
+  //url from order team api
+  private orderUrl = "http://localhost:8082/api/order";
+
+  private marketPlaceCartUrl="http://localhost:8080/api/cartitems"
 
   constructor(private http:HttpClient){}
 
   placeOrder(order: Order):Observable<any>{
-    return this.http.post(`${this.productUrl}/createOrder`, order, {responseType: 'text'}).pipe(
+    return this.http.post(`${this.orderUrl}/createOrder`, order, {responseType: 'text'}).pipe(
+      catchError(this.handleError)
+    );
+
+  }
+
+  createCartInBackEnd(cart:BackEndCart):Observable<any>{
+    return this.http.post(`${this.marketPlaceCartUrl}/createcart`, cart, {responseType: 'text'}).pipe(
       catchError(this.handleError)
     );
 

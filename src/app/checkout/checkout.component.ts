@@ -32,6 +32,7 @@ export class CheckoutComponent implements OnInit {
   userAddresses: Address[] = [];
   userCreditCards: CreditCard[] = [];
   selectedAddress: Address | undefined;
+  selectedCard: CreditCard | undefined;
 
   constructor(
     private fb: FormBuilder,
@@ -61,20 +62,19 @@ export class CheckoutComponent implements OnInit {
         ],
       }),
       payment: this.fb.group({
-        cardholderName: ['', Validators.required],
-        cardNumber: [
-          '',
-          [Validators.required, Validators.pattern('[0-9]{16}')],
-        ],
-        //cardType: ['', Validators.required],
-        cardExpireDate: [
-          '',
-          [
-            Validators.required,
-            Validators.pattern('^((0[1-9])|(1[0-2]))/(\\d{2})$'),
-          ],
-        ],
-        cardCvv: ['', [Validators.required, Validators.pattern('[0-9]{3}')]],
+        cardholderName: [''],
+        // cardNumber: [
+        //   '',
+        //   [Validators.required, Validators.pattern('[0-9]{16}')],
+        // ],
+        // cardExpireDate: [
+        //   '',
+        //   [
+        //     Validators.required,
+        //     Validators.pattern('^((0[1-9])|(1[0-2]))/(\\d{2})$'),
+        //   ],
+        // ],
+        // cardCvv: ['', [Validators.required, Validators.pattern('[0-9]{3}')]],
       }),
       billingAddress: this.fb.group({
         billingFirstName: ['', Validators.required],
@@ -217,6 +217,14 @@ export class CheckoutComponent implements OnInit {
         alert(`${field} is not valid`);
       }
     }
+
+    if(this.selectedCard == undefined){
+      alert("Please select a credit card")
+      return;
+    }else{
+      this.dataService.changeCreditCard(this.selectedCard);
+    }
+
     //Creating the delivery address
     const dAddress: Address = new Address();
     dAddress.address_id = 0;
@@ -224,7 +232,7 @@ export class CheckoutComponent implements OnInit {
     dAddress.is_shipping = true;
     dAddress.is_billing = false;
     dAddress.recipient_name =
-      this.deliveryFirstName.value + this.deliveryLastName.value;
+      this.deliveryFirstName.value + " "+  this.deliveryLastName.value;
     dAddress.street = this.deliveryStreet1.value;
     dAddress.street2 = this.deliveryStreet2.value;
     dAddress.city = this.deliveryCity.value;
@@ -276,33 +284,6 @@ export class CheckoutComponent implements OnInit {
     }
     console.log(`billing addy id = ${bAddress.address_id}`);
 
-    //Creating the credit card
-    const card: CreditCard = new CreditCard();
-    card.credit_card_id = 0;
-    card.user_id = this.userID;
-    card.cardholder_name = this.cardholderName.value;
-    const expiration_date = this.cardExpireDate.value.split('/');
-    card.expiration_month = expiration_date[0];
-    card.expiration_year = expiration_date[1];
-    card.last_four_card_number = this.cardNumber.value.slice(-4);
-
-    //Getting the card id if it exists in the database
-    //else if it does not exist in the database, then create a new card
-    const cID = this.getCreditCardID(card);
-    if (cID == -1) {
-      this.paymentService.addCard(card).subscribe((ret) => {
-        console.log(`created card id = ${ret.credit_card_id}`);
-        card.credit_card_id = ret.credit_card_id;
-
-        //This is sending data to the service so that confirm-order can use it
-        this.dataService.changeCreditCard(card);
-      });
-    } else {
-      card.credit_card_id = cID;
-
-      //This is sending data to the service so that confirm-order can use it
-      this.dataService.changeCreditCard(card);
-    }
 
     this.router.navigate(['/confirm-order']);
   }
@@ -367,6 +348,7 @@ export class CheckoutComponent implements OnInit {
   autoFillAddress(address: Address): void {
     this.selectedAddress = address;
     const fullName = address.recipient_name.split(' ');
+    console.log(fullName);
     this.deliveryFirstName.setValue(fullName[0]);
     this.deliveryLastName.setValue(fullName[1]);
     this.deliveryStreet1.setValue(address.street);
@@ -382,6 +364,10 @@ export class CheckoutComponent implements OnInit {
     this.cardExpireDate.setValue(
       card.expiration_month + '/' + card.expiration_year
     );
+  }
+
+  selectCard(card: CreditCard){
+    this.selectedCard = card;
   }
 
   cancel():void {

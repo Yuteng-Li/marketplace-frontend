@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 
 import { CategoryService } from '../categories/category.service';
 import { Category } from '../shared/Category';
@@ -27,10 +27,10 @@ export class HomePageComponent implements OnInit {
   constructor(private readonly authService: SocialAuthService, private categoryService: CategoryService,
     private itemService: ItemService, public cartService: CartService, private router: Router) { }
 
+
   ngOnInit() {
     this.authService.authState.subscribe((user) => {
       this.user = user;
-      console.log(this.user);
     });
 
     if(this.user==null && this.localUser !=null && localStorage.getItem('user') !=null)
@@ -44,14 +44,10 @@ export class HomePageComponent implements OnInit {
   }
 
   goTOItemDisplayCat(category: string) {
-    console.log("display the category: " + category);
     this.itemService.getProduct()
       .subscribe(productList => {
         this.itemGridCatProduct = productList.filter(productCat => productCat.category.toLocaleLowerCase().includes(category.toLocaleLowerCase()));
-        console.log("filter: " + category + " " + this.itemGridCatProduct.forEach(element => console.log(element.prod_name)));
         this.itemService.itemGridCatProduct = this.itemGridCatProduct;
-        console.log('This.itemService: ' + this.itemService.itemGridCatProduct)
-        console.log("the array in service: " + this.itemService.itemGridCatProduct.forEach(element => console.log(element.prod_name)));
         if (this.itemService.itemGridCatProduct.length > 0) { this.router.navigate(['/item-gird']); }
         else { alert("No items match category") }
       })
@@ -64,8 +60,9 @@ export class HomePageComponent implements OnInit {
   DisplayAll() {
     this.itemService.getProduct().subscribe(featProd => {
       this.featProds = featProd;
-      console.log(this.featProds);
     })
   }
+
+
 
 }

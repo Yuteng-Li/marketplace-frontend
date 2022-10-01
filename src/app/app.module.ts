@@ -11,13 +11,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthGuard } from './auth.guard';
 
 import { AppComponent } from './app.component';
-import { CartComponent } from 'src/app/cart/cart.component';
+import { CartComponent } from './cart/cart.component';
 import { PreviousOrdersComponent } from './previous-orders/previous-orders.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CreditCardComponent } from './credit-card/credit-card.component';
 import { PaymentFormComponent } from './payment-form/payment-form.component';
+import { PaymentFormSuccessComponent } from './payment-form/payment-form-success/payment-form-success.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 
@@ -33,6 +34,9 @@ import { CheckoutComponent } from './checkout/checkout.component';
 
 import {AddressFormComponent} from "./address-form/address-form.component";
 import { ConfirmOrderGuard } from './confirm-order/confirm-order.guard';
+import { PaymentFormSuccessCheckoutComponent } from './checkout/payment-form-success-checkout/payment-form-success-checkout.component';
+import { PaymentFormCheckoutComponent } from './checkout/payment-form-checkout/payment-form-checkout.component';
+
 
 
 @NgModule({
@@ -43,6 +47,7 @@ import { ConfirmOrderGuard } from './confirm-order/confirm-order.guard';
     HomePageComponent,
     CreditCardComponent,
     PaymentFormComponent,
+    PaymentFormSuccessComponent,
     CartComponent,
     CategoriesComponent,
     ItemGirdComponent,
@@ -52,7 +57,9 @@ import { ConfirmOrderGuard } from './confirm-order/confirm-order.guard';
     NavBarComponent,
     ConfirmOrderComponent,
     OrderDetailsComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    PaymentFormSuccessCheckoutComponent,
+    PaymentFormCheckoutComponent,
   ],
 
   imports: [
@@ -67,6 +74,9 @@ import { ConfirmOrderGuard } from './confirm-order/confirm-order.guard';
       {path: 'cart', component: CartComponent, canActivate: [AuthGuard]},
       {path: 'credit-card', component: CreditCardComponent, canActivate: [AuthGuard]},
       {path: 'payment-form', component: PaymentFormComponent, canActivate: [AuthGuard]},
+      {path: 'payment-form-checkout', component: PaymentFormCheckoutComponent, canActivate: [AuthGuard]},
+      {path: 'payment-form/success',component:PaymentFormSuccessComponent, canActivate:[AuthGuard]},
+      {path: 'payment-form-checkout/success', component: PaymentFormSuccessCheckoutComponent, canActivate:[AuthGuard]},
       {path: 'address-form', component: AddressFormComponent,  canActivate: [AuthGuard] },
       {path: 'login', component: LoginComponent},
       {path: 'categories', component: CategoriesComponent},
