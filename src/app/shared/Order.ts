@@ -4,9 +4,9 @@ export interface OrderItem{
 }
 export interface Order{
     price: number,
-    user_id: number,
-    address_id: number,
-    credit_card_id: number,
+    userId: number,
+    addressID: number,
+    creditCardID: number,
     orderItems : OrderItem[]
 }
 

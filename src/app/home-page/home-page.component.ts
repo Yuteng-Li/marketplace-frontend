@@ -59,6 +59,7 @@ export class HomePageComponent implements OnInit {
 
   DisplayAll() {
     this.itemService.getProduct().subscribe(featProd => {
+
       this.featProds = featProd;
     })
   }

@@ -14,7 +14,7 @@ export class CartService{
     addToCart(product:Product){
       //check if prodcut already in cart
       for (let i = 0;i<this.shoppingCartArray.length;++i){
-        if (this.shoppingCartArray[i].itemName===product.prod_name){
+        if (this.shoppingCartArray[i].itemName===product.prodName){
           this.tempIndex=i;
           this.existInCart=true;
           this.shoppingCartArray[i].itemQty+=1;
@@ -29,11 +29,11 @@ export class CartService{
       //if the product do not exist, add this into cart
       if(! this.existInCart){
         this.cartItem =<ShoppingCart>{
-          itemName:product.prod_name,
-          itemPrice:product.price_per_unit,
+          itemName:product.prodName,
+          itemPrice:product.pricePerUnit,
           itemUpc:product.upc,
-          itemImgUrl:product.image_url,
-          itemDesc:product.prod_description,
+          itemImgUrl:product.imageURL,
+          itemDesc:product.prodDesc,
           itemQty:1
         };
         this.shoppingCartArray.push(this.cartItem);

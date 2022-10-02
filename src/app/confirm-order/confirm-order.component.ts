@@ -100,15 +100,15 @@ export class ConfirmOrderComponent implements OnInit {
     //create order to post
     this.order = { 
       price: this.totalPrice, 
-      user_id: this.user.user_id, 
-      address_id: this.address.address_id,
-      credit_card_id: this.card.credit_card_id,
+      userId: this.user.user_id, 
+      addressID: this.address.address_id,
+      creditCardID: this.card.credit_card_id,
       orderItems: this.orderItems 
     };
     //post to OMS
     console.log(this.order);
     this.orderService.placeOrder(this.order).subscribe(
-      (order: Order) => {
+      (order: string) => {
         //on success response
         alert("Order has been submitted");
         this.cartService.emptyCart();       //TODO: EMPTY CART ON SUCCESSFUL ORDER
