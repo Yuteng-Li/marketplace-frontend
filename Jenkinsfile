@@ -7,8 +7,8 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'yuteng-dockerhub-cred', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     sh """
                     docker login --username $USERNAME --password $PASSWORD
-                    docker build -t $USERNAME/marketplace-frontend:${env.BUILD_NUMBER} -t latest .
-                    docker push $USERNAME/marketplace-frontend:${env.BUILD_NUMBER}
+                    docker build -t $USERNAME/marketplace-frontend:${env.BUILD_NUMBER} -t $USERNAME/marketplace-frontend:latest .
+                    docker push $USERNAME/marketplace-frontend --all-tags
                     docker image prune -f
                     """
                 }
@@ -18,11 +18,13 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 echo '========== Continuous Deployment begins here =========='
+                    // kubectl create namespace demo-ascend-marketplace-backend --dry-run=client -o yaml
+
                     sh """
-                    kubectl create namespace demo-ascend-marketplace-frontend --dry-run=client -o yaml
-                    kubectl apply --namespace demo-ascend-marketplace-frontend -f '*.yaml' --validate=false
+                    sleep 5
+                    kubectl apply --namespace demo-ascend-namespace -f 'deployment.yaml' --validate=false
                     sleep 30
-                    kubectl get all --namespace demo-ascend-marketplace-frontend
+                    kubectl get all --namespace demo-ascend-namespace
                     """
                 echo '========== Continuous Deployment ends here =========='
             }
