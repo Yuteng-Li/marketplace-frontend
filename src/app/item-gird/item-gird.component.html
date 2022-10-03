@@ -58,15 +58,15 @@
 
 
               <div class="card-header">
-                <h4 class="my-0 font-weight-normal">{{prod.prod_name|slice:0:30}}</h4>
+                <h4 class="my-0 font-weight-normal">{{prod.prodName|slice:0:30}}</h4>
               </div>
 
               <div class="card-body">
 
-                <img src="{{'https://'+prod.image_url}}">
+                <img src="{{'https://'+prod.imageURL}}">
                 <br>
-                <p class="card-text">{{prod.prod_description|slice:0:15}}</p>
-                <p class="card-text">{{prod.price_per_unit|currency: 'USD'}}</p>
+                <p class="card-text">{{prod.prodDesc|slice:0:15}}</p>
+                <p class="card-text">{{prod.pricePerUnit|currency: 'USD'}}</p>
 
               </div>
 

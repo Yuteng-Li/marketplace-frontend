@@ -24,11 +24,11 @@
           <div class="carousel-item active">
             <div class="cards-wrapper">
               <div class="card" style="width:13rem" *ngFor="let featProd of featProds | slice:0:5; let i=index "> 
-                <img src="{{'https://'+featProd.image_url}}" class="card-img-top mx-auto" alt="...">
+                <img src="{{'https://'+featProd.imageURL}}" class="card-img-top mx-auto" alt="...">
                 <div class="card-body d-flex flex-column">
-                  <h5 class="card-title mt-auto">{{featProd.prod_name}}</h5>
-                  <h6>{{featProd.price_per_unit|currency: 'USD'}}</h6>
-                  <p class="card-text mt-auto">{{featProd.prod_description|slice:0:15}}</p>
+                  <h5 class="card-title mt-auto">{{featProd.prodName}}</h5>
+                  <h6>{{featProd.pricePerUnit|currency: 'USD'}}</h6>
+                  <p class="card-text mt-auto">{{featProd.prodDesc|slice:0:15}}</p>
                   <div *ngIf="user != null ">
                     <button class="btn btn-feat w-100 background-nisum mt-auto" (click)="cartService.addToCart(featProd)">Add to Cart</button>
                   </div>
@@ -43,11 +43,11 @@
           <div class="carousel-item">
               <div class="cards-wrapper">
               <div class="card" style="width: 13rem;" *ngFor="let featProd of featProds | slice:5:10; let i=index ">
-                <img src="{{'https://'+featProd.image_url}}" class="card-img-top mx-auto" alt="...">
+                <img src="{{'https://'+featProd.imageURL}}" class="card-img-top mx-auto" alt="...">
                 <div class="card-body d-flex flex-column">
-                  <h5 class="card-title mt-auto">{{featProd.prod_name}}</h5>
-                  <h6>{{featProd.price_per_unit|currency: 'USD'}}</h6>
-                  <p class="card-text mt-auto">{{featProd.prod_description|slice:0:15}}</p>
+                  <h5 class="card-title mt-auto">{{featProd.prodName}}</h5>
+                  <h6>{{featProd.pricePerUnit|currency: 'USD'}}</h6>
+                  <p class="card-text mt-auto">{{featProd.prodDesc|slice:0:15}}</p>
                   <div *ngIf="user != null">
                     <button class="btn btn-feat w-100 background-nisum mt-auto" (click)="cartService.addToCart(featProd)">Add to Cart</button>
                   </div>
@@ -78,7 +78,7 @@
     <div class="card-category row">
         <div class="col-sm-auto" style="width: 14rem; margin-right: 15px" *ngFor="let card of catCard | slice:0:6; let i=index">
           <div class="position-img" style="position:relative;">
-            <figure><img src="{{card.img}}" alt="Category image" class="img-thumbnail" (click)="goTOItemDisplayCat(card.category)" routerLink="/login"></figure>
+            <figure><img src="{{card.img}}" alt="Category image" class="img-thumbnail" (click)="goTOItemDisplayCat(card.category)" ></figure>
           </div>
           <figcaption>{{card.category}}</figcaption>
         </div>
