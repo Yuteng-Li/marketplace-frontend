@@ -28,6 +28,8 @@ export class AddressFormComponent implements OnInit{
 
   user!: SocialUser;
   port_number:number = 8080;
+  localUser =  localStorage.getItem('user');
+
   // get_address_api:string = `http://localhost:${this.port_number}/api/address/getAddress/${this.user.id}`
   /*
   Below we include the different form fields that are needed for display, and HTTP method purposes (Post, put,...)
@@ -83,10 +85,16 @@ export class AddressFormComponent implements OnInit{
 
 
   ngOnInit(): void {
+    if(this.user==null && this.localUser !=null)
+    {
+      this.user = JSON.parse(this.localUser);
+    }
 
     this.authService.authState.subscribe((user) => {
       this.user = user;
       console.log(`THIS IS THE LOGIN LOG FROM ADDRESS FORM COMPONENT\n\n `,user);
+
+
       this.http.get(`http://localhost:${this.port_number}/api/address/getAllAddresses`)
         .pipe
         (
