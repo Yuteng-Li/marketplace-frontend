@@ -13,7 +13,7 @@ import { PREVIOUSORDERS } from "./mock-previous-orders";
 export class PreviousOrdersService {
 
   //url from inventory team api
-  private productUrl = "http://localhost:8080/api/orders";
+  private productUrl = "http://localhost:8082/api/order"; // OMS backend
   constructor(private http:HttpClient){}
 
   /**
@@ -26,12 +26,12 @@ export class PreviousOrdersService {
     return prevOrders;
   }  
 
-  getPrevOrders(): Observable<any>{ //userID:number){
-    return this.http.get<any>(`${this.productUrl}/getOrders`); /*/user/${userID}`); */
+  getPrevOrders(id:string): Observable<any>{ //userID:number){
+    return this.http.get<any>(`${this.productUrl}/getOrders/user/${id}`); /*/user/${userID}`); */
   }
 
   cancelOrder(orderID:number): Observable<any>{
     console.log("called func", orderID)
-    return this.http.put<any>(`${this.productUrl}/updateOrder/cancelled/${orderID}`, {observe: 'response',reportProgress: true,responseType: 'text'});
+    return this.http.put(`${this.productUrl}/updateOrder/cancelled/${orderID}`, {observe: 'response',reportProgress: true,responseType: 'text'});
   }
 }

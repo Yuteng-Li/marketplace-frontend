@@ -8,10 +8,10 @@ import { Observable } from 'rxjs';
 export class OrderDetailsService {
 
   //url from inventory team api
-  private productUrl = "http://localhost:8080/api/orderItems";
+  private productUrl = "http://localhost:8082/api/order/items"; // OMS backend
   constructor(private http:HttpClient){}
 
   getOrderDetails(id: number) : Observable<any>{ 
-    return this.http.get<any>(`${this.productUrl}/getOrderItems/order/${id}`); 
+    return this.http.get<any>(`${this.productUrl}/getOrderInfo/${id}`); 
   }
 }

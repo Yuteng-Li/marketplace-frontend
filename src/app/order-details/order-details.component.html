@@ -19,20 +19,19 @@ value="Previous Orders">Back to Order History</a>
             </tr>
             <tr class="thhh">
               <th colspan="2">Product</th>
-              <th>Product Description</th>
+              <th>Product Name</th>
               <th>Brand</th>
               <th>Category</th>
-              <th>Price</th>
+              <th>Price$</th>
               <th>Quantity</th>
 
             </tr>
             <tr *ngFor="let prod of orderData; let index=index">
-              <td>{{this.prodInfo[index][0]?.prodName}}</td>
-              <td><img width="30%" height="30%" src="{{this.prodInfo[index][0]?.imgUrl}}"></td>
-              <td>{{this.prodInfo[index][0]?.prodDesc}}</td>
-              <td>{{this.prodInfo[index][0]?.brand}}</td>
-              <td>{{this.prodInfo[index][0]?.category}}</td>
-              <td>{{prodInfo[index][0]?.ppu}}</td>
+              <td colspan="2"><img width="25%" height="25%" src="{{'https://'+this.prodInfo[index].product.imageURL}}"></td>
+              <td>{{this.prodInfo[index].product.prodName}}</td>
+              <td>{{this.prodInfo[index].product.brand}}</td>
+              <td>{{this.prodInfo[index].product.category}}</td>
+              <td>{{prodInfo[index].product.pricePerUnit}}</td>
               <td>{{prod.quantity}}</td>
 
 

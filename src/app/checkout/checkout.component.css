@@ -1,7 +1,53 @@
 input{
    margin-bottom: 5px;
 }
-
+form.a{
+   background: linear-gradient(60deg, #8b41ff, #00cfff, #0019ff);
+}
+.button1{
+   border:0.1em solid white;
+   background: linear-gradient(#0019ff,#00cfff);
+   border-radius: 1em;
+   font-weight: 300;
+   color: white;
+   text-align: center;
+   font-weight: bold;
+}
+.button1:hover{
+   border: 0.1em solid #0019ff;
+   color: #0019ff;
+   background: white;
+   font-weight: bold;
+}
+.button2{
+   border:0.1em solid white;
+   background: linear-gradient(red,pink);
+   border-radius: 1em;
+   box-sizing: border-box;
+   font-weight: 300;
+   color: white;
+   text-align: center;
+   transition: all 0.2s;
+   font-weight: bold;
+   max-width: 5em;
+}
+.button2:hover{
+   border: 0.1em solid #0019ff;
+   color: #0019ff;
+   background: white;
+   font-weight: bold;
+}
 .form.border-info{
    border-color: linear-gradient(60deg, #8b41ff, #00cfff, #0019ff);
 }
+
+ .btn-primary {
+
+   background: #00cfff;
+   background: linear-gradient(to bottom, #6e12ff, #0019ff, #00cfff);
+   color: #fff;
+   border-radius: 4px;
+   border: none;
+   font-family: 'Corbel', Verdana, "Bitstream Vera Sans", sans-serif;
+
+ }
