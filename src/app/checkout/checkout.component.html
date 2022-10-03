@@ -129,8 +129,8 @@
         <div formGroupName="payment">
             <h3>Payment</h3>
             <div class="row w-75">
-                <div class="row" *ngIf="userCreditCards.length != 0">
-                    <div ngbDropdown class="d-inline-block col">
+                <div class="row">
+                    <div ngbDropdown class="d-inline-block col" *ngIf="userCreditCards.length != 0">
                         <a ngbDropdownToggle class="btn btn-outline-primary" id="dropdownBasic2">
                             My Credit Cards
                         </a>
@@ -138,7 +138,6 @@
                             <a ngbDropdownItem *ngFor="let card of userCreditCards" (click)="selectCard(card)">
                                 ************-{{ card.last_four_card_number }}
                             </a>
-                            <div class="dropdown-divider"></div>
                             <!-- <a ngbDropdownItem routingLink="/payment-form-checkout" routerLinkActive="activebutton">Add a new
                                 credit card</a> -->
                         </div>
