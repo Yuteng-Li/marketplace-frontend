@@ -18,7 +18,7 @@
 
 <!--<div *ngIf="user" >-->
 
-  <div class="mx-auto card p-3 " style="width: 400px;">
+  <div class="mx-auto card " style="width: 400px;">
     <h3>Current User Address</h3>
     <p>UserID: {{this.user_id}}</p>
     <p>Recipient Name: {{this.recipient_name}}</p>
@@ -30,7 +30,7 @@
 
 
   <!--  <button class="btn btn-primary" (click)="userLog()">Show Shipping Details</button>-->
-    <button class="btn btn-danger px-2" (click)="deleteAddress()" [disabled]="user_id==''" >Delete Address</button>
+    <button style="margin: auto;" class="btn btn-danger px-2" (click)="deleteAddress()" [disabled]="user_id==''" >Delete Address</button>
   </div>
 
 
@@ -38,7 +38,7 @@
 
   <div  class="mx-auto card " style="width: 400px;">
     <h3 *ngIf="recipient_name==''">Add User Address</h3>
-    <h4>Cold-Start not working properly</h4>
+<!--    <h4>Cold-Start not working properly</h4>-->
     <h3 *ngIf="recipient_name.length!=0">Edit User Address</h3>
     <form [formGroup]="addressForm" >
       <div class="form-group">
@@ -83,11 +83,11 @@
         <input id="is_billing" value="true" type="radio" formControlName="is_billing">
       </div>
       <!-- <label for="submit">Submit</label> -->
-      <button type="submit" class="btn px-2  btn-outline-primary"
+      <button type="submit" class="button1 btn px-2  btn-outline-primary"
               (click)="onSubmitUpdate()"
               *ngIf="recipient_name.length!=0"
               [disabled]="!addressForm.valid">Update</button>
-      <button type="submit" class="btn px-2  btn-outline-primary"
+      <button type="submit" class="button1 btn px-2  btn-outline-primary"
               (click)="onSubmitAdd()"
               *ngIf="recipient_name==''"
               routerLink="/home-page"

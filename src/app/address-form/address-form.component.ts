@@ -12,6 +12,9 @@ import {forkJoin, map, mergeMap, Observable, throwError} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {SocialAuthService, SocialUser} from "@abacritt/angularx-social-login";
 import {UserService} from "../user.service";
+import {Router} from "@angular/router";
+import {User} from "../shared/User";
+import {Address} from "../shared/Address";
 
 
 
@@ -24,8 +27,9 @@ import {UserService} from "../user.service";
 export class AddressFormComponent implements OnInit{
 
   user!: SocialUser;
-  localUser =  localStorage.getItem('user');
   port_number:number = 8080;
+  localUser =  localStorage.getItem('user');
+
   // get_address_api:string = `http://localhost:${this.port_number}/api/address/getAddress/${this.user.id}`
   /*
   Below we include the different form fields that are needed for display, and HTTP method purposes (Post, put,...)
@@ -73,6 +77,7 @@ export class AddressFormComponent implements OnInit{
   );
 
   constructor(private fb: FormBuilder, private userService: UserService,
+              private router: Router,
               private http: HttpClient, private authService: SocialAuthService)
   {
   }
@@ -80,27 +85,25 @@ export class AddressFormComponent implements OnInit{
 
 
   ngOnInit(): void {
+    if(this.user==null && this.localUser !=null)
+    {
+      this.user = JSON.parse(this.localUser);
+    }
 
     this.authService.authState.subscribe((user) => {
       this.user = user;
-      // console.log(`THIS IS THE LOGIN LOG FROM ADDRESS FORM COMPONENT\n\n `,user);
-    });
+      console.log(`THIS IS THE LOGIN LOG FROM ADDRESS FORM COMPONENT\n\n `,user);
 
-    if(this.user==null && this.localUser !=null)
-      {
-        this.user = JSON.parse(this.localUser);
-      }
 
-    // after user logs in, GET their info from the DB, and assign the result to various vars specified for storage
-    // and HTTP methods
-    this.http.get(`http://localhost:${this.port_number}/api/address/getAllAddresses`)
-      .pipe
-      (
-        map
-        (users =>
-          {
-            let index:number = 0;
-
+      this.http.get(`http://localhost:${this.port_number}/api/address/getAllAddresses`)
+        .pipe
+        (
+          map
+          (users =>
+            {
+              let found_flag = 0;
+              let index:number = 0;
+              console.log("\n\n in map");
 
               // @ts-ignore
               while (users[index] != undefined)
@@ -109,31 +112,67 @@ export class AddressFormComponent implements OnInit{
                 // @ts-ignore
                 if (users[index].recipient_name === this.user.name)
                 {
+                  found_flag = 1;
                   break;
                 }
                 index+=1;
               }
+              if (found_flag ===1)
+              {
+                console.log("Logged user above");
+                // @ts-ignore
+                const found_user = users[index]; // index will now point to the correct user.
+                console.log(found_user.street);
+                this.recipient_name = found_user.recipient_name;
+                this.address_id = found_user.address_id;
+                this.user_id = found_user.user_id;
+                this.zip = found_user.zip;
+                this.street = found_user.street;
+                this.street2 = found_user.street2;
+                this.state = found_user.state;
+                this.city = found_user.city;
+                return found_user;
+              }
+              else
+              {
+                // console.log("\t\t NEED TO MAKE USER \n");
+                // let to_create_user:User = {first_name:this.user.firstName, last_name:this.user.lastName, user_id:0, email:this.user.email, user_password:'1233333', phone:'5551221'};
+                // console.log(to_create_user);
+                // this.http.post(`http://localhost:${this.port_number}/api/user/createUser`,to_create_user).subscribe();
+                // // create the user.
+                console.log("\t\t need to make template addressss");
+                let user1!:User;
+                this.userService.getUsersByEmail(this.user.email).subscribe
+                (
+                  uid =>
+                  {
+                    user1=uid;
+                    console.log('\t\t\t user 1 is ', user1);
+                    let template_address:Address = {recipient_name:this.user.name, city:"EDIT INFO", zip:"00000",
+                      state:"XX", street:"EDIT INFO", is_billing:false, is_shipping:false, street2:"EDIT INFO",
+                      address_id:0,user_id:user1.user_id};
+                    console.log('\t\t about to post the createAddress call');
+                    this.http.post(`http://localhost:${this.port_number}/api/address/createAddress`,template_address).subscribe(console.log);
+                  }
 
-              console.log("Logged user above");
-              // @ts-ignore
-              const found_user = users[index]; // index will now point to the correct user.
-              console.log(found_user.street);
-              this.address_id = found_user.address_id;
-              this.user_id = found_user.user_id;
-              this.zip = found_user.zip;
-              this.street = found_user.street;
-              this.street2 = found_user.street2;
-              this.state = found_user.state;
-              this.city = found_user.city;
-              return found_user;
+                );
+                // console.log('\t\t\t user 1 is ', user1);
+                // let template_address:Address = {recipient_name:this.user.name, city:"EDIT INFO", zip:"00000",
+                //   state:"XX", street:"EDIT INFO", is_billing:false, is_shipping:false, street2:"EDIT INFO",
+                //   address_id:0,user_id:user1.user_id};
+                // console.log('\t\t about to post the createAddress call');
+                // this.http.post(`http://localhost:${this.port_number}/api/address/createAddress`,template_address).subscribe(console.log);
+              }
+
             }
           ),
           mergeMap
           (user =>
-            this.http.get(`http://localhost:${this.port_number}/api/address/getAddress/${this.address_id}`)
+            this.http.get(`http://localhost:${this.port_number}/api/address/getAllAddress`)
 
           )
         ).subscribe(console.log);
+    });
 
     // after user logs in, GET their info from the DB, and assign the result to various vars specified for storage
     // and HTTP methods
@@ -163,7 +202,6 @@ export class AddressFormComponent implements OnInit{
     this.ngOnInit(); // call to update the "Current User Address" html form
 
   }
-  
 
 
   onSubmitAdd(): void
