@@ -3,7 +3,7 @@ import { CartService } from '../cart/cart.component.service';
 import { ShoppingCart } from '../cart/cart.component.shopcartmodel';
 import { OrderService } from './order.service';
 import { Router } from '@angular/router';
-import { Order, OrderItem } from '../shared/Order';
+import { BackEndCart, Order, OrderItem } from '../shared/Order';
 import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { SocialUser } from '@abacritt/angularx-social-login';
 import { UserService } from '../user.service';
@@ -32,6 +32,9 @@ export class ConfirmOrderComponent implements OnInit {
   billing!: Address;
   orderItems!: OrderItem[];
   taxRate:number=0.1;
+  itemToCartBackEnd!:BackEndCart[];
+
+
   constructor(private cartService: CartService, private orderService: OrderService,
       private router: Router, private authService: SocialAuthService,
       private userService : UserService, private cardService : CreditCardService,
@@ -64,12 +67,12 @@ export class ConfirmOrderComponent implements OnInit {
       this.user = {first_name: "a", last_name: "b", email: "email", user_id: 13, user_password: "pass", phone: "0000000000"};
     }
     if(this.cartItems == undefined || this.cartItems.length === 0){
-      this.cartItems = [{itemUpc:"100011111111", itemDesc: "a", itemImgUrl: "None", itemName: "a", itemPrice: 9.99, itemQty: 1}];
+      alert("cart is empty");
+      return;
     }
 
     //create orderItems list from cartItems
     this.orderItems = [];
-    //do a if check here to make sure item is not 0
     this.cartItems.forEach((item: ShoppingCart) => {
       let orderItem = {
         quantity: item.itemQty,
@@ -77,6 +80,23 @@ export class ConfirmOrderComponent implements OnInit {
       };
       this.orderItems.push(orderItem);
     });
+
+    //create itemToCartBackEnd from cartItems
+    this.itemToCartBackEnd=[];
+    this.cartItems.forEach((item: ShoppingCart) => {
+      let tempCart = {
+        quantity: item.itemQty,
+        upc: item.itemUpc,
+        user_id:this.user.user_id
+      };
+      this.itemToCartBackEnd.push(tempCart);
+    });
+
+    //send post request to MarketPlace cartitem backend
+    this.itemToCartBackEnd.forEach(cart=>{
+      this.orderService.createCartInBackEnd(cart).subscribe()
+    })
+
     //create order to post
     this.order = { 
       price: this.totalPrice, 
@@ -88,7 +108,7 @@ export class ConfirmOrderComponent implements OnInit {
     //post to OMS
     console.log(this.order);
     this.orderService.placeOrder(this.order).subscribe(
-      (order: Order) => {
+      (order: string) => {
         //on success response
         alert("Order has been submitted");
         this.cartService.emptyCart();       //TODO: EMPTY CART ON SUCCESSFUL ORDER

@@ -1,7 +1,4 @@
-import { Injectable } from "@angular/core";
-import{ HttpClient} from '@angular/common/http'
-import {Observable, tap,map } from "rxjs";
-import{Response} from "./cart.component.reponse"
+import { Injectable } from "@angular/core";      
 import { ShoppingCart } from "./cart.component.shopcartmodel";
 import { Product } from "../shared/Product";
 
@@ -17,10 +14,11 @@ export class CartService{
     addToCart(product:Product){
       //check if prodcut already in cart
       for (let i = 0;i<this.shoppingCartArray.length;++i){
-        if (this.shoppingCartArray[i].itemName===product.prod_name){
+        if (this.shoppingCartArray[i].itemName===product.prodName){
           this.tempIndex=i;
           this.existInCart=true;
           this.shoppingCartArray[i].itemQty+=1;
+          alert("add to cart successfully")
           break;
         }
         else{
@@ -31,28 +29,19 @@ export class CartService{
       //if the product do not exist, add this into cart
       if(! this.existInCart){
         this.cartItem =<ShoppingCart>{
-          itemName:product.prod_name,
-          itemPrice:product.price_per_unit,
+          itemName:product.prodName,
+          itemPrice:product.pricePerUnit,
           itemUpc:product.upc,
-          itemImgUrl:product.image_url,
-          itemDesc:product.prod_description,
+          itemImgUrl:product.imageURL,
+          itemDesc:product.prodDesc,
           itemQty:1
         };
         this.shoppingCartArray.push(this.cartItem);
+        alert("add to cart successfully")
       }      
     }
     emptyCart(): void{
       this.shoppingCartArray = [];
     }
-
-    
-
-    //url from inventory team api
-    // private baseUrl = "http://localhost:8081/api/products/get/";
-    // constructor(private http:HttpClient){}
-
-  // getProdByUpc(upc:string):Observable<Response>{
-  //   return this.http.get<Response>(this.baseUrl+upc);
-  // }
 
 }

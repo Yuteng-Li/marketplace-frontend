@@ -43,7 +43,7 @@ export class PreviousOrdersComponent implements OnInit {
 
   async getCombined() {
     console.log("getCombined")
-    this.previousOrdersService.getPrevOrders().subscribe((previousOrders) => {
+    this.previousOrdersService.getPrevOrders(this.user.id).subscribe((previousOrders) => {
       this.myData.next(previousOrders)
       this.previousOrders = previousOrders
       .sort((a: any, b: any) => {

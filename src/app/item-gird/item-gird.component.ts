@@ -40,8 +40,8 @@ export class ItemGirdComponent implements OnInit {
   performFilter(filterBy: string): Product[] {
     filterBy = filterBy.toLocaleLowerCase();
     return this.searchProduct.filter((products: Product) =>
-      products.prod_name.toLocaleLowerCase().includes(filterBy) ||
-      products.prod_description.toLocaleLowerCase().includes(filterBy) ||
+      products.prodName.toLocaleLowerCase().includes(filterBy) ||
+      products.prodDesc.toLocaleLowerCase().includes(filterBy) ||
       products.brand.toLocaleLowerCase().includes(filterBy) ||
       products.category.toLocaleLowerCase().includes(filterBy));
   }
@@ -155,7 +155,7 @@ export class ItemGirdComponent implements OnInit {
     }
 
     this.searchProduct= this.searchProduct.filter((obj)=> {
-      return (obj.price_per_unit <= this.setMaxPrice && obj.price_per_unit >= this.setMinPrice);
+      return (obj.pricePerUnit <= this.setMaxPrice && obj.pricePerUnit >= this.setMinPrice);
     })
 
     this.searchProduct = this.performFilter(this._listFilter)

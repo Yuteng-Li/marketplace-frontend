@@ -1,5 +1,6 @@
 import { Category } from "../shared/Category";
 export const CATEGORIES: Category[] = [
+
   { //check
     category : 'Breakfast & Cereal',
     img : "./assets/images/breakfast.jpg"
