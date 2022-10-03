@@ -133,6 +133,7 @@ export class CartComponent implements OnInit,OnDestroy {
   }
 
   handleCheckOut(){
+    //check if the cart is empty before proceeding 
     this.cartservice.shoppingCartArray=this.shoppingCartArray;
   }
 

@@ -1,0 +1,53 @@
+
+.button1{
+    display:block;
+    padding: 1.0em 0.5em;
+    border:0.1em solid white;
+    background: linear-gradient(#0019ff,#00cfff);
+    margin: auto;
+    border-radius: 1em;
+    box-sizing: border-box;
+    font-weight: 300;
+    color: white;
+    text-align: center;
+    transition: all 0.2s;
+    font-weight: bold;
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+.button1:hover{
+    border: 0.1em solid #0019ff;
+    color: #0019ff;
+    background: white;
+    font-weight: bold;
+}
+.center{
+    margin: auto;
+    width: 50%;
+    padding: 5px;
+    text-align: center;
+}
+.shorten{
+    min-width: 200px;
+}
+.general{
+    margin-left: 5%;
+    width: 10%;
+    min-width: 200px;
+    font-size: 15pt;
+    font-family: Corbel;
+}
+p.a{
+    text-align: center;
+    font-size: 20pt;
+    min-width: 200px;
+
+}
+h2.a{
+    font-weight: bold;
+    font-family: 'Corbel';
+    margin: auto;
+    margin-top: 1%;
+    margin-left: 5%;
+}
+

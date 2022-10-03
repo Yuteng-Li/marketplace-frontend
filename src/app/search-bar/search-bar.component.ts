@@ -34,8 +34,8 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   performFilter(filterBy: string): Product[] {
     filterBy = filterBy.toLocaleLowerCase();
     return this.product.filter((products: Product) =>
-      products.prod_name.toLocaleLowerCase().includes(filterBy) ||
-      products.prod_description.toLocaleLowerCase().includes(filterBy) ||
+      products.prodName.toLocaleLowerCase().includes(filterBy) ||
+      products.prodDesc.toLocaleLowerCase().includes(filterBy) ||
       products.brand.toLocaleLowerCase().includes(filterBy) ||
       products.category.toLocaleLowerCase().includes(filterBy));
   }
@@ -69,8 +69,8 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     this.itemService.getProduct()
       .subscribe(productList => {
         this.itemGridCatProduct = productList.filter(products =>
-          products.prod_description.toLocaleLowerCase().includes(this.listFilter) ||
-          products.prod_name.toLocaleLowerCase().includes(this.listFilter) ||
+          products.prodDesc.toLocaleLowerCase().includes(this.listFilter) ||
+          products.prodName.toLocaleLowerCase().includes(this.listFilter) ||
           products.brand.toLocaleLowerCase().includes(this.listFilter) ||
           products.category.toLocaleLowerCase().includes(this.listFilter)
         );

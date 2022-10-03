@@ -9,3 +9,9 @@ export interface Order{
     creditCardID: number,
     orderItems : OrderItem[]
 }
+
+export interface BackEndCart{
+    quantity:number,
+    upc:string,
+    user_id:number
+}

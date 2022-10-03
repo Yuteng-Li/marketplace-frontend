@@ -4,7 +4,7 @@
     <div class="top d-flex justify-content-between">
         <h2>Order Confirmation</h2>
         <span class="d-flex align-items-row">
-            <h3 class="total">Order Total: $ {{total}}</h3>
+            <h3 class="total">Order Total: {{totalPrice| currency: 'USD'}}</h3>
             <button class="btn btn-primary" type="button" (click)="placeOrder()">Confirm Order</button>
         </span>
     </div>
@@ -56,7 +56,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let item of cartItems">
-                    <td>Item image placeholder</td>
+                    <td><img class="table-img" src="{{'https://'+item.itemImgUrl}}" ></td>
                     <td>{{ item.itemName }}</td>
                     <td>{{ item.itemPrice | currency: 'USD'}}</td>
                     <td>{{ item.itemQty}}</td>
@@ -64,8 +64,31 @@
                 </tr>
             </tbody>
         </table>
+        <div class="table-margin2">
+            <table class="table table-bordered border">
+                <thead>
+                    <tr>
+                        <th class="rowbg2" colspan="2" style="text-align: center">Cart Totals</th>
+                    </tr>
+                </thead>
+                    <tr>
+                        <th colspan="1">Total Tax</th>
+                        <td style="text-align: center">{{totalTax| currency: 'USD'}}</td>
+                    </tr>
+            
+                    <tr >
+                        <th colspan="1">Total Items</th>
+                        <td style="text-align: center">{{numItems}}</td>
+                    </tr>
+            
+                    <tr >
+                        <th colspan="1">Subtotal</th>
+                        <td style="text-align: center">{{cartSubtotal| currency: 'USD'}}</td>
+                    </tr>
+            </table>
+            </div>
         <span class="d-flex align-items-row align-self-end">
-            <h3 class="total">Order Total: $ {{total}}</h3>
+            <h3 class="total">Order Total: {{totalPrice| currency: 'USD'}}</h3>
             <button class="btn btn-primary" type="button" (click)="placeOrder()">Confirm Order</button>
         </span>
     </div>

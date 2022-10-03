@@ -31,13 +31,11 @@ export class CategoriesComponent implements OnInit {
     //have to send a itemGridProduct array to itemgrid, and
     //set itemgrid array product to itemGridCatprod
     this.itemService.getProduct()
-                    .subscribe(productList=>{this.itemGridCatProduct=productList.filter(productCat=>productCat.category.toLocaleLowerCase().includes(category.toLocaleLowerCase()));
-                                            console.log("filter: "+category+" "+this.itemGridCatProduct.forEach(element=>console.log(element.prod_name)));
-                                            this.itemService.itemGridCatProduct=this.itemGridCatProduct;
-                                            console.log("the array in service: " + this.itemService.itemGridCatProduct.forEach(element=>console.log(element.prod_name)));
+                    .subscribe(productList=>{this.itemGridCatProduct=productList.filter(productCat=>productCat.category.toLocaleLowerCase().includes(category.toLocaleLowerCase()));                                     
+                                            this.itemService.itemGridCatProduct=this.itemGridCatProduct;                                      
                                             if (this.itemService.itemGridCatProduct.length>0){  this.router.navigate(['/item-gird']);}
                                             else{alert("No items match category") }
-                                              })
+})
 }
 
 }

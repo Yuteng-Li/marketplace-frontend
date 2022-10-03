@@ -40,8 +40,8 @@ export class ItemGirdComponent implements OnInit {
   performFilter(filterBy: string): Product[] {
     filterBy = filterBy.toLocaleLowerCase();
     return this.searchProduct.filter((products: Product) =>
-      products.prod_name.toLocaleLowerCase().includes(filterBy) ||
-      products.prod_description.toLocaleLowerCase().includes(filterBy) ||
+      products.prodName.toLocaleLowerCase().includes(filterBy) ||
+      products.prodDesc.toLocaleLowerCase().includes(filterBy) ||
       products.brand.toLocaleLowerCase().includes(filterBy) ||
       products.category.toLocaleLowerCase().includes(filterBy));
   }
@@ -60,15 +60,16 @@ export class ItemGirdComponent implements OnInit {
     //These API calls are temporary as the DBs are still changing so these will
     //eventually be changed but right now if you use the inventory db it should work until they change it
     this.authService.authState.subscribe((user) => {
-      if (user == null && this.localUser != null) {
-        this.user = JSON.parse(this.localUser);
-      } else {
-        this.user = user;
-      }
+        this.user=user;
     });
 
-    console.log("dat length: " + this.itemGridCartProdcut.length);
-    if (this.itemGridCartProdcut.length > 0) {
+    if(this.user==null && this.localUser !=null)
+    {
+      this.user = JSON.parse(this.localUser);
+    }
+
+    console.log("dat length: "+this.itemGridCartProdcut.length);
+    if(this.itemGridCartProdcut.length>0){
       console.log("item filter work and length >0");
       this.product = this.itemGridCartProdcut;
       this.searchProduct = this.product;
@@ -153,8 +154,8 @@ export class ItemGirdComponent implements OnInit {
       })
     }
 
-    this.searchProduct = this.searchProduct.filter((obj) => {
-      return (obj.price_per_unit < this.setMaxPrice && obj.price_per_unit > this.setMinPrice);
+    this.searchProduct= this.searchProduct.filter((obj)=> {
+      return (obj.pricePerUnit <= this.setMaxPrice && obj.pricePerUnit >= this.setMinPrice);
     })
 
     this.searchProduct = this.performFilter(this._listFilter)
