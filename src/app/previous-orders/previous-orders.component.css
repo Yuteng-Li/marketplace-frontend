@@ -4,12 +4,12 @@
 }
 
 .card-body {
-  font-family: futura-pt, sans-serif;
+  font-family: 'Corbel';
   text-align: center;
 }
 
 h1 {
-  font-family: futura-pt, sans-serif;
+  font-family: 'Corbel';
   color: #000c68;
   padding-top: 30px;
   padding-bottom: 20px;
@@ -26,7 +26,7 @@ h1 {
 }
 
 table {
-    font-family: futura-pt, sans-serif;
+    font-family: 'Corbel';
     font-weight: 400;
     font-style: normal;
     border-collapse: collapse;
@@ -80,7 +80,7 @@ tr:nth-child(even) {
   color: #fff;
   border-radius: 0%;
   border: none;
-  font-family: 'Corbel', Verdana, "Bitstream Vera Sans", sans-serif;
+  font-family: 'Corbel';
   
 }
 
@@ -92,6 +92,6 @@ tr:nth-child(even) {
   color: #fff;
   border-radius: 0%;
   border: none;
-  font-family: 'Corbel', Verdana, "Bitstream Vera Sans", sans-serif;
+  font-family: 'Corbel';
   
 }
